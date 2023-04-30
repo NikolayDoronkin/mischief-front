@@ -59,6 +59,7 @@ export class MenuComponent {
   }
 
   goTask() {
+    console.log('not here!')
     this.activatedRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
@@ -67,7 +68,7 @@ export class MenuComponent {
           queryParams:{
             "projectId": projectId
           }
-        })
+        }).then(() => window.location.reload())
       })
 
   }

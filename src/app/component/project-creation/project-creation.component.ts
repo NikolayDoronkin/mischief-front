@@ -3,6 +3,7 @@ import {ProjectService} from "../../service/project.service";
 import {Router} from "@angular/router";
 import {Project} from "../../model/project/project";
 import {UserService} from "../../service/user.service";
+import {UserResponse} from "../../model/user/user.response";
 
 @Component({
   selector: 'app-project-creation',
@@ -12,7 +13,9 @@ import {UserService} from "../../service/user.service";
 })
 export class ProjectCreationComponent implements OnInit{
 
-  project: Project = new Project("", "", "", "", "", new Date(), [])
+  project: Project = new Project("", "", "", "", "",
+    new UserResponse("", "", "", "", []),
+    new Date(), [], [])
 
   dropdownList: any = [];
   selectedItems: any = new Set([]);

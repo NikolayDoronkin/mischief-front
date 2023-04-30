@@ -30,7 +30,7 @@
             placeholder="Search"/></label></div>
         </div>
       </div>
-      <div id="dataTable" class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+      <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
         <table id="dataTable" class="table my-0">
           <thead>
           <tr>
@@ -43,17 +43,16 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let task of tasks">
-            <td (click)="goTask(project.id, task.id)">{{project.shortName}}-{{task.number}}</td>
-            <td (click)="goTask(project.id, task.id)">{{task.title}}</td>
-            <td (click)="goTask(project.id, task.id)">{{task.priorityName}}</td>
-            <td (click)="goTask(project.id, task.id)">{{task.type}}</td>
-            <td (click)="goTask(project.id, task.id)">{{task.status}}</td>
-            <td (click)="goTask(project.id, task.id)"><img class="rounded-circle me-2" width="30" height="30" src="avatars/avatar1.jpeg"/>
+          <tr (click)="goTaskInfo(project.id, task.id)" *ngFor="let task of tasks">
+            <td (click)="goTaskInfo(project.id, task.id)">{{project.shortName}}-{{task.number}}</td>
+            <td (click)="goTaskInfo(project.id, task.id)">{{task.title}}</td>
+            <td (click)="goTaskInfo(project.id, task.id)">{{task.priorityName}}</td>
+            <td (click)="goTaskInfo(project.id, task.id)">{{task.type}}</td>
+            <td (click)="goTaskInfo(project.id, task.id)">{{task.status}}</td>
+            <td (click)="goTaskInfo(project.id, task.id)"><img class="rounded-circle me-2" width="30" height="30" src="avatars/avatar1.jpeg"/>
               {{task.reporter.firstName}} {{task.reporter.lastName}}
             </td>
           </tr>
-          <tr></tr>
           </tbody>
           <tfoot>
           <tr>

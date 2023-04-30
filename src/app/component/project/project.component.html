@@ -45,7 +45,7 @@
             <td (click)="goProject(project.id)">{{project.name}}</td>
             <td (click)="goProject(project.id)">{{project.shortName}}</td>
             <td (click)="goProject(project.id)">{{project.created}}</td>
-            <td (click)="goProject(project.id)"><img class="rounded-circle me-2" width="30" height="30" src="avatars/avatar1.jpeg"/>{{project.id}}</td>
+            <td (click)="goProject(project.id)"><img class="rounded-circle me-2" width="30" height="30" src="avatars/avatar1.jpeg"/>{{project.creator.firstName}} {{project.creator.lastName}}</td>
           </tr>
           <tr></tr>
           </tbody>

@@ -1,5 +1,8 @@
 <div class="container-fluid">
-  <h3 class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}-{{taskInfo.number}} - {{taskInfo.title}}</h3>
+  <div class="text-center justify-content-between" style="display: flex;position: static;">
+    <h3 class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}-{{taskInfo.number}} - {{taskInfo.title}}</h3>
+    <div><button class="btn btn-primary" type="button">Button</button></div>
+  </div>
   <div class="row mb-3">
     <div class="col-lg-4">
       <div class="card shadow mb-4">
@@ -101,7 +104,6 @@
                     <label class="form-label" style="display: grid;">{{taskInfo.description}}</label>
                   </div>
                 </div>
-                <div class="mb-3" style="margin-top: 20px;"><button class="btn btn-primary btn-sm" type="submit" style="background: #cd3e3e;">Save Settings</button></div>
               </form>
             </div>
           </div>

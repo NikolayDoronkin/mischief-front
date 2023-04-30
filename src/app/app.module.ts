@@ -34,10 +34,10 @@ const globalRoutes: Routes = [
   {path: 'project', component: ProjectComponent},
   {path: 'project-info', component: ProjectInfoComponent},
   {path: 'project-creation', component: ProjectCreationComponent},
-  {path: 'task', component: TaskComponent},
-  {path: 'task-info', component: TaskInfoComponent},
   {path: 'task-creation', component: TaskCreationComponent},
+  {path: 'task-info', component: TaskInfoComponent},
   {path: 'team', component: TeamComponent},
+  {path: 'task', component: TaskComponent},
   {path: '**', component: LoginComponent},
 ]
 
@@ -65,7 +65,7 @@ const globalRoutes: Routes = [
     NgbModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(globalRoutes),
+    RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
     NgMultiSelectDropDownModule.forRoot()
   ],

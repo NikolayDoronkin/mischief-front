@@ -52,7 +52,7 @@
               <div class="mb-3"><label class="form-label" for="username"><strong>Assignee</strong></label>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select assignee...'"
-                  [settings]="dropdownSettings"
+                  [settings]="dropdownSettingsSingle"
                   [data]="dropdownList"
                   [(ngModel)]="assignee"
                   [ngModelOptions]="{standalone: true}"
@@ -66,7 +66,7 @@
               <div class="mb-3"><label class="form-label" for="email"><strong>Reviewer</strong></label>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select reviewer...'"
-                  [settings]="dropdownSettings"
+                  [settings]="dropdownSettingsSingle"
                   [data]="dropdownList"
                   [(ngModel)]="reviewer"
                   [ngModelOptions]="{standalone: true}"
@@ -78,10 +78,12 @@
             </div>
           </div>
         </form>
-        <button (click)="createTask()" class="btn btn-primary btn-sm" type="submit"
-                style="background: #cd3e3e;border-style: none;">
-          Create
-        </button>
+        <div class="text-center justify-content-between" style="display: flex; position: relative">
+          <button (click)="createTask()" class="btn btn-primary btn-sm" type="submit"
+                  style="background: #cd3e3e;border-style: none;">
+            Create
+          </button>
+        </div>
       </div>
     </div>
   </div>

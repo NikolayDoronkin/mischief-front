@@ -4,32 +4,38 @@ import {TaskService} from "../../service/task.service";
 import {TaskResponse} from "../../model/task/task.response";
 import {ProjectService} from "../../service/project.service";
 import {Project} from "../../model/project/project";
+import {StoreService} from "../../service/store.service";
+import {UserResponse} from "../../model/user/user.response";
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css'],
-  providers: [TaskService, ProjectService],
+  providers: [TaskService, ProjectService, StoreService],
 })
 export class TaskComponent implements OnInit {
 
   tasks: TaskResponse[] = []
 
-  project: Project = new Project("", "", "", "", "", new Date(), [])
+  project: Project = new Project("", "", "", "", "",
+    new UserResponse("", "", "", "", []),
+    new Date(), [], [])
 
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
     private taskService: TaskService,
     private projectService: ProjectService,
+    private storeService: StoreService,
   ) {
   }
 
-  goTask(projectId: string, taskId: string) {
+  goTaskInfo(projectId: string, taskId: string) {
+    console.log('here!')
     this.router.navigate(['task-info'], {
       queryParams:{
-        "projectId": projectId,
-        "taskId": taskId
+        "taskId": taskId,
+        "projectId": projectId
       }
     })
   }
@@ -62,6 +68,8 @@ export class TaskComponent implements OnInit {
                 this.project.description = data['description']
                 this.project.creatorId = data['creatorId']
                 this.project.created = data['created']
+
+                this.storeService.currentProject = data
               },
               error: err => console.log(err)
             }

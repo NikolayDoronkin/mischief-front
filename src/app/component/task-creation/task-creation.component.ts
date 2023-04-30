@@ -3,14 +3,15 @@ import {CreateTask} from "../../model/task/create.task";
 import {TaskService} from "../../service/task.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../service/user.service";
+import {ProjectService} from "../../service/project.service";
 
 @Component({
   selector: 'app-task-creation',
   templateUrl: './task-creation.component.html',
   styleUrls: ['./task-creation.component.css'],
-  providers: [TaskService, UserService],
+  providers: [TaskService, UserService, ProjectService],
 })
-export class TaskCreationComponent implements OnInit{
+export class TaskCreationComponent implements OnInit {
 
   createTaskRequest: CreateTask = new CreateTask(
     "", "", "", "", "", "", "", ""
@@ -19,20 +20,32 @@ export class TaskCreationComponent implements OnInit{
   dropdownList: any = [];
   assignee: any = [];
   reviewer: any = [];
-  dropdownSettings: any = {};
+  accessedUsers: any = [];
+  dropdownSettingsSingle: any = {};
+
+  accessSetup: boolean = false
 
   filtersLoaded: Promise<boolean>;
+
   constructor(
     private taskService: TaskService,
     private userService: UserService,
+    private projectService: ProjectService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) {
+  }
 
   createTask() {
     this.activatedRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
+
+        const assigneeId = this.assignee.map((it: { [x: string]: any; }) => it['item_id']);
+        const reviewerId = this.reviewer.map((it: { [x: string]: any; }) => it['item_id']);
+
+        this.createTaskRequest.assigneeId = assigneeId[0]
+        this.createTaskRequest.reviewerId = reviewerId[0]
 
         console.log(this.createTaskRequest.description)
         this.createTaskRequest.relatedProjectId = projectId
@@ -41,7 +54,7 @@ export class TaskCreationComponent implements OnInit{
             next: (data: any) => {
               console.log(data)
               this.router.navigate(['task'], {
-                queryParams:{
+                queryParams: {
                   "projectId": projectId
                 }
               })
@@ -52,19 +65,26 @@ export class TaskCreationComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.userService.getAllUsers()
-      .subscribe({
-        next: (data: any) => {
-          data.forEach((user: { [x: string]: any; }) => {
-            const id = user['id']
-            const name= user['firstName'] + ' ' + user['lastName']
-            this.dropdownList.push({ item_id: id, item_text: name })
-            this.filtersLoaded = Promise.resolve(true)
+
+    this.activatedRoute.queryParams
+      .subscribe(params => {
+        const projectId = params['projectId']
+
+        this.projectService.getProjectById(projectId)
+          .subscribe({
+            next: (data: any) => {
+              data['users'].forEach((user: { [x: string]: string; }) => {
+                const id = user['id']
+                const name = user['firstName'] + ' ' + user['lastName']
+                this.dropdownList.push({item_id: id, item_text: name})
+              })
+              this.filtersLoaded = Promise.resolve(true)
+            },
+            error: (error: any) => console.log(error)
           })
-        },
-        error: (error: any) => console.log(error)
       })
-    this.dropdownSettings = {
+
+    this.dropdownSettingsSingle = {
       singleSelection: true,
       idField: 'item_id',
       textField: 'item_text',
@@ -75,17 +95,23 @@ export class TaskCreationComponent implements OnInit{
 
   onItemSelect(item: any, selectBox: string, clear: boolean) {
     console.log(item)
-    switch (selectBox){
+    switch (selectBox) {
       case 'assignee': {
-        this.assignee.push(clear ? null : item);
-        break;
+        if (!clear) {
+          this.assignee.push(item)
+        } else {
+          this.assignee.pop(item)
+        }
+        break
       }
       case 'reviewer': {
-        this.reviewer.push(clear ? null : item);
+        if (!clear) {
+          this.reviewer.push(item)
+        } else {
+          this.reviewer.pop(item)
+        }
         break
       }
     }
-    console.log(this.assignee)
-    console.log(this.reviewer)
   }
 }

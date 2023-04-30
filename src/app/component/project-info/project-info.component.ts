@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../../service/project.service";
 import {ActivatedRoute} from "@angular/router";
 import {Project} from "../../model/project/project";
+import {StoreService} from "../../service/store.service";
+import {UserResponse} from "../../model/user/user.response";
 
 @Component({
   selector: 'app-project-info',
@@ -11,10 +13,13 @@ import {Project} from "../../model/project/project";
 })
 export class ProjectInfoComponent implements OnInit {
 
-  project: Project = new Project("", "", "", "", "", new Date(), [])
+  project: Project = new Project("", "", "", "", "",
+    new UserResponse("", "", "", "", []),
+    new Date(), [], [])
   constructor(
     private router: ActivatedRoute,
     private projectService: ProjectService,
+    private storeService: StoreService,
   ) {
   }
 
@@ -32,6 +37,9 @@ export class ProjectInfoComponent implements OnInit {
                 this.project.description = data['description']
                 this.project.creatorId = data['creatorId']
                 this.project.created = data['created']
+
+                this.storeService.currentProject = data
+                console.log(this.storeService.currentProject)
               },
               error: err => console.log(err)
             }

@@ -22,7 +22,9 @@ export class TaskInfoComponent implements OnInit{
     new UserResponse("", "", "", "", []),
     new UserResponse("", "", "", "", []),
     [], [],
-    new Project("", "", "", "", "", new Date(), []))
+    new Project("", "", "", "", "",
+      new UserResponse("", "", "", "", []),
+      new Date(), [], []))
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,

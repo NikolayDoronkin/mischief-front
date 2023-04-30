@@ -23,18 +23,16 @@ export class LoginComponent implements OnInit {
   }
   public logIn(user: LoginUser) {
     localStorage.setItem('access_token', '')
-    const objectObservable = this.configService.logIn(user)
+    this.configService.logIn(user)
       .subscribe({
         next: (data: any) => {
-          // console.log(data)
+          console.log(data)
           localStorage.setItem('access_token', data['accessToken'])
           // console.log(localStorage.getItem('access_token'))
           this.router.navigate(['dashboard'])
         },
         error: err => console.log(err)
       });
-
-    console.log(objectObservable)
   }
 
   public goRegister() {

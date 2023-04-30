@@ -4,12 +4,13 @@ import {UserService} from "../../service/user.service";
 import {StoreService} from "../../service/store.service";
 import {Project} from "../../model/project/project";
 import {UserResponse} from "../../model/user/user.response";
+import {ProjectService} from "../../service/project.service";
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
-  providers: [UserService]
+  providers: [ProjectService]
 })
 export class ProjectComponent implements OnInit {
 
@@ -18,7 +19,7 @@ export class ProjectComponent implements OnInit {
   constructor(
     private router: Router,
     private storeService: StoreService,
-    private userService: UserService,
+    private projectService: ProjectService,
   ) {
   }
 
@@ -37,20 +38,28 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getCurrentUser()
+    console.log(this.storeService.currentUser)
+    this.projectService.getAllAccessedProject(this.storeService.currentUser.id)
       .subscribe({
         next: (data: any) => {
-          console.log(data['creatorProjects'])
-          this.storeService.currentUser = new UserResponse(
-            data['id'],
-            data['firstName'],
-            data['lastName'],
-            data['login'],
-            data['creatorProjects'],
-          )
-          this.projects = this.storeService.currentUser.creatorProjects
-        },
-        error: err => console.log(err)
+          console.log(data)
+          this.projects = data
+        }
       })
+    // this.userService.getCurrentUser()
+    //   .subscribe({
+    //     next: (data: any) => {
+    //       console.log(data['creatorProjects'])
+    //       this.storeService.currentUser = new UserResponse(
+    //         data['id'],
+    //         data['firstName'],
+    //         data['lastName'],
+    //         data['login'],
+    //         data['creatorProjects'],
+    //       )
+    //       this.projects = this.storeService.currentUser.creatorProjects
+    //     },
+    //     error: err => console.log(err)
+    //   })
   }
 }

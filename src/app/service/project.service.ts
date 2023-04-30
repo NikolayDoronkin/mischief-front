@@ -6,6 +6,9 @@ import {Project} from "../model/project/project";
 export class ProjectService {
   constructor(private http: HttpClient) {
   }
+  getAllAccessedProject(id: string) {
+    return this.http.get('http://localhost:8081/project/findByCreatorId/' + id)
+  }
 
   getProjectById(id: string) {
     return this.http.get('http://localhost:8081/project/' + id)
