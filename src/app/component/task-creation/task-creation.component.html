@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <h3 class="text-dark m-3">Task&#39;s creation</h3>
+  <div class="row m-3">
+    <div class="card shadow mb-3">
+      <div class="card-header py-3">
+        <p class="text-primary m-0 fw-bold" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Main
+          information</p>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3"><label class="form-label" for="username"><strong>Title</strong></label>
+                <input [(ngModel)]="createTaskRequest.title" id="username" class="form-control" type="text"
+                       placeholder="user.name" name="title"/>
+              </div>
+              <div class="mb-3"><label class="form-label" for="email"><strong>Type</strong></label>
+                <input [(ngModel)]="createTaskRequest.type"
+                       id="email" class="form-control"
+                       placeholder="user@example.com" name="type"/>
+              </div>
+              <div class="mb-3"><label class="form-label" for="last_name">
+                <strong>Status</strong>
+              </label><input [(ngModel)]="createTaskRequest.status" id="last_name" class="form-control" type="text"
+                             placeholder="Doe"
+                             name="status"/>
+              </div>
+              <div class="mb-3"><label class="form-label" for="last_name">
+                <strong>Priority</strong>
+              </label><input [(ngModel)]="createTaskRequest.priorityName" id="last_name" class="form-control" type="text"
+                             placeholder="Doe"
+                             name="priorityName"/>
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3"><label class="form-label"
+                                       for="first_name"><strong>Description</strong></label></div>
+              <textarea [(ngModel)]="createTaskRequest.description" [ngModelOptions]="{standalone: true}" class="form-control"
+                        style="height: 250px;">{{createTaskRequest.description}}</textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-header py-3">
+        <p class="text-primary m-0 fw-bold" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Additional
+          information</p>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3"><label class="form-label" for="username"><strong>Assignee</strong></label>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select assignee...'"
+                  [settings]="dropdownSettings"
+                  [data]="dropdownList"
+                  [(ngModel)]="assignee"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded | async"
+                  (onSelect)="onItemSelect($event, 'assignee', false)"
+                  (onDeSelect)="onItemSelect($event, 'assignee', true)">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3"><label class="form-label" for="email"><strong>Reviewer</strong></label>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select reviewer...'"
+                  [settings]="dropdownSettings"
+                  [data]="dropdownList"
+                  [(ngModel)]="reviewer"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded | async"
+                  (onSelect)="onItemSelect($event, 'reviewer', false)"
+                  (onDeSelect)="onItemSelect($event, 'reviewer', true)">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button (click)="createTask()" class="btn btn-primary btn-sm" type="submit"
+                style="background: #cd3e3e;border-style: none;">
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

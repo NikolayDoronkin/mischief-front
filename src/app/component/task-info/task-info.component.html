@@ -1,0 +1,153 @@
+<div class="container-fluid">
+  <h3 class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}-{{taskInfo.number}} - {{taskInfo.title}}</h3>
+  <div class="row mb-3">
+    <div class="col-lg-4">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Main Information</h6>
+        </div>
+        <div class="card-body">
+          <div class="col-xl-10 col-xxl-11" style="display: inline-block;">
+            <div class="mb-3" style="display: grid;"><label class="form-label" for="username" style="display: grid;"><strong>Reporter</strong></label>
+<!--              <input id="username-1" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
+            </div>
+            <div class="mb-3" style="display: grid;"><label class="form-label" for="username"><strong>Assignee</strong></label>
+<!--              <input id="username-3" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}}</label>
+            </div>
+            <div class="mb-3" style="display: grid;"><label class="form-label" for="username"><strong>Reviewer</strong></label>
+<!--              <input id="username-2" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Additional Information</h6>
+        </div>
+        <div class="card-body">
+          <div class="col-xl-10" style="display: inline-block;">
+            <div class="mb-3" style="display: grid;"><label class="form-label" for="username"></label><label class="form-label" for="username"><strong>Type</strong></label>
+<!--              <input id="username-4" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.type}}</label>
+            </div>
+            <div class="mb-3" style="display: grid;"><label class="form-label" for="username"><strong>Status</strong></label>
+<!--              <input id="username-5" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.status}}</label>
+            </div>
+            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label" for="username"><strong>Priority</strong></label>
+<!--              <input id="username-6" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.priorityName}}</label>
+            </div>
+            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label" for="username"><strong>Relatable finishing date</strong></label>
+<!--              <input id="username-8" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.relatableFinishedDate != null ? taskInfo.relatableFinishedDate : "-"}}</label>
+            </div>
+            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label" for="username"><strong>Listeners</strong></label>
+<!--              <input id="username-7" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.listeners.length}}</label>
+            </div>
+            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label" for="username"><strong>Acceccable users</strong></label>
+<!--              <input id="username-10" type="text" placeholder="user.name" name="username" />-->
+              <label class="form-label" for="username" style="display: grid;">{{taskInfo.accessableUsers.length}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="row mb-3 d-none">
+        <div class="col">
+          <div class="card text-white bg-primary shadow">
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col">
+                  <p class="m-0">Peformance</p>
+                  <p class="m-0"><strong>65.2%</strong></p>
+                </div>
+                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+              </div>
+              <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card text-white bg-success shadow">
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col">
+                  <p class="m-0">Peformance</p>
+                  <p class="m-0"><strong>65.2%</strong></p>
+                </div>
+                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+              </div>
+              <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="card shadow mb-3">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 fw-bold" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Description</p>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col">
+                    <label class="form-label" style="display: grid;">{{taskInfo.description}}</label>
+                  </div>
+                </div>
+                <div class="mb-3" style="margin-top: 20px;"><button class="btn btn-primary btn-sm" type="submit" style="background: #cd3e3e;">Save Settings</button></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card shadow mb-3">
+        <div class="card-header py-3" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
+          <p class="text-primary m-0 fw-bold">Subtasks</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                  <tr></tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>Subtask1</td>
+                  </tr>
+                  <tr>
+                    <td>Subtask2</td>
+                  </tr>
+                  <tr></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card shadow mb-5">
+        <div class="card-header py-3" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
+          <p class="text-primary m-0 fw-bold">Comments</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="mb-3" style="display: inline-grid;overflow: auto;"><label class="form-label" for="username"><strong>Reporter</strong></label>
+<!--                <input id="username-9" type="text" placeholder="user.name" name="username" /></div>-->
+                <label class="form-label" for="username"><strong>comments!</strong></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

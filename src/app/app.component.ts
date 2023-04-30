@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {UserResponse} from "./model/user/user.response";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'diplomfront';
+  loginUrls = ['/login', '/signIn']
+
+  constructor(private router: Router) {
+  }
+
+  checkIfLoginPage() {
+    return !this.loginUrls.includes(this.router.url)
+  }
 }

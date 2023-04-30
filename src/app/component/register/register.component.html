@@ -1,0 +1,44 @@
+<body style="background: rgb(196,225,194);">
+<div class="container p-md-5">
+  <div class="card shadow-lg o-hidden border-0">
+    <div class="card-body p-0">
+      <div class="row">
+        <div class="col-lg-5 d-none d-lg-flex">
+          <div class="flex-grow-1 bg-register-image" style="background-image: url('dogs/image2.jpeg');"></div>
+        </div>
+        <div class="col-lg-7">
+          <div class="p-5">
+            <div class="text-center">
+              <h4 class="text-dark mb-4">Create an Account!</h4>
+            </div>
+            <form class="user">
+              <div class="row mb-3">
+                <div class="col-sm-6 mb-3 mb-sm-0"><input [(ngModel)]="user.firstName" id="exampleFirstName" class="form-control form-control-user"
+                                                          type="text" placeholder="First Name" name="first_name"/></div>
+                <div class="col-sm-6"><input [(ngModel)]="user.lastName" id="exampleLastName" class="form-control form-control-user" type="text"
+                                             placeholder="Last Name" name="last_name"/></div>
+              </div>
+              <div class="mb-3"><input [(ngModel)]="user.login" id="exampleInputEmail" class="form-control form-control-user" type="email"
+                                       aria-describedby="emailHelp" placeholder="Login" name="login"/></div>
+              <div class="row mb-3">
+                <div class="col-sm-6 mb-3 mb-sm-0"><input [(ngModel)]="user.password" id="examplePasswordInput"
+                                                          class="form-control form-control-user" type="password"
+                                                          placeholder="Password" name="password"/></div>
+                <div class="col-sm-6"><input [(ngModel)]="user.repeatPassword" id="exampleRepeatPasswordInput" class="form-control form-control-user"
+                                             type="password" placeholder="Repeat Password" name="password_repeat"/>
+                </div>
+              </div>
+              <button (click)="signIn(user)" class="btn btn-primary d-block btn-user w-100" type="submit">Register
+                Account
+              </button>
+              <hr/>
+            </form>
+            <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
+            <div class="text-center"><a (click)="goLogin()" class="small">Already have an account? Login!</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
