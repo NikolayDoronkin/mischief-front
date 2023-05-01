@@ -63,24 +63,32 @@ export class TaskInfoComponent implements OnInit {
 
   updateTicket() {
 
+    console.log(this.type)
     this.taskInfo.type = this.type.pop()['item_text']
     this.taskInfo.status = this.status.pop()['item_text']
     this.taskInfo.priorityName = this.priority.pop()['item_text']
     this.taskInfo.assigneeId = this.assignee.pop()['item_id']
     this.taskInfo.reviewerId = this.reviewer.pop()['item_id']
     let month = ''
+    let day = ''
     if (this.relatableDate['month'] < 10) {
       month = '0' + this.relatableDate['month']
     } else {
       month = this.relatableDate['month']
     }
-    this.taskInfo.relatableFinishedDate = this.relatableDate['year'] + '-' + month + '-' + this.relatableDate['day']
+    if (this.relatableDate['day'] < 10) {
+      day = '0' + this.relatableDate['day']
+    } else {
+      day = this.relatableDate['day']
+    }
+    this.taskInfo.relatableFinishedDate = this.relatableDate['year'] + '-' + month + '-' + day
     console.log(this.taskInfo.relatableFinishedDate)
     console.log(this.relatableDate)
 
     this.taskService.updateTask(this.taskInfo).subscribe({
       next: (data: any) => {
         console.log(data)
+        this.ngOnInit()
         window.location.reload()
         this.onUpdated = false
         this.taskInfo = data
@@ -91,6 +99,7 @@ export class TaskInfoComponent implements OnInit {
 
   goTaskInfo(projectId: string, taskId: string) {
     console.log('here ticket!!')
+    this.onUpdated = false
     this.router.navigate(['task-info'], {
       queryParams:{
         "taskId": taskId,

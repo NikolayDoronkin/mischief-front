@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
+declare let gapi: any;
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -12,9 +13,9 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
       state('expanded', style({ height: '*' })),
       transition('* <=> *', animate('0s')),
     ]),
-  ],
+  ]
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit{
 
   projectMenu = ['/project-info', '/task', '/team', '/task-creation']
   state: string = 'initial'
@@ -22,7 +23,29 @@ export class MenuComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-  ) {}
+    private renderer: Renderer2
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.loadScripts()
+  }
+
+  loadScripts() {
+    const dynamicScripts = [
+      '../assets/js/theme.js',
+      '../assets/js/bs-init.js',
+      '../assets/js/chart.min.js',
+    ];
+    for (let i = 0; i < dynamicScripts.length; i++) {
+      const node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+  }
 
   checkProjectInfoPage(): boolean {
     const isTrue: boolean = this.projectMenu.some(url => this.router.url.match(url));
@@ -63,7 +86,6 @@ export class MenuComponent {
     this.activatedRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
-
         this.router.navigate(['task'], {
           queryParams:{
             "projectId": projectId
@@ -74,6 +96,15 @@ export class MenuComponent {
   }
 
   goTeam() {
-    this.router.navigate(['team'])
+    this.activatedRoute.queryParams
+      .subscribe(params => {
+        console.log(params['projectId'])
+        const projectId = params['projectId']
+        this.router.navigate(['team'], {
+          queryParams:{
+            "projectId": projectId
+          }
+        })/*.then(() => window.location.reload())*/
+      })
   }
 }

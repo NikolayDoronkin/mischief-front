@@ -21,11 +21,12 @@ import { ProjectCreationComponent } from './component/project-creation/project-c
 import { TaskInfoComponent } from './component/task-info/task-info.component';
 import { TaskComponent } from './component/task/task.component';
 import { TaskCreationComponent } from './component/task-creation/task-creation.component';
-import { TeamComponent } from './component/team/team.component';
+import {DialogContentExampleDialog, TeamComponent} from './component/team/team.component';
 import {AuthInterceptor} from "./service/auth.interceptor";
 import {StoreService} from "./service/store.service";
 import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 import {JsonPipe} from "@angular/common";
+import {MatDialogModule} from "@angular/material/dialog";
 
 const globalRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -60,6 +61,7 @@ const globalRoutes: Routes = [
     TaskComponent,
     TaskCreationComponent,
     TeamComponent,
+    DialogContentExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,7 @@ const globalRoutes: Routes = [
     NgbDatepickerModule, NgbAlertModule, FormsModule, JsonPipe,
     RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(), MatDialogModule
   ],
   providers: [
     {

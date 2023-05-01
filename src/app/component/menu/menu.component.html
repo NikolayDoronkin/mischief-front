@@ -1,25 +1,26 @@
 <ng-content></ng-content>
-  <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgb(119,25,25);">
-    <div class="container-fluid d-flex flex-column pt-5 mt-3"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#"><img src="/assets/ms-seo.jpg" width="102" height="61" style="display: block;position: absolute;" />
+  <nav class="navbar navbar-dark pt-4 align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgb(119,25,25); height: 100%">
+    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#"><img src="/assets/ms-seo.jpg" width="102" height="61" style="display: block;position: absolute;" />
       <div class="sidebar-brand-icon rotate-n-15"></div>
       <div class="sidebar-brand-text mx-3"></div>
     </a>
       <hr class="sidebar-divider my-0" />
-      <ul id="accordionSidebar" class="navbar-nav text-light p-5">
-        <li class="nav-item text-center"><a (click)="goDashboard()" class="nav-link"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-        <li class="nav-item text-center"><a (click)="goProfile()" class="nav-link"><i class="fas fa-user"></i><span>Profile</span></a></li>
-        <li class="nav-item text-center"><a (click)="goProjects()" class="nav-link"><i class="fas fa-table"></i><span>Projects</span></a></li>
-        <li class="nav-item text-center"><a (click)="goLogout()" class="nav-link" ><i class="far fa-user-circle"></i><span>Logout</span></a></li>
-<!--        <i class="bi bi-bootstrap-fill"></i>-->
+      <ul id="accordionSidebar" class="navbar-nav text-light">
+        <li class="nav-item"><a (click)="goDashboard()" class="nav-link"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+        <li class="nav-item"><a (click)="goProfile()" class="nav-link"><i class="fas fa-user"></i><span>Profile</span></a></li>
+        <li class="nav-item"><a (click)="goProjects()" class="nav-link"><i class="fas fa-table"></i><span>Projects</span></a></li>
+        <li class="nav-item"><a (click)="goLogout()" class="nav-link" ><i class="far fa-user-circle"></i><span>Logout</span></a></li>
       </ul>
       <ul *ngIf="checkProjectInfoPage()" [@expandedPanel] = "state" id="accordionSidebar-1" class="navbar-nav text-light">
-        <label (click)="goProjectInfo()" style="font-size: 24px; text-align: center">Project Menu</label>
+        <label class="p" (click)="goProjectInfo()" style="font-size: 24px; text-align: center;">Project Menu</label>
         <li (click)="goTask()" class="nav-item text-center">
           <a class="nav-link">
             <i class="fas fa-tachometer-alt"></i>
             <span class="justify-content-center">Tasks</span></a></li>
         <li (click)="goTeam()" class="nav-item text-center"><a class="nav-link"><i class="fas fa-user"></i><span>Team</span></a></li>
       </ul>
-      <div class="text-center d-none d-md-inline"><button id="sidebarToggle" class="btn rounded-circle border-0" type="button"></button></div>
+      <div class="text-center d-none d-md-inline">
+        <button id="sidebarToggle" class="btn rounded-circle border-0" type="button"></button>
+      </div>
     </div>
   </nav>

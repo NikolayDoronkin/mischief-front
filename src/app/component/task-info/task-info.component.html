@@ -2,7 +2,8 @@
   <div class="text-center justify-content-between" style="display: flex;position: static;">
     <h3 *ngIf="!onUpdated else editTitle" class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}-{{taskInfo.number}} - {{taskInfo.title}}</h3>
     <ng-template #editTitle>
-      <input [(ngModel)]="taskInfo.title" id="username-1" type="text" placeholder="user.name" name="username" />
+      <input [(ngModel)]="taskInfo.title" [ngModelOptions]="{standalone: true}" id="username" class="form-control m-2" type="text" placeholder="user.name"
+             name="first"/>
     </ng-template>
     <div class="text-center justify-content-between" style="display: flex;position: static; width: 200px">
       <button (click)="onUpdated = !onUpdated;" class="btn btn-primary" type="button">{{onUpdated ? 'Cansel' : 'Edit'}}</button>

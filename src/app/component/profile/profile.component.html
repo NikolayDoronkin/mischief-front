@@ -1,11 +1,11 @@
 <h3 class="text-dark mb-4">Profile</h3>
-<div class="row mb-3">
+<div class="row mb-3" *ngIf="filtersLoaded1 | async">
   <div class="col-lg-4">
     <div class="card mb-3">
       <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="dogs/image2.jpeg"
                                                      width="160" height="160"/>
         <div class="mb-3">
-          <button class="btn btn-primary btn-sm" type="button"
+          <button [disabled]="!editable" class="btn btn-primary btn-sm" type="button"
                   style="--bs-primary: #b13129;--bs-primary-rgb: 177,49,41;background: #cd3e3e;">Change Photo
           </button>
         </div>
@@ -87,34 +87,32 @@
             <form>
               <div class="row">
                 <div class="col">
-                  <div class="mb-3"><label class="form-label" for="username"><strong>Login</strong></label><input
-                    [(ngModel)]="userResponse.login" id="username" class="form-control" type="text"
-                    placeholder="user.name" name="username"/></div>
+                  <div class="mb-3"><label class="form-label" for="username"><strong>Login</strong></label>
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.login" id="username" class="form-control" type="text" placeholder="user.name" name="username"/></div>
                 </div>
                 <div class="col">
                   <div class="mb-3"><label class="form-label" for="email"><strong>Email
-                    Address</strong></label><input [(ngModel)]="userResponse.id" id="email" class="form-control"
+                    Address</strong></label>
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.id" id="email" class="form-control"
                                                    placeholder="user@example.com" name="email"/></div>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="mb-3"><label class="form-label" for="first_name"><strong>First
-                    Name</strong></label><input [(ngModel)]="userResponse.firstName" id="first_name"
+                    Name</strong></label>
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.firstName" id="first_name"
                                                 class="form-control" type="text"
                                                 placeholder="John"
                                                 name="first_name"/></div>
                 </div>
                 <div class="col">
                   <div class="mb-3"><label class="form-label" for="last_name"><strong>Last
-                    Name</strong></label><input [(ngModel)]="userResponse.lastName" id="last_name" class="form-control"
+                    Name</strong></label>
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.lastName" id="last_name" class="form-control"
                                                 type="text" placeholder="Doe"
                                                 name="last_name"/></div>
                 </div>
-              </div>
-              <div class="mb-3">
-                <button (click)="updateUser()" class="btn btn-primary btn-sm" type="submit" style="background: #cd3e3e;">Save Settings
-                </button>
               </div>
             </form>
           </div>
@@ -126,20 +124,20 @@
           </div>
           <div class="card-body">
             <form>
-              <div class="mb-3"><label class="form-label" for="address"><strong>Address</strong></label><input
-                id="address" class="form-control" type="text" placeholder="Sunset Blvd, 38" name="address"/></div>
+              <div class="mb-3"><label class="form-label" for="address"><strong>Address</strong></label>
+                <input id="address" class="form-control" type="text" placeholder="Sunset Blvd, 38" name="address"/></div>
               <div class="row">
                 <div class="col">
-                  <div class="mb-3"><label class="form-label" for="city"><strong>City</strong></label><input
-                    id="city" class="form-control" type="text" placeholder="Los Angeles" name="city"/></div>
+                  <div class="mb-3"><label class="form-label" for="city"><strong>City</strong></label>
+                    <input id="city" class="form-control" type="text" placeholder="Los Angeles" name="city"/></div>
                 </div>
                 <div class="col">
-                  <div class="mb-3"><label class="form-label" for="country"><strong>Country</strong></label><input
-                    id="country" class="form-control" type="text" placeholder="USA" name="country"/></div>
+                  <div class="mb-3"><label class="form-label" for="country"><strong>Country</strong></label>
+                    <input id="country" class="form-control" type="text" placeholder="USA" name="country"/></div>
                 </div>
               </div>
               <div class="mb-3">
-                <button (click)="updateUser()" class="btn btn-primary btn-sm" type="submit" style="background: #cd3e3e;">Save Settings
+                <button [disabled]="!editable" (click)="updateUser()" class="btn btn-primary btn-sm" type="submit" style="background: #cd3e3e;">Save Settings
                 </button>
               </div>
             </form>

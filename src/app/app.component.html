@@ -1,9 +1,16 @@
-<div *ngIf="checkIfLoginPage() else elseBlock" id="wrapper" style="display: flex">
+<div *ngIf="checkIfLoginPage() else elseBlock" id="wrapper">
   <app-menu *ngIf="checkIfLoginPage()"></app-menu>
-  <div class="container-fluid" *ngIf="checkIfLoginPage()">
-    <app-header *ngIf="checkIfLoginPage()"></app-header>
-    <router-outlet></router-outlet>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <app-header *ngIf="checkIfLoginPage()"></app-header>
+      <div class="container-fluid" *ngIf="checkIfLoginPage()">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
     <app-footer *ngIf="checkIfLoginPage()"></app-footer>
   </div>
+  <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 </div>
-<ng-template #elseBlock><router-outlet></router-outlet></ng-template>
+<ng-template #elseBlock>
+  <router-outlet></router-outlet>
+</ng-template>

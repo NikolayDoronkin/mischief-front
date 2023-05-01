@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {UserResponse} from "./model/user/user.response";
 import {Router} from "@angular/router";
 
 @Component({

@@ -21,6 +21,7 @@ export class UserService {
   }
 
   getCurrentUser() {
+    this.http.get('http://localhost:8081/ping')
     return this.http.get('http://localhost:8081/user/current')
   }
 
