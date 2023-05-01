@@ -1,5 +1,6 @@
 import {UserResponse} from "../user/user.response";
 import {Project} from "../project/project";
+import {Comment} from "../comment/comment";
 
 export class TaskResponse {
   constructor(
@@ -24,6 +25,7 @@ export class TaskResponse {
     public listeners: UserResponse[],
     public accessableUsers: UserResponse[],
     public relatedProject: Project,
+    public comments: Comment[]
   ) {
   }
 }

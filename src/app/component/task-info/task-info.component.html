@@ -1,12 +1,15 @@
 <div class="container-fluid">
   <div class="text-center justify-content-between" style="display: flex;position: static;">
-    <h3 *ngIf="!onUpdated else editTitle" class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}-{{taskInfo.number}} - {{taskInfo.title}}</h3>
+    <h3 *ngIf="!onUpdated else editTitle" class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}
+      -{{taskInfo.number}} - {{taskInfo.title}}</h3>
     <ng-template #editTitle>
-      <input [(ngModel)]="taskInfo.title" [ngModelOptions]="{standalone: true}" id="username" class="form-control m-2" type="text" placeholder="user.name"
+      <input [(ngModel)]="taskInfo.title" [ngModelOptions]="{standalone: true}" id="username" class="form-control m-2"
+             type="text" placeholder="user.name"
              name="first"/>
     </ng-template>
     <div class="text-center justify-content-between" style="display: flex;position: static; width: 200px">
-      <button (click)="onUpdated = !onUpdated;" class="btn btn-primary" type="button">{{onUpdated ? 'Cansel' : 'Edit'}}</button>
+      <button (click)="onUpdated = !onUpdated;" class="btn btn-primary"
+              type="button">{{onUpdated ? 'Cansel' : 'Edit'}}</button>
       <button *ngIf="onUpdated" (click)="updateTicket()" class="btn btn-primary" type="button">Save</button>
     </div>
   </div>
@@ -19,11 +22,14 @@
         </div>
         <div class="card-body">
           <div class="col-xl-10 col-xxl-11" style="display: inline-block;">
-            <div class="mb-3" style="display: grid;"><label class="form-label" style="display: grid;"><strong>Reporter</strong></label>
-              <label class="form-label" style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
+            <div class="mb-3" style="display: grid;"><label class="form-label"
+                                                            style="display: grid;"><strong>Reporter</strong></label>
+              <label class="form-label"
+                     style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
             </div>
             <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Assignee</strong></label>
-              <label *ngIf="!onUpdated else editAssignee" class="form-label" style="display: grid;">{{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}}</label>
+              <label *ngIf="!onUpdated else editAssignee" class="form-label"
+                     style="display: grid;">{{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}}</label>
               <ng-template #editAssignee>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select assignee...'"
@@ -38,7 +44,8 @@
               </ng-template>
             </div>
             <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Reviewer</strong></label>
-              <label *ngIf="!onUpdated else editReporter" class="form-label" style="display: grid;">{{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}}</label>
+              <label *ngIf="!onUpdated else editReporter" class="form-label"
+                     style="display: grid;">{{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}}</label>
               <ng-template #editReporter>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select reviewer...'"
@@ -64,7 +71,8 @@
           <div class="col-xl-10" style="display: inline-block;">
             <div class="mb-3" style="display: grid;"><label class="form-label"></label><label
               class="form-label"><strong>Type</strong></label>
-              <label *ngIf="!onUpdated else editType" class="form-label" style="display: grid;">{{taskInfo.type}}</label>
+              <label *ngIf="!onUpdated else editType" class="form-label"
+                     style="display: grid;">{{taskInfo.type}}</label>
               <ng-template #editType>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select type...'"
@@ -79,7 +87,8 @@
               </ng-template>
             </div>
             <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Status</strong></label>
-              <label *ngIf="!onUpdated else editStatus" class="form-label" style="display: grid;">{{taskInfo.status}}</label>
+              <label *ngIf="!onUpdated else editStatus" class="form-label"
+                     style="display: grid;">{{taskInfo.status}}</label>
               <ng-template #editStatus>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select status...'"
@@ -95,7 +104,8 @@
             </div>
             <div class="mb-3" style="display: grid"><label
               class="form-label"><strong>Priority</strong></label>
-              <label *ngIf="!onUpdated else editPriority" class="form-label" style="display: grid;">{{taskInfo.priorityName}}</label>
+              <label *ngIf="!onUpdated else editPriority" class="form-label"
+                     style="display: grid;">{{taskInfo.priorityName}}</label>
               <ng-template #editPriority>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select priority...'"
@@ -110,7 +120,8 @@
               </ng-template>
             </div>
             <div class="mb-3" style="display: grid"><label class="form-label"><strong>Relatable finishing date</strong></label>
-              <label *ngIf="!onUpdated else editRelatableFinishingDate" class="form-label" style="display: grid;">{{taskInfo.relatableFinishedDate != null ? taskInfo.relatableFinishedDate : "-"}}</label>
+              <label *ngIf="!onUpdated else editRelatableFinishingDate" class="form-label"
+                     style="display: grid;">{{taskInfo.relatableFinishedDate != null ? taskInfo.relatableFinishedDate : "-"}}</label>
               <ng-template #editRelatableFinishingDate>
                 <form class="row row-cols-sm-auto">
                   <div class="col-12">
@@ -124,7 +135,8 @@
                         #d="ngbDatepicker"
                         min="{{currentDate}}"
                       />
-                      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+                      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()"
+                              type="button"></button>
                     </div>
                   </div>
                 </form>
@@ -134,7 +146,8 @@
               class="form-label"><strong>Listeners</strong></label>
               <label class="form-label" style="display: grid;">{{taskInfo.listeners.length}}</label>
             </div>
-            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label"><strong>Accessable users</strong></label>
+            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label"><strong>Accessable
+              users</strong></label>
               <label class="form-label" style="display: grid;">{{taskInfo.accessableUsers.length}}</label>
             </div>
           </div>
@@ -153,9 +166,11 @@
               <form>
                 <div class="row">
                   <div class="col">
-                    <label *ngIf="!onUpdated else editDescription" class="form-label" style="display: grid;">{{taskInfo.description}}</label>
+                    <label *ngIf="!onUpdated else editDescription" class="form-label"
+                           style="display: grid;">{{taskInfo.description}}</label>
                     <ng-template #editDescription>
-                      <textarea [(ngModel)]="taskInfo.description" [ngModelOptions]="{standalone: true}" class="form-control"
+                      <textarea [(ngModel)]="taskInfo.description" [ngModelOptions]="{standalone: true}"
+                                class="form-control"
                                 style="height: 250px;">{{taskInfo.description}}</textarea>
                     </ng-template>
                   </div>
@@ -193,18 +208,34 @@
         </div>
       </div>
       <div class="card shadow mb-5">
-        <div class="card-header py-3" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
-          <p class="text-primary m-0 fw-bold">Comments</p>
+        <div class="card-header py-3 d-flex justify-content-between align-items-center"
+             style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
+          <p class="text-primary m-0 fw-bold ali">Comments</p>
+          <a (click)="onCreationCommentDialog = !onCreationCommentDialog" class="btn btn-circle ms-1"
+             style="background-color: #4668c9" role="button"><i class="fas fa-plus text-white"></i></a>
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <div class="mb-3" style="display: inline-grid;overflow: auto;"><label
-                class="form-label"><strong>Reporter</strong></label>
+          <div class="row" *ngIf="taskInfo.comments.length > 0">
+            <div class="row">
+              <div *ngFor="let comment of taskInfo.comments" class="mb-3" style="display: inline-grid;overflow: auto;">
+                <label class="form-label">
+                  <strong>{{comment.author.firstName}} {{comment.author.lastName}} on {{comment.created}}
+                    :</strong></label>
                 <!--                <input id="username-9" type="text" placeholder="user.name" name="username" /></div>-->
-                <label class="form-label"><strong>comments!</strong></label>
+                <label class="form-label">{{comment.value}}</label>
               </div>
             </div>
+            <ng-template #showNoComment [ngIf]="!onCreationCommentDialog" [ngIfElse]="showCommentCreationDialog">
+              <label *ngIf="taskInfo.comments.length < 0" class="form-label">
+                <strong>No comments here!</strong></label>
+            </ng-template>
+            <ng-template #showCommentCreationDialog>
+              <textarea [(ngModel)]="commentValue" [ngModelOptions]="{standalone: true}" id="signature-1"
+                        class="form-control" rows="4" name="signature" style="height: 230px; resize: none"></textarea>
+              <div class="py-2 d-flex justify-content-end align-items-center">
+                <button (click)="saveComment()" class="btn btn-primary" type="button">Save comment</button>
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>

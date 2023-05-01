@@ -5,15 +5,21 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TaskResponse} from "../../model/task/task.response";
 import {Project} from "../../model/project/project";
 import {UserResponse} from "../../model/user/user.response";
-import {DatePipe} from "@angular/common";
+import {CommentService} from "../../service/comment.service";
+import {Comment} from "../../model/comment/comment";
+import {StoreService} from "../../service/store.service";
 
 @Component({
   selector: 'app-task-info',
   templateUrl: './task-info.component.html',
   styleUrls: ['./task-info.component.css'],
-  providers: [TaskService, ProjectService, DatePipe],
+  providers: [TaskService, ProjectService, CommentService],
 })
 export class TaskInfoComponent implements OnInit {
+
+  commentValue: string = ''
+
+  onCreationCommentDialog: boolean = false
 
   subtasks: TaskResponse[] = []
 
@@ -49,7 +55,8 @@ export class TaskInfoComponent implements OnInit {
     [], [],
     new Project("", "", "", "", "",
       new UserResponse("", "", "", "", []),
-      new Date(), [], []))
+      new Date(), [], []),
+    [])
 
 
   constructor(
@@ -57,8 +64,25 @@ export class TaskInfoComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private taskService: TaskService,
     private projectService: ProjectService,
-    private datePipe: DatePipe
+    private storeService: StoreService,
+    private commentService: CommentService,
   ) {
+  }
+
+  saveComment() {
+    console.log(this.storeService.currentUser)
+    console.log(this.taskInfo.id)
+    this.commentService.createComment(
+      new Comment('', this.storeService.currentUser, this.storeService.currentUser.id, new Date(), new Date(), this.taskInfo, this.commentValue)
+    ).subscribe({
+      next: (data: any) => {
+        const task: TaskResponse = data['relatedTicket']
+        this.goTaskInfo(task.relatedProjectId, task.id)
+        this.onCreationCommentDialog = false
+        this.commentValue = ''
+      },
+      error: (error: any) => console.log(error)
+    })
   }
 
   updateTicket() {
@@ -100,6 +124,14 @@ export class TaskInfoComponent implements OnInit {
   goTaskInfo(projectId: string, taskId: string) {
     console.log('here ticket!!')
     this.onUpdated = false
+    this.commentService.getCommentsFromTicket(taskId)
+      .subscribe({
+        next: (data: any) => {
+          console.log(data)
+          this.taskInfo.comments = data
+        },
+        error: (error: any) => console.log(error)
+      })
     this.router.navigate(['task-info'], {
       queryParams:{
         "taskId": taskId,
@@ -137,6 +169,7 @@ export class TaskInfoComponent implements OnInit {
                 this.taskInfo.reporter = data['reporter']
                 this.taskInfo.assignee = data['assignee']
                 this.taskInfo.reviewer = data['reviewer']
+
                 console.log(data)
                 console.log(this.taskInfo)
 
@@ -156,6 +189,15 @@ export class TaskInfoComponent implements OnInit {
               error: err => console.log(err)
             }
           )
+
+        this.commentService.getCommentsFromTicket(taskId)
+          .subscribe({
+            next: (data: any) => {
+              console.log(data)
+              this.taskInfo.comments = data
+            },
+            error: (error: any) => console.log(error)
+          })
 
         this.taskService.getChildTasks(taskId).subscribe({
           next: (data: any) => {
@@ -236,6 +278,4 @@ export class TaskInfoComponent implements OnInit {
       }
     }
   }
-
-  protected readonly DatePipe = DatePipe;
 }
