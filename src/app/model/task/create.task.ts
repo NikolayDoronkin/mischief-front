@@ -8,5 +8,6 @@ export class CreateTask {
     public relatedProjectId: string,
     public reviewerId: string,
     public priorityName: string,
+    public parentTicketId: string,
   ) {}
 }

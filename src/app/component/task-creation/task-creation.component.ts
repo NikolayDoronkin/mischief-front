@@ -4,6 +4,7 @@ import {TaskService} from "../../service/task.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../service/user.service";
 import {ProjectService} from "../../service/project.service";
+import {Project} from "../../model/project/project";
 
 @Component({
   selector: 'app-task-creation',
@@ -14,18 +15,18 @@ import {ProjectService} from "../../service/project.service";
 export class TaskCreationComponent implements OnInit {
 
   createTaskRequest: CreateTask = new CreateTask(
-    "", "", "", "", "", "", "", ""
+    "", "", "", "", "", "", "", "", ""
   )
 
   dropdownList: any = [];
+  dropdownListTickets: any = [];
   assignee: any = [];
   reviewer: any = [];
-  accessedUsers: any = [];
+  parentTicket: any = [];
   dropdownSettingsSingle: any = {};
 
-  accessSetup: boolean = false
-
   filtersLoaded: Promise<boolean>;
+  filtersLoaded1: Promise<boolean>;
 
   constructor(
     private taskService: TaskService,
@@ -43,9 +44,11 @@ export class TaskCreationComponent implements OnInit {
 
         const assigneeId = this.assignee.map((it: { [x: string]: any; }) => it['item_id']);
         const reviewerId = this.reviewer.map((it: { [x: string]: any; }) => it['item_id']);
+        const parentTicketId = this.parentTicket.map((it: { [x: string]: any; }) => it['item_id'])
 
         this.createTaskRequest.assigneeId = assigneeId[0]
         this.createTaskRequest.reviewerId = reviewerId[0]
+        this.createTaskRequest.parentTicketId = parentTicketId[0]
 
         console.log(this.createTaskRequest.description)
         this.createTaskRequest.relatedProjectId = projectId
@@ -69,10 +72,12 @@ export class TaskCreationComponent implements OnInit {
     this.activatedRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
+        let projectShortName = ''
 
         this.projectService.getProjectById(projectId)
           .subscribe({
             next: (data: any) => {
+              projectShortName = data['shortName']
               data['users'].forEach((user: { [x: string]: string; }) => {
                 const id = user['id']
                 const name = user['firstName'] + ' ' + user['lastName']
@@ -82,6 +87,22 @@ export class TaskCreationComponent implements OnInit {
             },
             error: (error: any) => console.log(error)
           })
+
+        this.taskService.getTasksFromProject(projectId).subscribe({
+          next: (data: any) => {
+            data.forEach((task: { [x: string]: any; }) => {
+              console.log(task)
+              const id = task['id']
+              const project: Project = task['relatedProject']
+              console.log(project)
+              const name = project.shortName + '-' + task['number'] + ' - ' + task['title']
+
+              this.dropdownListTickets.push({item_id: id, item_text: name})
+            })
+            console.log(this.dropdownListTickets)
+            this.filtersLoaded1 = Promise.resolve(true)
+          }
+        })
       })
 
     this.dropdownSettingsSingle = {
@@ -104,11 +125,11 @@ export class TaskCreationComponent implements OnInit {
         }
         break
       }
-      case 'reviewer': {
+      case 'subtask': {
         if (!clear) {
-          this.reviewer.push(item)
+          this.parentTicket.push(item)
         } else {
-          this.reviewer.pop(item)
+          this.parentTicket.pop(item)
         }
         break
       }

@@ -7,7 +7,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {AppComponent} from './app.component';
 import {MainComponent} from './component/main/main.component';
 import {LoginComponent} from './component/login/login.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbAlertModule, NgbDatepickerModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RegisterComponent} from './component/register/register.component';
 import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -25,6 +25,7 @@ import { TeamComponent } from './component/team/team.component';
 import {AuthInterceptor} from "./service/auth.interceptor";
 import {StoreService} from "./service/store.service";
 import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
+import {JsonPipe} from "@angular/common";
 
 const globalRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -65,6 +66,7 @@ const globalRoutes: Routes = [
     NgbModule,
     FormsModule,
     HttpClientModule,
+    NgbDatepickerModule, NgbAlertModule, FormsModule, JsonPipe,
     RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
     NgMultiSelectDropDownModule.forRoot()

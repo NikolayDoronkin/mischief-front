@@ -1,107 +1,162 @@
 <div class="container-fluid">
   <div class="text-center justify-content-between" style="display: flex;position: static;">
-    <h3 class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}-{{taskInfo.number}} - {{taskInfo.title}}</h3>
-    <div><button class="btn btn-primary" type="button">Button</button></div>
+    <h3 *ngIf="!onUpdated else editTitle" class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}-{{taskInfo.number}} - {{taskInfo.title}}</h3>
+    <ng-template #editTitle>
+      <input [(ngModel)]="taskInfo.title" id="username-1" type="text" placeholder="user.name" name="username" />
+    </ng-template>
+    <div class="text-center justify-content-between" style="display: flex;position: static; width: 200px">
+      <button (click)="onUpdated = !onUpdated;" class="btn btn-primary" type="button">{{onUpdated ? 'Cansel' : 'Edit'}}</button>
+      <button *ngIf="onUpdated" (click)="updateTicket()" class="btn btn-primary" type="button">Save</button>
+    </div>
   </div>
   <div class="row mb-3">
     <div class="col-lg-4">
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Main Information</h6>
+          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Main
+            Information</h6>
         </div>
         <div class="card-body">
           <div class="col-xl-10 col-xxl-11" style="display: inline-block;">
-            <div class="mb-3" style="display: grid;"><label class="form-label" for="username" style="display: grid;"><strong>Reporter</strong></label>
-<!--              <input id="username-1" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
+            <div class="mb-3" style="display: grid;"><label class="form-label" style="display: grid;"><strong>Reporter</strong></label>
+              <label class="form-label" style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
             </div>
-            <div class="mb-3" style="display: grid;"><label class="form-label" for="username"><strong>Assignee</strong></label>
-<!--              <input id="username-3" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}}</label>
+            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Assignee</strong></label>
+              <label *ngIf="!onUpdated else editAssignee" class="form-label" style="display: grid;">{{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}}</label>
+              <ng-template #editAssignee>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select assignee...'"
+                  [settings]="dropdownSettingsSingle"
+                  [data]="dropdownListAccessedUsers"
+                  [(ngModel)]="assignee"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded | async"
+                  (onSelect)="onItemSelect($event, 'assignee', false)"
+                  (onDeSelect)="onItemSelect($event, 'assignee', true)">
+                </ng-multiselect-dropdown>
+              </ng-template>
             </div>
-            <div class="mb-3" style="display: grid;"><label class="form-label" for="username"><strong>Reviewer</strong></label>
-<!--              <input id="username-2" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}}</label>
+            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Reviewer</strong></label>
+              <label *ngIf="!onUpdated else editReporter" class="form-label" style="display: grid;">{{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}}</label>
+              <ng-template #editReporter>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select reviewer...'"
+                  [settings]="dropdownSettingsSingle"
+                  [data]="dropdownListAccessedUsers"
+                  [(ngModel)]="reviewer"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded | async"
+                  (onSelect)="onItemSelect($event, 'reviewer', false)"
+                  (onDeSelect)="onItemSelect($event, 'reviewer', true)">
+                </ng-multiselect-dropdown>
+              </ng-template>
             </div>
           </div>
         </div>
       </div>
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Additional Information</h6>
+          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Additional
+            Information</h6>
         </div>
         <div class="card-body">
           <div class="col-xl-10" style="display: inline-block;">
-            <div class="mb-3" style="display: grid;"><label class="form-label" for="username"></label><label class="form-label" for="username"><strong>Type</strong></label>
-<!--              <input id="username-4" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.type}}</label>
+            <div class="mb-3" style="display: grid;"><label class="form-label"></label><label
+              class="form-label"><strong>Type</strong></label>
+              <label *ngIf="!onUpdated else editType" class="form-label" style="display: grid;">{{taskInfo.type}}</label>
+              <ng-template #editType>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select type...'"
+                  [settings]="dropdownSettingsSingle"
+                  [data]="dropdownListType"
+                  [(ngModel)]="type"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded1 | async"
+                  (onSelect)="onItemSelect($event, 'type', false)"
+                  (onDeSelect)="onItemSelect($event, 'type', true)">
+                </ng-multiselect-dropdown>
+              </ng-template>
             </div>
-            <div class="mb-3" style="display: grid;"><label class="form-label" for="username"><strong>Status</strong></label>
-<!--              <input id="username-5" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.status}}</label>
+            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Status</strong></label>
+              <label *ngIf="!onUpdated else editStatus" class="form-label" style="display: grid;">{{taskInfo.status}}</label>
+              <ng-template #editStatus>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select status...'"
+                  [settings]="dropdownSettingsSingle"
+                  [data]="dropdownListStatus"
+                  [(ngModel)]="status"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded2 | async"
+                  (onSelect)="onItemSelect($event, 'status', false)"
+                  (onDeSelect)="onItemSelect($event, 'status', true)">
+                </ng-multiselect-dropdown>
+              </ng-template>
             </div>
-            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label" for="username"><strong>Priority</strong></label>
-<!--              <input id="username-6" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.priorityName}}</label>
+            <div class="mb-3" style="display: grid"><label
+              class="form-label"><strong>Priority</strong></label>
+              <label *ngIf="!onUpdated else editPriority" class="form-label" style="display: grid;">{{taskInfo.priorityName}}</label>
+              <ng-template #editPriority>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select priority...'"
+                  [settings]="dropdownSettingsSingle"
+                  [data]="dropdownListPriority"
+                  [(ngModel)]="priority"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded3 | async"
+                  (onSelect)="onItemSelect($event, 'priority', false)"
+                  (onDeSelect)="onItemSelect($event, 'priority', true)">
+                </ng-multiselect-dropdown>
+              </ng-template>
             </div>
-            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label" for="username"><strong>Relatable finishing date</strong></label>
-<!--              <input id="username-8" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.relatableFinishedDate != null ? taskInfo.relatableFinishedDate : "-"}}</label>
+            <div class="mb-3" style="display: grid"><label class="form-label"><strong>Relatable finishing date</strong></label>
+              <label *ngIf="!onUpdated else editRelatableFinishingDate" class="form-label" style="display: grid;">{{taskInfo.relatableFinishedDate != null ? taskInfo.relatableFinishedDate : "-"}}</label>
+              <ng-template #editRelatableFinishingDate>
+                <form class="row row-cols-sm-auto">
+                  <div class="col-12">
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        name="dp"
+                        [(ngModel)]="relatableDate"
+                        ngbDatepicker
+                        #d="ngbDatepicker"
+                        min="{{currentDate}}"
+                      />
+                      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+                    </div>
+                  </div>
+                </form>
+              </ng-template>
             </div>
-            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label" for="username"><strong>Listeners</strong></label>
-<!--              <input id="username-7" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.listeners.length}}</label>
+            <div class="mb-3" style="display: grid;position: sticky;"><label
+              class="form-label"><strong>Listeners</strong></label>
+              <label class="form-label" style="display: grid;">{{taskInfo.listeners.length}}</label>
             </div>
-            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label" for="username"><strong>Acceccable users</strong></label>
-<!--              <input id="username-10" type="text" placeholder="user.name" name="username" />-->
-              <label class="form-label" for="username" style="display: grid;">{{taskInfo.accessableUsers.length}}</label>
+            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label"><strong>Accessable users</strong></label>
+              <label class="form-label" style="display: grid;">{{taskInfo.accessableUsers.length}}</label>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-lg-8">
-      <div class="row mb-3 d-none">
-        <div class="col">
-          <div class="card text-white bg-primary shadow">
-            <div class="card-body">
-              <div class="row mb-2">
-                <div class="col">
-                  <p class="m-0">Peformance</p>
-                  <p class="m-0"><strong>65.2%</strong></p>
-                </div>
-                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-              </div>
-              <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card text-white bg-success shadow">
-            <div class="card-body">
-              <div class="row mb-2">
-                <div class="col">
-                  <p class="m-0">Peformance</p>
-                  <p class="m-0"><strong>65.2%</strong></p>
-                </div>
-                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-              </div>
-              <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="row">
         <div class="col">
           <div class="card shadow mb-3">
             <div class="card-header py-3">
-              <p class="text-primary m-0 fw-bold" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Description</p>
+              <p class="text-primary m-0 fw-bold" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
+                Description</p>
             </div>
             <div class="card-body">
               <form>
                 <div class="row">
                   <div class="col">
-                    <label class="form-label" style="display: grid;">{{taskInfo.description}}</label>
+                    <label *ngIf="!onUpdated else editDescription" class="form-label" style="display: grid;">{{taskInfo.description}}</label>
+                    <ng-template #editDescription>
+                      <textarea [(ngModel)]="taskInfo.description" [ngModelOptions]="{standalone: true}" class="form-control"
+                                style="height: 250px;">{{taskInfo.description}}</textarea>
+                    </ng-template>
                   </div>
                 </div>
               </form>
@@ -121,14 +176,14 @@
                   <thead>
                   <tr></tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                    <td>Subtask1</td>
+                  <tbody *ngFor="let subtask of subtasks">
+                  <tr (click)="goTaskInfo(subtask.relatedProjectId, subtask.id)">
+                    <td>{{subtask.relatedProject.shortName}}-{{subtask.number}}</td>
+                    <td>{{subtask.title}}</td>
+                    <td>{{subtask.type}}</td>
+                    <td>{{subtask.status}}</td>
+                    <td>{{subtask.priorityName}}</td>
                   </tr>
-                  <tr>
-                    <td>Subtask2</td>
-                  </tr>
-                  <tr></tr>
                   </tbody>
                 </table>
               </div>
@@ -143,9 +198,11 @@
         <div class="card-body">
           <div class="row">
             <div class="col">
-              <div class="mb-3" style="display: inline-grid;overflow: auto;"><label class="form-label" for="username"><strong>Reporter</strong></label>
-<!--                <input id="username-9" type="text" placeholder="user.name" name="username" /></div>-->
-                <label class="form-label" for="username"><strong>comments!</strong></label>
+              <div class="mb-3" style="display: inline-grid;overflow: auto;"><label
+                class="form-label"><strong>Reporter</strong></label>
+                <!--                <input id="username-9" type="text" placeholder="user.name" name="username" /></div>-->
+                <label class="form-label"><strong>comments!</strong></label>
+              </div>
             </div>
           </div>
         </div>
