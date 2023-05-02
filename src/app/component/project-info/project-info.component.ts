@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../../service/project.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Project} from "../../model/project/project";
 import {StoreService} from "../../service/store.service";
 import {UserResponse} from "../../model/user/user.response";
@@ -16,15 +16,17 @@ export class ProjectInfoComponent implements OnInit {
   project: Project = new Project("", "", "", "", "",
     new UserResponse("", "", "", "", []),
     new Date(), [], [])
+
   constructor(
-    private router: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private projectService: ProjectService,
     private storeService: StoreService,
   ) {
   }
 
   ngOnInit(): void {
-    this.router.queryParams
+    this.activatedRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
 
@@ -41,7 +43,16 @@ export class ProjectInfoComponent implements OnInit {
                 this.storeService.currentProject = data
                 console.log(this.storeService.currentProject)
               },
-              error: err => console.log(err)
+              error: (error: any) => {
+                console.log(error)
+                if (error['status'] == 403) {
+                  this.router.navigate(['login'])
+                } else if (error['status'] >= 401) {
+                  this.router.navigate(['401'])
+                } else if (error['status'] >= 500) {
+                  this.router.navigate(['500'])
+                }
+              }
             }
           )
 

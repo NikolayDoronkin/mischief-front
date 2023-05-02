@@ -31,7 +31,18 @@ export class LoginComponent implements OnInit {
           // console.log(localStorage.getItem('access_token'))
           this.router.navigate(['dashboard'])
         },
-        error: err => console.log(err)
+        error: (error: any) => {
+          console.log(error)
+          if (error['status'] == 403) {
+            this.router.navigate(['login'])
+          }
+          else if (error['status'] >= 401) {
+            this.router.navigate(['401'])
+          }
+          else if (error['status'] >= 500) {
+            this.router.navigate(['500'])
+          }
+        }
       });
   }
 

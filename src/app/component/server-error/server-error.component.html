@@ -1,0 +1,13 @@
+<div class="d-flex align-items-center justify-content-center vh-100">
+  <div class="text-center">
+    <h1 class="display-1 fw-bold">500</h1>
+    <p class="fs-3"> <span class="text-danger">Opps!</span>
+      Server error.
+    </p>
+    <p class="lead">
+      Server cannot execute current request. Try later.
+    </p>
+    <a [routerLink]="[action]" class="btn btn-primary">
+      {{this.action == '/login' ? 'Login': 'Go Home'}}</a>
+  </div>
+</div>

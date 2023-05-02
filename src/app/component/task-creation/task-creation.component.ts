@@ -62,7 +62,18 @@ export class TaskCreationComponent implements OnInit {
                 }
               })
             },
-            error: (error: any) => console.log(error)
+            error: (error: any) => {
+              console.log(error)
+              if (error['status'] == 403) {
+                this.router.navigate(['login'])
+              }
+              else if (error['status'] >= 401) {
+                this.router.navigate(['401'])
+              }
+              else if (error['status'] >= 500) {
+                this.router.navigate(['500'])
+              }
+            }
           })
       })
   }
@@ -85,7 +96,18 @@ export class TaskCreationComponent implements OnInit {
               })
               this.filtersLoaded = Promise.resolve(true)
             },
-            error: (error: any) => console.log(error)
+            error: (error: any) => {
+              console.log(error)
+              if (error['status'] == 403) {
+                this.router.navigate(['login'])
+              }
+              else if (error['status'] >= 401) {
+                this.router.navigate(['401'])
+              }
+              else if (error['status'] >= 500) {
+                this.router.navigate(['500'])
+              }
+            }
           })
 
         this.taskService.getTasksFromProject(projectId).subscribe({
@@ -101,6 +123,18 @@ export class TaskCreationComponent implements OnInit {
             })
             console.log(this.dropdownListTickets)
             this.filtersLoaded1 = Promise.resolve(true)
+          },
+          error: (error: any) => {
+            console.log(error)
+            if (error['status'] == 403) {
+              this.router.navigate(['login'])
+            }
+            else if (error['status'] >= 401) {
+              this.router.navigate(['401'])
+            }
+            else if (error['status'] >= 500) {
+              this.router.navigate(['500'])
+            }
           }
         })
       })

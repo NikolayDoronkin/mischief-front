@@ -27,9 +27,12 @@ import {StoreService} from "./service/store.service";
 import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 import {JsonPipe} from "@angular/common";
 import {MatDialogModule} from "@angular/material/dialog";
+import { NotFoundComponent } from './component/not-found/not-found.component';
+import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
+import { ServerErrorComponent } from './component/server-error/server-error.component';
 
 const globalRoutes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'signIn', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'profile', component: ProfileComponent},
@@ -40,7 +43,10 @@ const globalRoutes: Routes = [
   {path: 'task-info', component: TaskInfoComponent},
   {path: 'team', component: TeamComponent},
   {path: 'task', component: TaskComponent},
-  {path: '**', component: LoginComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '401', component: UnauthorizedComponent},
+  {path: '500', component: ServerErrorComponent},
+  {path: '**', redirectTo: '404'},
 ]
 
 @NgModule({
@@ -61,7 +67,10 @@ const globalRoutes: Routes = [
     TaskComponent,
     TaskCreationComponent,
     TeamComponent,
-    DialogContentExampleDialog
+    DialogContentExampleDialog,
+    NotFoundComponent,
+    UnauthorizedComponent,
+    ServerErrorComponent
   ],
   imports: [
     BrowserModule,

@@ -37,7 +37,18 @@ export class ProjectCreationComponent implements OnInit{
         next: (data: any) => {
           this.router.navigate(['project'])
         },
-        error: (error: any) => console.log(error)
+        error: (error: any) => {
+          console.log(error)
+          if (error['status'] == 403) {
+            this.router.navigate(['login'])
+          }
+          else if (error['status'] >= 401) {
+            this.router.navigate(['401'])
+          }
+          else if (error['status'] >= 500) {
+            this.router.navigate(['500'])
+          }
+        }
       })
   }
 
@@ -52,7 +63,18 @@ export class ProjectCreationComponent implements OnInit{
             this.filtersLoaded = Promise.resolve(true)
           })
         },
-        error: (error: any) => console.log(error)
+        error: (error: any) => {
+          console.log(error)
+          if (error['status'] == 403) {
+            this.router.navigate(['login'])
+          }
+          else if (error['status'] >= 401) {
+            this.router.navigate(['401'])
+          }
+          else if (error['status'] >= 500) {
+            this.router.navigate(['500'])
+          }
+        }
       })
     this.dropdownSettings = {
       singleSelection: false,

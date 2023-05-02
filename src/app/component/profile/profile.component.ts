@@ -4,6 +4,7 @@ import {UserService} from "../../service/user.service";
 import {UserResponse} from "../../model/user/user.response";
 import {StoreService} from "../../service/store.service";
 import {UpdateUser} from "../../model/user/update.user";
+import {Router} from "@angular/router";
 
 @Component({
   animations: [routingAnimation],
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private service: UserService,
+    private router: Router,
     private storeService: StoreService,
     ) {
   }
@@ -42,12 +44,22 @@ export class ProfileComponent implements OnInit {
 
           this.storeService.currentUser = this.userResponse
         },
-        error: err => console.log(err)
+        error: (error: any) => {
+          console.log(error)
+          if (error['status'] == 403) {
+            this.router.navigate(['login'])
+          }
+          else if (error['status'] >= 401) {
+            this.router.navigate(['401'])
+          }
+          else if (error['status'] >= 500) {
+            this.router.navigate(['500'])
+          }
+        }
       })
   }
 
   ngOnInit(): void {
-    console.log('here! is ' + this.idFromTeamComponent)
       if (this.idFromTeamComponent == '') {
         this.service.getCurrentUser()
           .subscribe({
@@ -63,14 +75,23 @@ export class ProfileComponent implements OnInit {
               this.filtersLoaded1 = Promise.resolve(true)
               this.editable = true
             },
-            error: err => console.log(err)
+            error: (error: any) => {
+              console.log(error)
+              if (error['status'] == 403) {
+                this.router.navigate(['login'])
+              }
+              else if (error['status'] >= 401) {
+                this.router.navigate(['401'])
+              }
+              else if (error['status'] >= 500) {
+                this.router.navigate(['500'])
+              }
+            }
           })
       } else {
-        console.log('here! is ' + this.idFromTeamComponent)
         this.service.getUserById(this.idFromTeamComponent)
           .subscribe({
             next: (data: any) => {
-              console.log(data)
               this.userResponse.id = data['id']
               this.userResponse.firstName = data['firstName']
               this.userResponse.lastName = data['lastName']
@@ -79,7 +100,18 @@ export class ProfileComponent implements OnInit {
               this.filtersLoaded1 = Promise.resolve(true)
               this.editable = false
             },
-            error: err => console.log(err)
+            error: (error: any) => {
+              console.log(error)
+              if (error['status'] == 403) {
+                this.router.navigate(['login'])
+              }
+              else if (error['status'] >= 401) {
+                this.router.navigate(['401'])
+              }
+              else if (error['status'] >= 500) {
+                this.router.navigate(['500'])
+              }
+            }
           })
       }
   }

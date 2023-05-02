@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -8,12 +8,34 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   title = 'diplomfront';
-  loginUrls = ['/login', '/signIn']
+  availableUrls = [
+    '/dashboard',
+    '/profile',
+    '/project',
+    '/project-info',
+    '/project-creation',
+    '/task-creation',
+    '/task-info',
+    '/team',
+    '/task'
+  ]
+
+  loginUrls = [
+    '/login',
+    '/signIn',
+  ]
 
   constructor(private router: Router) {
   }
 
   checkIfLoginPage() {
-    return !this.loginUrls.includes(this.router.url)
+    const currentRoute =
+      this.router.url.indexOf('?') == -1
+        ? this.router.url
+        : this.router.url.substring(0, this.router.url.indexOf('?'))
+
+    console.log(currentRoute)
+    return this.availableUrls.includes(currentRoute) &&
+      !this.loginUrls.includes(currentRoute)
   }
 }

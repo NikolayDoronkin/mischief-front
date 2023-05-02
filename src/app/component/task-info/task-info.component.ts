@@ -68,8 +68,8 @@ export class TaskInfoComponent implements OnInit {
     private commentService: CommentService,
   ) {
   }
+
   onCreationCommentDialogChange() {
-    console.log(this.onCreationCommentDialog)
     this.onCreationCommentDialog = !this.onCreationCommentDialog
   }
 
@@ -85,7 +85,18 @@ export class TaskInfoComponent implements OnInit {
         this.onCreationCommentDialog = false
         this.commentValue = ''
       },
-      error: (error: any) => console.log(error)
+      error: (error: any) => {
+        console.log(error)
+        if (error['status'] == 403) {
+          this.router.navigate(['login'])
+        }
+        else if (error['status'] >= 401) {
+          this.router.navigate(['401'])
+        }
+        else if (error['status'] >= 500) {
+          this.router.navigate(['500'])
+        }
+      }
     })
   }
 
@@ -121,12 +132,16 @@ export class TaskInfoComponent implements OnInit {
         this.onUpdated = false
         this.taskInfo = data
       },
-      error: (error: any) => console.log(error)
+      error: (error: any) => {
+        console.log(error)
+        if (error['status'] == 403) {
+          this.router.navigate(['login'])
+        }
+      }
     })
   }
 
   goTaskInfo(projectId: string, taskId: string) {
-    console.log('here ticket!!')
     this.onUpdated = false
     this.commentService.getCommentsFromTicket(taskId)
       .subscribe({
@@ -134,10 +149,21 @@ export class TaskInfoComponent implements OnInit {
           console.log(data)
           this.taskInfo.comments = data
         },
-        error: (error: any) => console.log(error)
+        error: (error: any) => {
+          console.log(error)
+          if (error['status'] == 403) {
+            this.router.navigate(['login'])
+          }
+          else if (error['status'] >= 401) {
+            this.router.navigate(['401'])
+          }
+          else if (error['status'] >= 500) {
+            this.router.navigate(['500'])
+          }
+        }
       })
     this.router.navigate(['task-info'], {
-      queryParams:{
+      queryParams: {
         "taskId": taskId,
         "projectId": projectId
       }
@@ -175,9 +201,6 @@ export class TaskInfoComponent implements OnInit {
                 this.taskInfo.assignee = data['assignee']
                 this.taskInfo.reviewer = data['reviewer']
 
-                console.log(data)
-                console.log(this.taskInfo)
-
                 this.assignee.push({
                   item_id: this.taskInfo.assigneeId,
                   item_text: this.taskInfo.assignee.firstName + ' ' + this.taskInfo.assignee.lastName
@@ -191,7 +214,16 @@ export class TaskInfoComponent implements OnInit {
                 this.priority.push({item_id: 0, item_text: this.taskInfo.priorityName})
                 this.relatableDate = this.taskInfo.relatableFinishedDate
               },
-              error: err => console.log(err)
+              error: (error: any) => {
+                console.log(error)
+                if (error['status'] == 403) {
+                  this.router.navigate(['login'])
+                } else if (error['status'] >= 401) {
+                  this.router.navigate(['401'])
+                } else if (error['status'] >= 500) {
+                  this.router.navigate(['500'])
+                }
+              }
             }
           )
 
@@ -201,13 +233,32 @@ export class TaskInfoComponent implements OnInit {
               console.log(data)
               this.taskInfo.comments = data
             },
-            error: (error: any) => console.log(error)
+            error: (error: any) => {
+              console.log(error)
+              if (error['status'] == 403) {
+                this.router.navigate(['login'])
+              } else if (error['status'] >= 401) {
+                this.router.navigate(['401'])
+              } else if (error['status'] >= 500) {
+                this.router.navigate(['500'])
+              }
+            }
           })
 
         this.taskService.getChildTasks(taskId).subscribe({
           next: (data: any) => {
             console.log(data)
             this.subtasks = data
+          },
+          error: (error: any) => {
+            console.log(error)
+            if (error['status'] == 403) {
+              this.router.navigate(['login'])
+            } else if (error['status'] >= 401) {
+              this.router.navigate(['401'])
+            } else if (error['status'] >= 500) {
+              this.router.navigate(['500'])
+            }
           }
         })
 
@@ -221,7 +272,16 @@ export class TaskInfoComponent implements OnInit {
               })
               this.filtersLoaded = Promise.resolve(true)
             },
-            error: (error: any) => console.log(error)
+            error: (error: any) => {
+              console.log(error)
+              if (error['status'] == 403) {
+                this.router.navigate(['login'])
+              } else if (error['status'] >= 401) {
+                this.router.navigate(['401'])
+              } else if (error['status'] >= 500) {
+                this.router.navigate(['500'])
+              }
+            }
           })
 
         this.taskService.getAllTypes().subscribe({
@@ -230,7 +290,16 @@ export class TaskInfoComponent implements OnInit {
             data.forEach((el: any) => this.dropdownListType.push({item_id: counter++, item_text: el}))
             this.filtersLoaded1 = Promise.resolve(true)
           },
-          error: (error: any) => console.log(error)
+          error: (error: any) => {
+            console.log(error)
+            if (error['status'] == 403) {
+              this.router.navigate(['login'])
+            } else if (error['status'] >= 401) {
+              this.router.navigate(['401'])
+            } else if (error['status'] >= 500) {
+              this.router.navigate(['500'])
+            }
+          }
         })
 
         this.taskService.getAllStatuses().subscribe({
@@ -239,7 +308,16 @@ export class TaskInfoComponent implements OnInit {
             data.forEach((el: any) => this.dropdownListStatus.push({item_id: counter++, item_text: el}))
             this.filtersLoaded2 = Promise.resolve(true)
           },
-          error: (error: any) => console.log(error)
+          error: (error: any) => {
+            console.log(error)
+            if (error['status'] == 403) {
+              this.router.navigate(['login'])
+            } else if (error['status'] >= 401) {
+              this.router.navigate(['401'])
+            } else if (error['status'] >= 500) {
+              this.router.navigate(['500'])
+            }
+          }
         })
 
         this.taskService.getAllPriorities().subscribe({
@@ -248,7 +326,16 @@ export class TaskInfoComponent implements OnInit {
             data.forEach((el: any) => this.dropdownListPriority.push({item_id: counter++, item_text: el}))
             this.filtersLoaded3 = Promise.resolve(true)
           },
-          error: (error: any) => console.log(error)
+          error: (error: any) => {
+            console.log(error)
+            if (error['status'] == 403) {
+              this.router.navigate(['login'])
+            } else if (error['status'] >= 401) {
+              this.router.navigate(['401'])
+            } else if (error['status'] >= 500) {
+              this.router.navigate(['500'])
+            }
+          }
         })
 
       })

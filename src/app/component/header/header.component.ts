@@ -76,7 +76,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
           this.storeService.currentUser = this.currentUser
         },
-        error: err => console.log(err)
+        error: (error: any) => {
+          console.log(error)
+          if (error['status'] == 403) {
+            this.router.navigate(['login'])
+          }
+          else if (error['status'] >= 401) {
+            this.router.navigate(['401'])
+          }
+          else if (error['status'] >= 500) {
+            this.router.navigate(['500'])
+          }
+        }
       })
 
     this.timerSubscription = timer(0, 10000).pipe(

@@ -22,8 +22,7 @@ export class MenuComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private renderer: Renderer2
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
@@ -79,11 +78,11 @@ export class MenuComponent implements OnInit{
   }
 
   goLogout(){
+    localStorage.removeItem('access_token')
     this.router.navigate(['login'])
   }
 
   goTask() {
-    console.log('not here!')
     this.activatedRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
@@ -105,7 +104,7 @@ export class MenuComponent implements OnInit{
           queryParams:{
             "projectId": projectId
           }
-        })/*.then(() => window.location.reload())*/
+        })
       })
   }
 }

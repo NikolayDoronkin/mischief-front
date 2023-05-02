@@ -33,7 +33,7 @@ export class TaskComponent implements OnInit {
   goTaskInfo(projectId: string, taskId: string) {
     console.log('here!')
     this.router.navigate(['task-info'], {
-      queryParams:{
+      queryParams: {
         "taskId": taskId,
         "projectId": projectId
       }
@@ -46,7 +46,7 @@ export class TaskComponent implements OnInit {
         const projectId = params['projectId']
 
         this.router.navigate(['task-creation'], {
-          queryParams:{
+          queryParams: {
             "projectId": projectId
           }
         })
@@ -71,34 +71,34 @@ export class TaskComponent implements OnInit {
 
                 this.storeService.currentProject = data
               },
-              error: err => console.log(err)
+              error: (error: any) => {
+                console.log(error)
+                if (error['status'] == 403) {
+                  this.router.navigate(['login'])
+                } else if (error['status'] >= 401) {
+                  this.router.navigate(['401'])
+                } else if (error['status'] >= 500) {
+                  this.router.navigate(['500'])
+                }
+              }
             }
           )
 
         this.taskService.getTasksFromProject(projectId)
           .subscribe({
               next: (data: any) => {
-                console.log(data)
-                // this.taskResponse.id = data['id']
-                // this.taskResponse.number = data['number']
-                // this.taskResponse.title = data['title']
-                // this.taskResponse.description = data['description']
-                // this.taskResponse.assigneeId = data['assigneeId']
-                // this.taskResponse.reporterId = data['reporterId']
-                // this.taskResponse.created = data['created']
-                // this.taskResponse.updated = data['updated']
-                // this.taskResponse.relatableFinishedDate = data['relatableFinishedDate']
-                // this.taskResponse.priorityName = data['priorityName']
-                // this.taskResponse.status = data['status']
-                // this.taskResponse.relatedProjectId = data['relatedProjectId']
-                // this.taskResponse.type = data['type']
-                // this.taskResponse.parentTicketId = data['parentTicketId']
-                // this.taskResponse.reporterFirstName = data['reporter.firstName']
-                // this.taskResponse.reporterLastName = data['reporter.lastName']
-                // this.taskResponse.reporterLogin = data['reporter.login']
                 this.tasks = data
               },
-              error: (error: any) => console.log(error)
+              error: (error: any) => {
+                console.log(error)
+                if (error['status'] == 403) {
+                  this.router.navigate(['login'])
+                } else if (error['status'] >= 401) {
+                  this.router.navigate(['401'])
+                } else if (error['status'] >= 500) {
+                  this.router.navigate(['500'])
+                }
+              }
             }
           )
       })

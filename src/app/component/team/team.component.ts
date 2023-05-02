@@ -20,7 +20,8 @@ export class TeamComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService,
     private dialog: MatDialog
-  ) {}
+  ) {
+  }
 
   deleteUserFromProject(id: string) {
     console.log(this.projectId)
@@ -35,7 +36,12 @@ export class TeamComponent implements OnInit {
           window.location.reload()
         })
       },
-      error: (error: any) => console.log(error)
+      error: (error: any) => {
+        console.log(error)
+        if (error['status'] == 403) {
+          this.router.navigate(['login'])
+        }
+      }
     })
   }
 
@@ -51,6 +57,7 @@ export class TeamComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
   ngOnInit(): void {
     this.activatedRoute.queryParams
       .subscribe(params => {
@@ -62,9 +69,18 @@ export class TeamComponent implements OnInit {
             next: (data: any) => {
               this.users = data
             },
-            error: (error: any) => console.log(error)
+            error: (error: any) => {
+              console.log(error)
+              if (error['status'] == 403) {
+                this.router.navigate(['login'])
+              } else if (error['status'] >= 401) {
+                this.router.navigate(['401'])
+              } else if (error['status'] >= 500) {
+                this.router.navigate(['500'])
+              }
+            }
           })
-    })
+      })
   }
 }
 

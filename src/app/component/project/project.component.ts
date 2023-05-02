@@ -44,22 +44,19 @@ export class ProjectComponent implements OnInit {
         next: (data: any) => {
           console.log(data)
           this.projects = data
+        },
+        error: (error: any) => {
+          console.log(error)
+          if (error['status'] == 403) {
+            this.router.navigate(['login'])
+          }
+          else if (error['status'] >= 401) {
+            this.router.navigate(['401'])
+          }
+          else if (error['status'] >= 500) {
+            this.router.navigate(['500'])
+          }
         }
       })
-    // this.userService.getCurrentUser()
-    //   .subscribe({
-    //     next: (data: any) => {
-    //       console.log(data['creatorProjects'])
-    //       this.storeService.currentUser = new UserResponse(
-    //         data['id'],
-    //         data['firstName'],
-    //         data['lastName'],
-    //         data['login'],
-    //         data['creatorProjects'],
-    //       )
-    //       this.projects = this.storeService.currentUser.creatorProjects
-    //     },
-    //     error: err => console.log(err)
-    //   })
   }
 }
