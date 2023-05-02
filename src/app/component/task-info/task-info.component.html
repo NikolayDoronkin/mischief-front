@@ -211,22 +211,21 @@
         <div class="card-header py-3 d-flex justify-content-between align-items-center"
              style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
           <p class="text-primary m-0 fw-bold ali">Comments</p>
-          <a (click)="onCreationCommentDialog = !onCreationCommentDialog" class="btn btn-circle ms-1"
+          <a (click)="onCreationCommentDialogChange()" class="btn btn-circle ms-1"
              style="background-color: #4668c9" role="button"><i class="fas fa-plus text-white"></i></a>
         </div>
         <div class="card-body">
-          <div class="row" *ngIf="taskInfo.comments.length > 0">
-            <div class="row">
+          <div class="row">
+            <div class="row" *ngIf="taskInfo.comments.length > 0">
               <div *ngFor="let comment of taskInfo.comments" class="mb-3" style="display: inline-grid;overflow: auto;">
                 <label class="form-label">
                   <strong>{{comment.author.firstName}} {{comment.author.lastName}} on {{comment.created}}
                     :</strong></label>
-                <!--                <input id="username-9" type="text" placeholder="user.name" name="username" /></div>-->
                 <label class="form-label">{{comment.value}}</label>
               </div>
             </div>
             <ng-template #showNoComment [ngIf]="!onCreationCommentDialog" [ngIfElse]="showCommentCreationDialog">
-              <label *ngIf="taskInfo.comments.length < 0" class="form-label">
+              <label *ngIf="taskInfo.comments.length <= 0" class="form-label">
                 <strong>No comments here!</strong></label>
             </ng-template>
             <ng-template #showCommentCreationDialog>

@@ -36,6 +36,7 @@ export class MenuComponent implements OnInit{
       '../assets/js/theme.js',
       '../assets/js/bs-init.js',
       '../assets/js/chart.min.js',
+      '../assets/bootstrap/js/bootstrap.min.js'
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
       const node = document.createElement('script');

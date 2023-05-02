@@ -1,23 +1,68 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserResponse} from "../../model/user/user.response";
 import {StoreService} from "../../service/store.service";
 import {UserService} from "../../service/user.service";
+import {map, Subscription, timer} from "rxjs";
+import {NotificationService} from "../../service/notification.service";
+import {Notification} from "../../model/notification/notification";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [UserService]
+  providers: [UserService, NotificationService]
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit, OnDestroy {
 
+  activeNotifications: Notification[] = []
+
+  timerSubscription: Subscription;
   currentUser: UserResponse = new UserResponse("", "", "", "", [])
 
   constructor(
-    private storeService: StoreService,
     private service: UserService,
+    private storeService: StoreService,
+    private notificationService: NotificationService,
+    private router: Router,
   ) {
   }
+
+  checkActivatedNotificationLength() {
+    return this.activeNotifications.length > 0
+  }
+  handleActiveNotifications() {
+    const notificationIds: string[] = this.activeNotifications
+      .map(notification => notification.id);
+
+    this.notificationService.setViewed(notificationIds)
+      .subscribe({
+        next: (data: any) => {
+          this.activeNotifications = []
+        },
+        error: (error: any) => console.log(error)
+      })
+  }
+  openRelatedTicket(projectId: string, taskId: string) {
+    this.router.navigate(['task-info'], {
+      queryParams: {
+        "taskId": taskId,
+        "projectId": projectId
+      }
+    })
+  }
+
+  loadNotificationsForUser() {
+    this.notificationService.getNotificationsForUser()
+      .subscribe({
+        next: (data: any) => {
+          console.log(data)
+          this.activeNotifications = data
+        },
+        error: (error: any) => console.log(error)
+      })
+  }
+
   ngOnInit(): void {
     this.service.getCurrentUser()
       .subscribe({
@@ -33,6 +78,16 @@ export class HeaderComponent implements OnInit{
         },
         error: err => console.log(err)
       })
+
+    this.timerSubscription = timer(0, 10000).pipe(
+      map(() => {
+        this.loadNotificationsForUser(); // load data contains the http request
+      })
+    ).subscribe();
   }
 
+  ngOnDestroy(): void {
+    this.timerSubscription.unsubscribe();
+  }
 }
+

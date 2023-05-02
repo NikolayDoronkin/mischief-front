@@ -68,6 +68,10 @@ export class TaskInfoComponent implements OnInit {
     private commentService: CommentService,
   ) {
   }
+  onCreationCommentDialogChange() {
+    console.log(this.onCreationCommentDialog)
+    this.onCreationCommentDialog = !this.onCreationCommentDialog
+  }
 
   saveComment() {
     console.log(this.storeService.currentUser)
@@ -141,6 +145,7 @@ export class TaskInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.onCreationCommentDialog)
     this.activeRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
