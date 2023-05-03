@@ -7,6 +7,18 @@ export class ProjectService {
   constructor(private http: HttpClient) {
   }
 
+  getStatistics(projectId: string) {
+    return this.http.get('http://localhost:8081/project/' + projectId + '/statistics')
+  }
+
+  getProjectDashboard(projectId: string) {
+    return this.http.get('http://localhost:8081/project/' + projectId + '/getDashboardForProject')
+  }
+
+  getDashboard() {
+    return this.http.get('http://localhost:8081/project/getDashboard')
+  }
+
   deleteMemberFromProject(projectId: string, userId: string) {
     return this.http.post('http://localhost:8081/project/delete/' + projectId + '/delete/' + userId, {})
   }

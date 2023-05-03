@@ -67,7 +67,7 @@ export class TaskCreationComponent implements OnInit {
               if (error['status'] == 403) {
                 this.router.navigate(['login'])
               }
-              else if (error['status'] >= 401) {
+              else if (error['status'] == 401) {
                 this.router.navigate(['401'])
               }
               else if (error['status'] >= 500) {
@@ -101,7 +101,7 @@ export class TaskCreationComponent implements OnInit {
               if (error['status'] == 403) {
                 this.router.navigate(['login'])
               }
-              else if (error['status'] >= 401) {
+              else if (error['status'] == 401) {
                 this.router.navigate(['401'])
               }
               else if (error['status'] >= 500) {
@@ -129,7 +129,7 @@ export class TaskCreationComponent implements OnInit {
             if (error['status'] == 403) {
               this.router.navigate(['login'])
             }
-            else if (error['status'] >= 401) {
+            else if (error['status'] == 401) {
               this.router.navigate(['401'])
             }
             else if (error['status'] >= 500) {

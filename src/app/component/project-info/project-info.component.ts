@@ -4,6 +4,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Project} from "../../model/project/project";
 import {StoreService} from "../../service/store.service";
 import {UserResponse} from "../../model/user/user.response";
+import {ProjectDashboard} from "../../model/project/project.dashboard";
+import {ProjectStatistics} from "../../model/project/project.statistics";
+import {DialogContentExampleDialog} from "../team/team.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-project-info',
@@ -12,6 +16,12 @@ import {UserResponse} from "../../model/user/user.response";
   providers: [ProjectService]
 })
 export class ProjectInfoComponent implements OnInit {
+
+  isAdmin: boolean = false
+  projectStatistics: ProjectStatistics[] = []
+
+  dashboard: ProjectDashboard = new ProjectDashboard(
+    0, 0, 0, 0, [])
 
   project: Project = new Project("", "", "", "", "",
     new UserResponse("", "", "", "", []),
@@ -22,7 +32,30 @@ export class ProjectInfoComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService,
     private storeService: StoreService,
+    private dialog: MatDialog
   ) {
+  }
+
+  openUserProfilePopUp(userId: string) {
+    const dialogRef =
+      this.dialog.open(DialogContentExampleDialog, {
+        data: {
+          id: userId
+        }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  goTaskInfo(projectId: string, taskId: string) {
+    this.router.navigate(['task-info'], {
+      queryParams: {
+        "taskId": taskId,
+        "projectId": projectId
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -41,21 +74,51 @@ export class ProjectInfoComponent implements OnInit {
                 this.project.created = data['created']
 
                 this.storeService.currentProject = data
-                console.log(this.storeService.currentProject)
+
+                this.isAdmin = this.storeService.currentUser.id == this.project.creatorId;
+
+                if(this.isAdmin) {
+                  this.projectService.getStatistics(projectId).subscribe(
+                    {
+                      next: (data: any) => {
+                        console.log(data)
+                        this.projectStatistics = data
+                      },
+                      error: (error: any) => this.handleError(error)
+                    }
+                  )
+                }
               },
               error: (error: any) => {
-                console.log(error)
-                if (error['status'] == 403) {
-                  this.router.navigate(['login'])
-                } else if (error['status'] >= 401) {
-                  this.router.navigate(['401'])
-                } else if (error['status'] >= 500) {
-                  this.router.navigate(['500'])
-                }
+                this.handleError(error)
               }
             }
           )
 
+        this.projectService.getProjectDashboard(projectId)
+          .subscribe({
+            next: (data: any) => {
+              this.dashboard.totalTicketsFromProject = data['totalTicketsFromProject']
+              this.dashboard.done = data['done']
+              this.dashboard.inProgress = data['inProgress']
+              this.dashboard.onReview = data['onReview']
+              this.dashboard.lastUpdatedTickets = data['lastUpdatedTickets']
+            },
+            error: (error: any) => {
+              this.handleError(error)
+            }
+          })
       })
+  }
+
+  private handleError(error: any) {
+    console.log(error)
+    if (error['status'] == 403) {
+      this.router.navigate(['login'])
+    } else if (error['status'] == 401) {
+      this.router.navigate(['401'])
+    } else if (error['status'] >= 500) {
+      this.router.navigate(['500'])
+    }
   }
 }

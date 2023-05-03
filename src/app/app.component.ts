@@ -33,8 +33,6 @@ export class AppComponent {
       this.router.url.indexOf('?') == -1
         ? this.router.url
         : this.router.url.substring(0, this.router.url.indexOf('?'))
-
-    console.log(currentRoute)
     return this.availableUrls.includes(currentRoute) &&
       !this.loginUrls.includes(currentRoute)
   }

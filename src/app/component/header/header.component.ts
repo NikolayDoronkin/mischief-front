@@ -56,7 +56,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.notificationService.getNotificationsForUser()
       .subscribe({
         next: (data: any) => {
-          console.log(data)
           this.activeNotifications = data
         },
         error: (error: any) => console.log(error)
@@ -81,7 +80,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if (error['status'] == 403) {
             this.router.navigate(['login'])
           }
-          else if (error['status'] >= 401) {
+          else if (error['status'] == 401) {
             this.router.navigate(['401'])
           }
           else if (error['status'] >= 500) {

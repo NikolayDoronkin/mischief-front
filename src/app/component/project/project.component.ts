@@ -28,7 +28,6 @@ export class ProjectComponent implements OnInit {
   }
 
   goProject(id: string) {
-    console.log('project-info')
     this.router.navigate(['project-info'],
       {
         queryParams: {
@@ -50,7 +49,7 @@ export class ProjectComponent implements OnInit {
           if (error['status'] == 403) {
             this.router.navigate(['login'])
           }
-          else if (error['status'] >= 401) {
+          else if (error['status'] == 401) {
             this.router.navigate(['401'])
           }
           else if (error['status'] >= 500) {
