@@ -2,9 +2,15 @@
 <div class="row mb-3" *ngIf="filtersLoaded1 | async">
   <div class="col-lg-4">
     <div class="card mb-3" style="height: 100%">
-      <div class="card-body text-center shadow"><img class="rounded-0 mb-3 mt-4" src="https://lh3.googleusercontent.com/a-/AOh14Gj8TroAsLsoL-zSdEI3sQ7vxaqS8svlXFt4XQt8cw=s100"
-                                                     width="90%" height="90%"/>
+      <div class="card-body text-center">
+        <img class="rounded-0 mb-3 mt-4" src="{{userResponse.image}}" style="width:90%; height:90%" alt=""/>
       </div>
+      <form class="user">
+      <div class="m-3"><label class="form-label" for="image"><strong>Image url</strong></label>
+        <input [disabled]="!editable" [(ngModel)]="userResponse.image" id="image" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Image url" name="image" /></div>
+      <div class="m-3"><label class="form-label" for="description"><strong>About me</strong></label>
+        <textarea [disabled]="!editable" [(ngModel)]="userResponse.description" style="resize: none; height: 95px" id="description" class="form-control form-control-user" type="text" placeholder="About me" name="description"></textarea></div>
+      </form>
     </div>
   </div>
   <div class="col-lg-8">
@@ -16,16 +22,16 @@
               Settings</p>
           </div>
           <div class="card-body">
-            <form>
+            <form class="user">
               <div class="row">
                 <div class="col">
-                  <div class="mb-3"><label class="form-label" for="username"><strong>Login</strong></label>
-                    <input [disabled]="!editable" [(ngModel)]="userResponse.login" id="username" class="form-control" type="text" placeholder="user.name" name="username"/></div>
+                  <div class="mb-3"><label class="form-label" for="login"><strong>Login</strong></label>
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.login" id="login" class="form-control form-control-user" type="text" placeholder="user.name" name="login"/></div>
                 </div>
                 <div class="col">
                   <div class="mb-3"><label class="form-label" for="email"><strong>Email
                     Address</strong></label>
-                    <input [disabled]="!editable" [(ngModel)]="userResponse.id" id="email" class="form-control"
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.email" id="email" class="form-control form-control-user"
                                                    placeholder="user@example.com" name="email"/></div>
                 </div>
               </div>
@@ -34,15 +40,15 @@
                   <div class="mb-3"><label class="form-label" for="first_name"><strong>First
                     Name</strong></label>
                     <input [disabled]="!editable" [(ngModel)]="userResponse.firstName" id="first_name"
-                                                class="form-control" type="text"
+                                                class="form-control form-control-user" type="text"
                                                 placeholder="John"
                                                 name="first_name"/></div>
                 </div>
                 <div class="col">
                   <div class="mb-3"><label class="form-label" for="last_name"><strong>Last
                     Name</strong></label>
-                    <input [disabled]="!editable" [(ngModel)]="userResponse.lastName" id="last_name" class="form-control"
-                                                type="text" placeholder="Doe"
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.lastName" id="last_name"
+                           class="form-control form-control-user" type="text" placeholder="Doe"
                                                 name="last_name"/></div>
                 </div>
               </div>
@@ -55,21 +61,21 @@
               Settings</p>
           </div>
           <div class="card-body">
-            <form>
+            <form class="user">
               <div class="mb-3"><label class="form-label" for="address"><strong>Address</strong></label>
-                <input id="address" class="form-control" type="text" placeholder="Sunset Blvd, 38" name="address"/></div>
+                <input [disabled]="!editable" [(ngModel)]="userResponse.address" id="address" class="form-control form-control-user" type="text" placeholder="Sunset Blvd, 38" name="address"/></div>
               <div class="row">
                 <div class="col">
                   <div class="mb-3"><label class="form-label" for="city"><strong>City</strong></label>
-                    <input id="city" class="form-control" type="text" placeholder="Los Angeles" name="city"/></div>
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.city" id="city" class="form-control form-control-user" type="text" placeholder="Los Angeles" name="city"/></div>
                 </div>
                 <div class="col">
                   <div class="mb-3"><label class="form-label" for="country"><strong>Country</strong></label>
-                    <input id="country" class="form-control" type="text" placeholder="USA" name="country"/></div>
+                    <input [disabled]="!editable" [(ngModel)]="userResponse.country" id="country" class="form-control form-control-user" type="text" placeholder="USA" name="country"/></div>
                 </div>
               </div>
               <div class="mb-3">
-                <button [disabled]="!editable" (click)="updateUser()" class="btn btn-primary btn-sm" type="submit" style="background: #cd3e3e;">Save Settings
+                <button [disabled]="!editable" (click)="updateUser(userResponse)" class="btn btn-primary btn-sm" type="button" style="background: #cd3e3e;">Save Settings
                 </button>
               </div>
             </form>

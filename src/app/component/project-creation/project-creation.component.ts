@@ -14,7 +14,7 @@ import {UserResponse} from "../../model/user/user.response";
 export class ProjectCreationComponent implements OnInit{
 
   project: Project = new Project("", "", "", "", "",
-    new UserResponse("", "", "", "", []),
+    new UserResponse("", "", "", "", "", "", "", "", "", "", []),
     new Date(), [], [])
 
   dropdownList: any = [];

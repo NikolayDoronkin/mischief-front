@@ -19,24 +19,26 @@
                                              placeholder="Last Name" name="last_name"/></div>
               </div>
               <div class="row mb-3">
-                <div class="col-sm-6 mb-3 mb-sm-0"><input id="examplePasswordInput"
-                                                          class="form-control form-control-user" type="password"
+                <div class="col-sm-6 mb-3 mb-sm-0"><input id="3"
+                                                          class="form-control form-control-user" type="email"
                                                           placeholder="Email" name="password"/></div>
-                <div class="col-sm-6"><input [(ngModel)]="user.login" id="exampleRepeatPasswordInput" class="form-control form-control-user"
+                <div class="col-sm-6"><input [(ngModel)]="user.login" id="4" class="form-control form-control-user"
                                              type="text" placeholder="Login" name="password_repeat"/>
                 </div>
               </div>
-              <div class="mb-3"><input class="form-control form-control-user" type="email"
+              <div class="mb-3"><input class="form-control form-control-user" type="text"
                                        aria-describedby="emailHelp" placeholder="Address"/></div>
-              <div class="mb-3"><input class="form-control form-control-user" type="email"
+              <div class="mb-3"><input class="form-control form-control-user" type="text"
                                        aria-describedby="emailHelp" placeholder="City"/></div>
-              <div class="mb-3"><input class="form-control form-control-user" type="email"
+              <div class="mb-3"><input class="form-control form-control-user" type="text"
                                        aria-describedby="emailHelp" placeholder="Country"/></div>
+              <div class="mb-3"><input class="form-control form-control-user" type="url"
+                                       aria-describedby="emailHelp" placeholder="Image url"/></div>
               <div class="row mb-3">
-                <div class="col-sm-6 mb-3 mb-sm-0"><input [(ngModel)]="user.password" id="examplePasswordInput"
+                <div class="col-sm-6 mb-3 mb-sm-0"><input [(ngModel)]="user.password" id="1"
                                                           class="form-control form-control-user" type="password"
                                                           placeholder="Password" name="password"/></div>
-                <div class="col-sm-6"><input [(ngModel)]="user.repeatPassword" id="exampleRepeatPasswordInput" class="form-control form-control-user"
+                <div class="col-sm-6"><input [(ngModel)]="user.repeatPassword" id="2" class="form-control form-control-user"
                                              type="password" placeholder="Repeat Password" name="password_repeat"/>
                 </div>
               </div>

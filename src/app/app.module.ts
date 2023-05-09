@@ -25,13 +25,14 @@ import {DialogContentExampleDialog, TeamComponent} from './component/team/team.c
 import {AuthInterceptor} from "./service/auth.interceptor";
 import {StoreService} from "./service/store.service";
 import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
-import {JsonPipe} from "@angular/common";
+import {JsonPipe, NgOptimizedImage} from "@angular/common";
 import {MatDialogModule} from "@angular/material/dialog";
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { ServerErrorComponent } from './component/server-error/server-error.component';
 
 const globalRoutes: Routes = [
+  {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signIn', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent},
@@ -77,10 +78,10 @@ const globalRoutes: Routes = [
     NgbModule,
     FormsModule,
     HttpClientModule,
-    NgbDatepickerModule, NgbAlertModule, FormsModule, JsonPipe,
+    NgbDatepickerModule, NgbAlertModule, JsonPipe,
     RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
-    NgMultiSelectDropDownModule.forRoot(), MatDialogModule
+    NgMultiSelectDropDownModule.forRoot(), MatDialogModule, NgOptimizedImage
   ],
   providers: [
     {

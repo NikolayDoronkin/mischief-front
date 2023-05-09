@@ -21,7 +21,9 @@ export class ProfileComponent implements OnInit {
 
   editable: boolean = true
 
-  userResponse: UserResponse = new UserResponse("", "", "", "", [])
+  userResponse: UserResponse = new UserResponse(
+    "", "", "", "", "",
+    "", "", "", "", "", [])
 
   constructor(
     private service: UserService,
@@ -30,9 +32,20 @@ export class ProfileComponent implements OnInit {
     ) {
   }
 
-  updateUser() {
-    console.log(this.userResponse)
-    this.service.updateUser(new UpdateUser(this.userResponse.id, this.userResponse.login))
+  updateUser(userResponse: UserResponse) {
+    console.log(userResponse)
+    this.service.updateUser(new UpdateUser(
+      userResponse.id,
+      userResponse.login,
+      userResponse.firstName,
+      userResponse.lastName,
+      userResponse.description,
+      userResponse.address,
+      userResponse.city,
+      userResponse.country,
+      userResponse.image,
+      userResponse.email,
+    ))
       .subscribe({
         next: (data: any) => {
 
@@ -40,6 +53,13 @@ export class ProfileComponent implements OnInit {
           this.userResponse.firstName = data['firstName']
           this.userResponse.lastName = data['lastName']
           this.userResponse.login = data['login']
+
+          this.userResponse.email = data['email']
+          this.userResponse.image = data['image']
+          this.userResponse.address = data['address']
+          this.userResponse.city = data['city']
+          this.userResponse.country = data['country']
+
           this.userResponse.creatorProjects = data['creatorProjects']
 
           this.storeService.currentUser = this.userResponse
@@ -64,12 +84,18 @@ export class ProfileComponent implements OnInit {
         this.service.getCurrentUser()
           .subscribe({
             next: (data: any) => {
-
+              console.log(data)
               this.userResponse.id = data['id']
               this.userResponse.firstName = data['firstName']
               this.userResponse.lastName = data['lastName']
               this.userResponse.login = data['login']
               this.userResponse.creatorProjects = data['creatorProjects']
+
+              this.userResponse.email = data['email'] == null ? "" : data['email']
+              this.userResponse.image = data['image'] == null ? "" : data['image']
+              this.userResponse.address = data['address'] == null ? "" : data['address']
+              this.userResponse.city = data['city'] == null ? "" : data['city']
+              this.userResponse.country = data['country'] == null ? "" : data['country']
 
               this.storeService.currentUser = this.userResponse
               this.filtersLoaded1 = Promise.resolve(true)
@@ -92,10 +118,16 @@ export class ProfileComponent implements OnInit {
         this.service.getUserById(this.idFromTeamComponent)
           .subscribe({
             next: (data: any) => {
+              console.log(data)
               this.userResponse.id = data['id']
               this.userResponse.firstName = data['firstName']
               this.userResponse.lastName = data['lastName']
               this.userResponse.login = data['login']
+              this.userResponse.email = data['email'] == null ? "" : data['email']
+              this.userResponse.image = data['image'] == null ? "" : data['image']
+              this.userResponse.address = data['address'] == null ? "" : data['address']
+              this.userResponse.city = data['city'] == null ? "" : data['city']
+              this.userResponse.country = data['country'] == null ? "" : data['country']
               this.userResponse.creatorProjects = data['creatorProjects']
               this.filtersLoaded1 = Promise.resolve(true)
               this.editable = false

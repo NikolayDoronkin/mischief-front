@@ -24,7 +24,7 @@ export class ProjectInfoComponent implements OnInit {
     0, 0, 0, 0, [])
 
   project: Project = new Project("", "", "", "", "",
-    new UserResponse("", "", "", "", []),
+    new UserResponse("","", "", "", "", "", "",  "", "", "", []),
     new Date(), [], [])
 
   constructor(

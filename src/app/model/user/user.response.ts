@@ -6,6 +6,12 @@ export class UserResponse {
     public firstName: string,
     public lastName: string,
     public login: string,
+    public description: string,
+    public address: string,
+    public city: string,
+    public country: string,
+    public image: string,
+    public email: string,
     public creatorProjects: Project[]
   ) {
   }

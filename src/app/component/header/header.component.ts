@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   activeNotifications: Notification[] = []
 
   timerSubscription: Subscription;
-  currentUser: UserResponse = new UserResponse("", "", "", "", [])
+  currentUser: UserResponse = new UserResponse("", "", "", "", "", "", "", "", "", "", [])
 
   constructor(
     private service: UserService,
@@ -71,6 +71,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.currentUser.firstName = data['firstName']
           this.currentUser.lastName = data['lastName']
           this.currentUser.login = data['login']
+          this.currentUser.email = data['email']
+          this.currentUser.image = data['image']
+          this.currentUser.address = data['address']
+          this.currentUser.city = data['city']
+          this.currentUser.country = data['country']
           this.currentUser.creatorProjects = data['creatorProjects']
 
           this.storeService.currentUser = this.currentUser
@@ -89,7 +94,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       })
 
-    this.timerSubscription = timer(0, 10000).pipe(
+    this.timerSubscription = timer(0, 2000).pipe(
       map(() => {
         this.loadNotificationsForUser(); // load data contains the http request
       })

@@ -35,7 +35,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let user of users">
-            <td><img class="rounded-circle me-2" width="30" height="30" src="avatars/avatar1.jpeg"/>
+            <td><img class="rounded-circle me-2" width="30" height="30" src="{{user.image}}"/>
               {{user.firstName}} {{user.lastName}}
             </td>
             <td (click)="openUserProfilePopUp(user.id)">{{user.login}}</td>

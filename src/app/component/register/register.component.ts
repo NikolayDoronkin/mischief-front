@@ -17,8 +17,10 @@ export class RegisterComponent {
   private routing: any;
 
   user: SignInUser = new SignInUser(
-    "Nikolay", "Doronkin Mejia", "testAngularSignIn",
-    "barbecue", "barbecue");
+    "", "","",
+    "","","",
+    "","","","","",
+  )
 
   constructor(private loginService: UserService, private router: Router) {
   }
@@ -28,8 +30,12 @@ export class RegisterComponent {
   }
 
   signIn(user: SignInUser) {
-    console.log(user)
+    localStorage.setItem('access_token', '')
+    if (user.image == null || user.image == '') {
+      user.image = 'https://e7.pngegg.com/pngimages/59/659/png-clipart-computer-icons-scalable-graphics-avatar-emoticon-animal-fox-jungle-safari-zoo-icon-animals-orange-thumbnail.png'
+    }
     this.loginService.signIn(user)
+
   }
 
 }

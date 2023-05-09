@@ -16,7 +16,8 @@ import {Dashboard} from "../../model/project/dashboard";
 export class DashboardComponent implements OnInit {
 
   @Input()
-  public userResponse: UserResponse = new UserResponse('', '', '', '', [])
+  public userResponse: UserResponse = new UserResponse('', '', '', '',
+    "", "", "", "", "", "", [])
   dashboard: Dashboard = new Dashboard(0, 0, 0, 0, [], [])
 
   constructor(

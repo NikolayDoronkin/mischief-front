@@ -49,12 +49,12 @@ export class TaskInfoComponent implements OnInit {
     "", "", "", "ttt", "", "",
     "", new Date(), new Date(), "", "", "",
     "", "", "",
-    new UserResponse("", "", "", "", []),
-    new UserResponse("", "", "", "", []),
-    new UserResponse("", "", "", "", []),
+    new UserResponse("", "", "", "", "", "", "", "", "", "", []),
+    new UserResponse("","", "", "", "", "", "",  "", "", "", []),
+    new UserResponse("", "", "", "", "", "", "", "", "", "", []),
     [], [],
     new Project("", "", "", "", "",
-      new UserResponse("", "", "", "", []),
+      new UserResponse("","", "", "", "", "", "",  "", "", "", []),
       new Date(), [], []),
     [])
 

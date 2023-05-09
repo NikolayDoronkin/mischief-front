@@ -24,8 +24,12 @@
           <div class="col-xl-10 col-xxl-11" style="display: inline-block;">
             <div class="mb-3" style="display: grid;"><label class="form-label"
                                                             style="display: grid;"><strong>Reporter</strong></label>
-              <label class="form-label"
-                     style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
+              <div class="row">
+                <img class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reporter.image}}"/>
+                <label class="form-label"
+                       style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
+
+              </div>
             </div>
             <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Assignee</strong></label>
               <label *ngIf="!onUpdated else editAssignee" class="form-label"

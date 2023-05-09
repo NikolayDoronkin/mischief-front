@@ -18,7 +18,8 @@ export class TaskComponent implements OnInit {
   tasks: TaskResponse[] = []
 
   project: Project = new Project("", "", "", "", "",
-    new UserResponse("", "", "", "", []),
+    new UserResponse("", "", "", "", "", "",
+      "", "", "", "", []),
     new Date(), [], [])
 
   constructor(
