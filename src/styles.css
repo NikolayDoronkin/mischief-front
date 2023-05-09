@@ -2,3 +2,7 @@
 @import "assets/fonts/fontawesome-all.min.css";
 @import "assets/bootstrap/css/bootstrap.min.css";
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.hovering:hover {
+  color: #2f4586;
+}

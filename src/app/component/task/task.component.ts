@@ -15,6 +15,7 @@ import {UserResponse} from "../../model/user/user.response";
 })
 export class TaskComponent implements OnInit {
 
+  hovered: boolean = false
   tasks: TaskResponse[] = []
 
   project: Project = new Project("", "", "", "", "",

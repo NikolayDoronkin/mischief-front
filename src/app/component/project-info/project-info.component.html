@@ -72,7 +72,7 @@
               <thead>
               <tr></tr>
               </thead>
-              <tbody *ngFor="let task of dashboard.lastUpdatedTickets">
+              <tbody *ngFor="let task of dashboard.lastUpdatedTickets" class="hovering">
               <tr (click)="goTaskInfo(task.relatedProjectId, task.id)">
                 <td>{{task.relatedProject.shortName}}-{{task.number}}</td>
                 <td>{{task.title}}</td>

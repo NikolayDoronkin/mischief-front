@@ -12,6 +12,7 @@ import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 })
 export class TeamComponent implements OnInit {
 
+  hovered: boolean = false
   users: UserResponse[] = []
   projectId: string = ''
 

@@ -43,13 +43,13 @@
           </tr>
           </thead>
           <tbody>
-          <tr (click)="goTaskInfo(project.id, task.id)" *ngFor="let task of tasks">
+          <tr (click)="goTaskInfo(project.id, task.id)" *ngFor="let task of tasks" class="hovering">
             <td (click)="goTaskInfo(project.id, task.id)">{{project.shortName}}-{{task.number}}</td>
             <td (click)="goTaskInfo(project.id, task.id)">{{task.title}}</td>
             <td (click)="goTaskInfo(project.id, task.id)">{{task.priorityName}}</td>
             <td (click)="goTaskInfo(project.id, task.id)">{{task.type}}</td>
             <td (click)="goTaskInfo(project.id, task.id)">{{task.status}}</td>
-            <td (click)="goTaskInfo(project.id, task.id)"><img class="rounded-circle me-2" width="30" height="30" src="avatars/avatar1.jpeg"/>
+            <td (click)="goTaskInfo(project.id, task.id)"><img class="rounded-circle me-2" width="30" height="30" src="{{task.reporter.image}}"/>
               {{task.reporter.firstName}} {{task.reporter.lastName}}
             </td>
           </tr>

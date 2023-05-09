@@ -13,27 +13,35 @@
             </div>
             <form class="user">
               <div class="row mb-3">
-                <div class="col-sm-6 mb-3 mb-sm-0"><input [(ngModel)]="user.firstName" id="exampleFirstName" class="form-control form-control-user"
-                                                          type="text" placeholder="First Name" name="first_name"/></div>
-                <div class="col-sm-6"><input [(ngModel)]="user.lastName" id="exampleLastName" class="form-control form-control-user" type="text"
-                                             placeholder="Last Name" name="last_name"/></div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-6 mb-3 mb-sm-0"><input id="3"
-                                                          class="form-control form-control-user" type="email"
-                                                          placeholder="Email" name="password"/></div>
-                <div class="col-sm-6"><input [(ngModel)]="user.login" id="4" class="form-control form-control-user"
-                                             type="text" placeholder="Login" name="password_repeat"/>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <input [(ngModel)]="user.firstName" id="firstName" class="form-control form-control-user"
+                         type="text" placeholder="First Name" name="firstName"/>
+                </div>
+                <div class="col-sm-6">
+                  <input [(ngModel)]="user.lastName" id="lastName" class="form-control form-control-user" type="text"
+                         placeholder="Last Name" name="lastName"/>
                 </div>
               </div>
-              <div class="mb-3"><input class="form-control form-control-user" type="text"
-                                       aria-describedby="emailHelp" placeholder="Address"/></div>
-              <div class="mb-3"><input class="form-control form-control-user" type="text"
-                                       aria-describedby="emailHelp" placeholder="City"/></div>
-              <div class="mb-3"><input class="form-control form-control-user" type="text"
-                                       aria-describedby="emailHelp" placeholder="Country"/></div>
-              <div class="mb-3"><input class="form-control form-control-user" type="url"
-                                       aria-describedby="emailHelp" placeholder="Image url"/></div>
+              <div class="row mb-3">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <input [(ngModel)]="user.email" id="email" class="form-control form-control-user" type="email" placeholder="Email" name="email"/>
+                </div>
+                <div class="col-sm-6"><input [(ngModel)]="user.login" id="login" class="form-control form-control-user"
+                                             type="text" placeholder="Login" name="login"/>
+                </div>
+              </div>
+              <div class="mb-3">
+                <input [(ngModel)]="user.address" id="address" name="address" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="Address"/>
+              </div>
+              <div class="mb-3">
+                <input [(ngModel)]="user.city" id="city" name="city" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="City"/>
+              </div>
+              <div class="mb-3">
+                <input [(ngModel)]="user.country" id="country" name="country" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="Country"/>
+              </div>
+              <div class="mb-3">
+                <input [(ngModel)]="user.image" id="image" name="image" class="form-control form-control-user" type="url" aria-describedby="emailHelp" placeholder="Image url"/>
+              </div>
               <div class="row mb-3">
                 <div class="col-sm-6 mb-3 mb-sm-0"><input [(ngModel)]="user.password" id="1"
                                                           class="form-control form-control-user" type="password"

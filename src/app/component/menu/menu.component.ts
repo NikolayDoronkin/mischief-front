@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit{
   state: string = 'initial'
 
   constructor(
-    private router: Router,
+    public router: Router,
     private activatedRoute: ActivatedRoute
   ) {
   }

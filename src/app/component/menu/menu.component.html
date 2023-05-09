@@ -7,10 +7,10 @@
     </a>
       <hr class="sidebar-divider my-0" />
       <ul id="accordionSidebar" class="navbar-nav text-light">
-        <li class="nav-item"><a (click)="goDashboard()" class="nav-link"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-        <li class="nav-item"><a (click)="goProfile()" class="nav-link"><i class="fas fa-user"></i><span>Profile</span></a></li>
-        <li class="nav-item"><a (click)="goProjects()" class="nav-link"><i class="fas fa-table"></i><span>Projects</span></a></li>
-        <li class="nav-item"><a (click)="goLogout()" class="nav-link" ><i class="far fa-user-circle"></i><span>Logout</span></a></li>
+        <li class="nav-item"><a [ngClass]="router.url == '/dashboard' ? 'nav-link active' : 'nav-link'" (click)="goDashboard()" class="nav-link"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+        <li class="nav-item"><a [ngClass]="router.url == '/profile' ? 'nav-link active' : 'nav-link'" (click)="goProfile()" class="nav-link"><i class="fas fa-user"></i><span>Profile</span></a></li>
+        <li class="nav-item"><a [ngClass]="router.url == '/project' ? 'nav-link active' : 'nav-link'" (click)="goProjects()" class="nav-link"><i class="fas fa-table"></i><span>Projects</span></a></li>
+        <li class="nav-item"><a [ngClass]="router.url == '/logout' ? 'nav-link active' : 'nav-link'" (click)="goLogout()" class="nav-link" ><i class="far fa-user-circle"></i><span>Logout</span></a></li>
       </ul>
       <ul *ngIf="checkProjectInfoPage()" [@expandedPanel] = "state" id="accordionSidebar-1" class="navbar-nav text-light">
         <label class="p" (click)="goProjectInfo()" style="font-size: 24px; text-align: center;">Project Menu</label>

@@ -7,8 +7,8 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-6 text-nowrap">
-          <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Show <select
-            class="d-inline-block form-select form-select-sm">
+          <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Show
+            <select class="d-inline-block form-select form-select-sm">
             <option value="10" selected>10</option>
             <option value="25">25</option>
             <option value="50">50</option>
@@ -34,7 +34,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let user of users">
+          <tr *ngFor="let user of users" class="hovering">
             <td><img class="rounded-circle me-2" width="30" height="30" src="{{user.image}}"/>
               {{user.firstName}} {{user.lastName}}
             </td>

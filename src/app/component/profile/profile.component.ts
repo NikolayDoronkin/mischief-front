@@ -96,6 +96,7 @@ export class ProfileComponent implements OnInit {
               this.userResponse.address = data['address'] == null ? "" : data['address']
               this.userResponse.city = data['city'] == null ? "" : data['city']
               this.userResponse.country = data['country'] == null ? "" : data['country']
+              this.userResponse.description = data['description'] == null ? "" : data['description']
 
               this.storeService.currentUser = this.userResponse
               this.filtersLoaded1 = Promise.resolve(true)

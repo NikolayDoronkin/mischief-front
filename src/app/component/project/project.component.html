@@ -16,13 +16,16 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-6 text-nowrap">
-          <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label
-            class="form-label">Show<select class="d-inline-block form-select form-select-sm">
-            <option value="10" selected>10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select></label></div>
+          <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+            <label class="form-label">Show
+              <mat-select (selectionchange)="findByPage1($event, page)" #changeEl [(value)]="size" class="d-inline-block">
+                <mat-option (selectstart)="findByPage(10, page)" value="10" selected>{{defaultSize}}</mat-option>
+                <mat-option (selectstart)="findByPage(25, page)" value="25">25</mat-option>
+                <mat-option (selectstart)="findByPage(50, page)" value="50">50</mat-option>
+                <mat-option (selectstart)="findByPage(100, page)" value="100">100</mat-option>
+              </mat-select>
+            </label>
+          </div>
         </div>
         <div class="col-md-6">
           <div id="dataTable_filter" class="text-md-end dataTables_filter"><label class="form-label"><input
@@ -41,11 +44,12 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let project of projects">
+          <tr *ngFor="let project of projects" class="hovering">
             <td (click)="goProject(project.id)">{{project.name}}</td>
             <td (click)="goProject(project.id)">{{project.shortName}}</td>
             <td (click)="goProject(project.id)">{{project.created}}</td>
-            <td (click)="goProject(project.id)"><img class="rounded-circle me-2" width="30" height="30" src="avatars/avatar1.jpeg"/>{{project.creator.firstName}} {{project.creator.lastName}}</td>
+            <td (click)="goProject(project.id)"><img class="rounded-circle me-2" width="30" height="30" src="{{project.creator.image}}"/>
+              {{project.creator.firstName}} {{project.creator.lastName}}</td>
           </tr>
           <tr></tr>
           </tbody>

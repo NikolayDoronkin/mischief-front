@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {UserService} from "../../service/user.service";
 import {StoreService} from "../../service/store.service";
 import {Project} from "../../model/project/project";
-import {UserResponse} from "../../model/user/user.response";
 import {ProjectService} from "../../service/project.service";
 
 @Component({
@@ -15,6 +13,15 @@ import {ProjectService} from "../../service/project.service";
 export class ProjectComponent implements OnInit {
 
   projects: Project[] = []
+  defaultPage = 0
+  defaultSize = 10
+
+  page: number
+  size: number
+  totalElements: number
+  numberOfElements: number
+  totalPages: number
+
 
   constructor(
     private router: Router,
@@ -36,13 +43,20 @@ export class ProjectComponent implements OnInit {
       })
   }
 
-  ngOnInit(): void {
-    console.log(this.storeService.currentUser)
-    this.projectService.getAllAccessedProject(this.storeService.currentUser.id)
+  findByPage1($event: any, page: number) {
+    console.log($event)
+    console.log(page)
+  }
+  findByPage(size: number, page: number) {
+    this.projectService.getAllAccessedProject(this.storeService.currentUser.id, page, size)
       .subscribe({
         next: (data: any) => {
           console.log(data)
-          this.projects = data
+          this.projects = data['content']
+          this.size = data['size']
+          this.totalElements = data['totalElements']
+          this.numberOfElements = data['numberOfElements']
+          this.totalPages = data['totalPages']
         },
         error: (error: any) => {
           console.log(error)
@@ -58,4 +72,11 @@ export class ProjectComponent implements OnInit {
         }
       })
   }
+
+  ngOnInit(): void {
+    console.log(this.storeService.currentUser)
+    this.findByPage(this.defaultSize, this.defaultPage)
+  }
+
+    protected readonly onmouseenter = onmouseenter;
 }

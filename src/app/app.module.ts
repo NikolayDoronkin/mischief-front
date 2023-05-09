@@ -30,6 +30,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { ServerErrorComponent } from './component/server-error/server-error.component';
+import {MatSelectModule} from "@angular/material/select";
 
 const globalRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -73,16 +74,16 @@ const globalRoutes: Routes = [
     UnauthorizedComponent,
     ServerErrorComponent
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    FormsModule,
-    HttpClientModule,
-    NgbDatepickerModule, NgbAlertModule, JsonPipe,
-    RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
-    BrowserAnimationsModule,
-    NgMultiSelectDropDownModule.forRoot(), MatDialogModule, NgOptimizedImage
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        FormsModule,
+        HttpClientModule,
+        NgbDatepickerModule, NgbAlertModule, JsonPipe,
+        RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
+        BrowserAnimationsModule,
+        NgMultiSelectDropDownModule.forRoot(), MatDialogModule, NgOptimizedImage, MatSelectModule
+    ],
   providers: [
     {
       provide : HTTP_INTERCEPTORS,
