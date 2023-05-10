@@ -50,7 +50,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.notificationService.getNotificationsForUser()
       .subscribe({
         next: (data: any) => {
-          console.log(data)
           this.activeNotifications = data
         },
         error: (error: any) => console.log(error)

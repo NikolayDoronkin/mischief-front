@@ -9,5 +9,6 @@ export class CreateTask {
     public reviewerId: string,
     public priorityName: string,
     public parentTicketId: string,
+    public difficulty: number
   ) {}
 }

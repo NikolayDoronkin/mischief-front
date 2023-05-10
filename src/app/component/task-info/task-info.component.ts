@@ -8,6 +8,7 @@ import {UserResponse} from "../../model/user/user.response";
 import {CommentService} from "../../service/comment.service";
 import {Comment} from "../../model/comment/comment";
 import {StoreService} from "../../service/store.service";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-task-info',
@@ -17,13 +18,16 @@ import {StoreService} from "../../service/store.service";
 })
 export class TaskInfoComponent implements OnInit {
 
+  statusError = ''
+
+  currentDate: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1)
+  updated: boolean = false
   commentValue: string = ''
 
   onCreationCommentDialog: boolean = false
 
   subtasks: TaskResponse[] = []
 
-  currentDate = new Date()
   onUpdated: boolean = false
 
   dropdownListAccessedUsers: any = [];
@@ -37,6 +41,9 @@ export class TaskInfoComponent implements OnInit {
   status: any = [];
   priority: any = [];
   relatableDate: any
+  relatableDate1 = new FormGroup({
+    finishing: new FormControl<Date | null>(null)
+  })
 
   dropdownSettingsSingle: any = {};
 
@@ -56,7 +63,7 @@ export class TaskInfoComponent implements OnInit {
     new Project("", "", "", "", "",
       new UserResponse("","", "", "", "", "", "",  "", "", "", []),
       new Date(), [], []),
-    [])
+    [], 0)
 
 
   constructor(
@@ -101,29 +108,35 @@ export class TaskInfoComponent implements OnInit {
   }
 
   updateTicket() {
+    console.log(this.taskInfo)
+    this.taskInfo.type = this.type.length > 0 ? this.type.pop()['item_text'] : null
+    this.taskInfo.status = this.status.length > 0 ? this.status.pop()['item_text'] : null
+    this.taskInfo.priorityName = this.priority.length > 0 ? this.priority.pop()['item_text'] : null
+    this.taskInfo.assigneeId = this.assignee.length > 0 ? this.assignee.pop()['item_id'] : null
+    this.taskInfo.reviewerId = this.reviewer.length > 0 ? this.reviewer.pop()['item_id'] : null
 
-    console.log(this.type)
-    this.taskInfo.type = this.type.pop()['item_text']
-    this.taskInfo.status = this.status.pop()['item_text']
-    this.taskInfo.priorityName = this.priority.pop()['item_text']
-    this.taskInfo.assigneeId = this.assignee.pop()['item_id']
-    this.taskInfo.reviewerId = this.reviewer.pop()['item_id']
     let month = ''
     let day = ''
-    if (this.relatableDate['month'] < 10) {
-      month = '0' + this.relatableDate['month']
-    } else {
-      month = this.relatableDate['month']
-    }
-    if (this.relatableDate['day'] < 10) {
-      day = '0' + this.relatableDate['day']
-    } else {
-      day = this.relatableDate['day']
-    }
-    this.taskInfo.relatableFinishedDate = this.relatableDate['year'] + '-' + month + '-' + day
-    console.log(this.taskInfo.relatableFinishedDate)
-    console.log(this.relatableDate)
+    let rawValue = this.relatableDate1.controls['finishing'].getRawValue();
 
+    if (rawValue != undefined && typeof rawValue != "string") {
+      let monthFromDatePicker = rawValue!.getMonth() + 1;
+      let dateFromDatePicker = rawValue!.getDate();
+      if (monthFromDatePicker < 10) {
+        month = '0' + monthFromDatePicker
+      } else {
+        month = '' + monthFromDatePicker
+      }
+      if (dateFromDatePicker < 10) {
+        day = '0' + dateFromDatePicker
+      } else {
+        day = '' + dateFromDatePicker
+      }
+      this.taskInfo.relatableFinishedDate = rawValue.getFullYear() + '-' + month + '-' + day
+    } else {
+      this.taskInfo.relatableFinishedDate = rawValue
+    }
+    console.log(this.taskInfo.relatableFinishedDate)
     this.taskService.updateTask(this.taskInfo).subscribe({
       next: (data: any) => {
         console.log(data)
@@ -136,6 +149,30 @@ export class TaskInfoComponent implements OnInit {
         console.log(error)
         if (error['status'] == 403) {
           this.router.navigate(['login'])
+        } else if (error['status'] == 404 || error['status'] == 400) {
+          let errorElements = error['error'];
+          this.statusError = errorElements['errors'][0];
+          let indexOf = this.statusError.indexOf(':', 0);
+          if (indexOf != -1) {
+            this.statusError = this.statusError.substring(indexOf + 1, this.statusError.lastIndexOf(':'))
+          }
+
+          if (this.taskInfo.assignee != null) {
+            this.assignee.push({
+              item_id: this.taskInfo.assigneeId,
+              item_text: this.taskInfo.assignee.firstName + ' ' + this.taskInfo.assignee.lastName
+            })
+          }
+          if (this.taskInfo.reviewer != null) {
+            this.reviewer.push({
+              item_id: this.taskInfo.reviewer.id,
+              item_text: this.taskInfo.reviewer.firstName + ' ' + this.taskInfo.reviewer.lastName
+            })
+          }
+          this.type.push({item_id: 0, item_text: this.taskInfo.type})
+          this.status.push({item_id: 0, item_text: this.taskInfo.status})
+          this.priority.push({item_id: 0, item_text: this.taskInfo.priorityName})
+          this.relatableDate = this.taskInfo.relatableFinishedDate
         }
       }
     })
@@ -201,18 +238,25 @@ export class TaskInfoComponent implements OnInit {
                 this.taskInfo.reporter = data['reporter']
                 this.taskInfo.assignee = data['assignee']
                 this.taskInfo.reviewer = data['reviewer']
+                this.taskInfo.difficulty = data['difficulty']
 
-                this.assignee.push({
-                  item_id: this.taskInfo.assigneeId,
-                  item_text: this.taskInfo.assignee.firstName + ' ' + this.taskInfo.assignee.lastName
-                })
-                this.reviewer.push({
-                  item_id: this.taskInfo.reviewer.id,
-                  item_text: this.taskInfo.reviewer.firstName + ' ' + this.taskInfo.reviewer.lastName
-                })
-                this.type.push({item_id: 0, item_text: this.taskInfo.type})
-                this.status.push({item_id: 0, item_text: this.taskInfo.status})
-                this.priority.push({item_id: 0, item_text: this.taskInfo.priorityName})
+                this.relatableDate = this.taskInfo.relatableFinishedDate
+
+                if (this.taskInfo.assignee != null) {
+                  this.assignee.push({
+                    item_id: this.taskInfo.assigneeId,
+                    item_text: this.taskInfo.assignee.firstName + ' ' + this.taskInfo.assignee.lastName
+                  })
+                }
+                if (this.taskInfo.reviewer != null) {
+                  this.reviewer.push({
+                    item_id: this.taskInfo.reviewer.id,
+                    item_text: this.taskInfo.reviewer.firstName + ' ' + this.taskInfo.reviewer.lastName
+                  })
+                }
+                // this.type.push({item_id: 0, item_text: this.taskInfo.type})
+                // this.status.push({item_id: 0, item_text: this.taskInfo.status})
+                // this.priority.push({item_id: 0, item_text: this.taskInfo.priorityName})
                 this.relatableDate = this.taskInfo.relatableFinishedDate
               },
               error: (error: any) => {
@@ -228,10 +272,8 @@ export class TaskInfoComponent implements OnInit {
             }
           )
 
-        this.commentService.getCommentsFromTicket(taskId)
-          .subscribe({
+        this.commentService.getCommentsFromTicket(taskId).subscribe({
             next: (data: any) => {
-              console.log(data)
               this.taskInfo.comments = data
             },
             error: (error: any) => {
@@ -288,7 +330,12 @@ export class TaskInfoComponent implements OnInit {
         this.taskService.getAllTypes().subscribe({
           next: (data: any) => {
             let counter = 0;
-            data.forEach((el: any) => this.dropdownListType.push({item_id: counter++, item_text: el}))
+            data.forEach((el: any) => {
+              if (el == this.taskInfo.type) {
+                this.type.push({item_id: counter, item_text: this.taskInfo.type})
+              }
+              this.dropdownListType.push({item_id: counter++, item_text: el})
+            })
             this.filtersLoaded1 = Promise.resolve(true)
           },
           error: (error: any) => {
@@ -306,7 +353,12 @@ export class TaskInfoComponent implements OnInit {
         this.taskService.getAllStatuses().subscribe({
           next: (data: any) => {
             let counter = 0;
-            data.forEach((el: any) => this.dropdownListStatus.push({item_id: counter++, item_text: el}))
+            data.forEach((el: any) => {
+              if (el == this.taskInfo.status) {
+                this.status.push({item_id: counter, item_text: this.taskInfo.status})
+              }
+              this.dropdownListStatus.push({item_id: counter++, item_text: el})
+            })
             this.filtersLoaded2 = Promise.resolve(true)
           },
           error: (error: any) => {
@@ -324,7 +376,12 @@ export class TaskInfoComponent implements OnInit {
         this.taskService.getAllPriorities().subscribe({
           next: (data: any) => {
             let counter = 0;
-            data.forEach((el: any) => this.dropdownListPriority.push({item_id: counter++, item_text: el}))
+            data.forEach((el: any) => {
+              if (el == this.taskInfo.priorityName) {
+                this.priority.push({item_id: counter, item_text: this.taskInfo.priorityName})
+              }
+              this.dropdownListPriority.push({item_id: counter++, item_text: el})
+            })
             this.filtersLoaded3 = Promise.resolve(true)
           },
           error: (error: any) => {
@@ -338,7 +395,6 @@ export class TaskInfoComponent implements OnInit {
             }
           }
         })
-
       })
 
     this.dropdownSettingsSingle = {
@@ -346,7 +402,8 @@ export class TaskInfoComponent implements OnInit {
       idField: 'item_id',
       textField: 'item_text',
       itemsShowLimit: 3,
-      allowSearchFilter: true
+      allowSearchFilter: true,
+      showSelectedItemsAtTop: false
     };
   }
 
@@ -361,6 +418,30 @@ export class TaskInfoComponent implements OnInit {
         }
         break
       }
+      case 'type': {
+        if (!clear) {
+          this.type.push(item)
+        } else {
+          this.type.pop(item)
+        }
+        break
+      }
+      case 'status': {
+        if (!clear) {
+          this.status.push(item)
+        } else {
+          this.status.pop(item)
+        }
+        break
+      }
+      case 'priority': {
+        if (!clear) {
+          this.priority.push(item)
+        } else {
+          this.priority.pop(item)
+        }
+        break
+      }
       case 'reviewer': {
         if (!clear) {
           this.reviewer.push(item)
@@ -370,5 +451,6 @@ export class TaskInfoComponent implements OnInit {
         break
       }
     }
+    this.updated = true
   }
 }

@@ -54,6 +54,14 @@
                   (onDeSelect)="onItemSelect($event, 'priority', true)">
                 </ng-multiselect-dropdown>
               </div>
+
+              <div class="mb-3"><label class="form-label" for="last_name">
+                <strong>Difficulty</strong>
+              </label>
+                <input [(ngModel)]="createTaskRequest.difficulty" id="username" class="form-control" type="text"
+                       placeholder="Difficulty" required min="0" max="20" name="difficulty"/>
+              </div>
+
               <div class="mb-3"><label class="form-label" for="last_name">
                 <strong>Parent ticket</strong>
               </label>

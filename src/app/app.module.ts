@@ -32,6 +32,10 @@ import { UnauthorizedComponent } from './component/unauthorized/unauthorized.com
 import { ServerErrorComponent } from './component/server-error/server-error.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MAT_DATE_FORMATS, MatNativeDateModule} from "@angular/material/core";
 
 const globalRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -84,7 +88,10 @@ const globalRoutes: Routes = [
     NgbDatepickerModule, NgbAlertModule, JsonPipe,
     RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
-    NgMultiSelectDropDownModule.forRoot(), MatDialogModule, NgOptimizedImage, MatSelectModule, ReactiveFormsModule
+    NgMultiSelectDropDownModule.forRoot(),
+    MatDialogModule, NgOptimizedImage, MatSelectModule,
+    ReactiveFormsModule, MatDatepickerModule, MatIconModule,
+    MatInputModule, MatNativeDateModule
   ],
   providers: [
     {

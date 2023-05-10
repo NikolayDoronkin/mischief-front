@@ -25,7 +25,8 @@ export class TaskResponse {
     public listeners: UserResponse[],
     public accessableUsers: UserResponse[],
     public relatedProject: Project,
-    public comments: Comment[]
+    public comments: Comment[],
+    public difficulty: number
   ) {
   }
 }

@@ -1,17 +1,23 @@
 <div class="container-fluid">
-  <div class="text-center justify-content-between" style="display: flex;position: static;">
+  <div class="row align-items-center">
+  <div class="col text-center justify-content-start m-2" style="display: flex;position: static;">
     <h3 *ngIf="!onUpdated else editTitle" class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}
       -{{taskInfo.number}} - {{taskInfo.title}}</h3>
     <ng-template #editTitle>
-      <input [(ngModel)]="taskInfo.title" [ngModelOptions]="{standalone: true}" id="username" class="form-control m-2"
+      <input (change)="updated = true" [(ngModel)]="taskInfo.title" [ngModelOptions]="{standalone: true}" id="username"
+             class="form-control"
+             style="margin-right: 10px"
              type="text" placeholder="user.name"
              name="first"/>
     </ng-template>
-    <div class="text-center justify-content-between" style="display: flex;position: static; width: 200px">
+    <div class="col text-center justify-content-end align-items-center"
+         style="display: flex;position: static; width: 200px; height: fit-content">
       <button (click)="onUpdated = !onUpdated;" class="btn btn-primary"
+              style="margin-right: 10px"
               type="button">{{onUpdated ? 'Cansel' : 'Edit'}}</button>
-      <button *ngIf="onUpdated" (click)="updateTicket()" class="btn btn-primary" type="button">Save</button>
+      <button *ngIf="onUpdated" [disabled]="!updated" (click)="updateTicket()" class="btn btn-primary" type="button">Save</button>
     </div>
+  </div>
   </div>
   <div class="row mb-3">
     <div class="col-lg-4">
@@ -52,7 +58,7 @@
             <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Reviewer</strong></label>
 
               <div *ngIf="!onUpdated else editReviewer" style="display: inline-flex;">
-                <img class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reviewer.image}}"/>
+                <img *ngIf="taskInfo.reviewer != null" class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reviewer.image}}"/>
                 <label class="form-label" style="display: grid;">{{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}}</label>
               </div>
               <ng-template #editReviewer>
@@ -109,6 +115,7 @@
                   (onSelect)="onItemSelect($event, 'status', false)"
                   (onDeSelect)="onItemSelect($event, 'status', true)">
                 </ng-multiselect-dropdown>
+                <h4 *ngIf="statusError != ''" class="text-danger mb-1">{{statusError}}. Try again</h4>
               </ng-template>
             </div>
             <div class="mb-3" style="display: grid"><label
@@ -128,27 +135,35 @@
                 </ng-multiselect-dropdown>
               </ng-template>
             </div>
+
+            <div class="mb-3" style="display: grid"><label
+              class="form-label"><strong>Difficulty</strong></label>
+              <label *ngIf="!onUpdated else editDifficulty" class="form-label"
+                     style="display: grid;">{{taskInfo.difficulty}}</label>
+              <ng-template #editDifficulty>
+                <input (change)="updated = true" [(ngModel)]="taskInfo.difficulty" [ngModelOptions]="{standalone: true}" id="username" class="form-control m-2"
+                       type="number" required min="0" max="20" placeholder="Difficulty"
+                       name="first"/>
+              </ng-template>
+            </div>
+
             <div class="mb-3" style="display: grid"><label class="form-label"><strong>Relatable finishing date</strong></label>
               <label *ngIf="!onUpdated else editRelatableFinishingDate" class="form-label"
                      style="display: grid;">{{taskInfo.relatableFinishedDate != null ? taskInfo.relatableFinishedDate : "-"}}</label>
               <ng-template #editRelatableFinishingDate>
-                <form class="row row-cols-sm-auto">
-                  <div class="col-12">
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp"
-                        [(ngModel)]="relatableDate"
-                        ngbDatepicker
-                        #d="ngbDatepicker"
-                        min="{{currentDate}}"
-                      />
-                      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()"
-                              type="button"></button>
-                    </div>
-                  </div>
-                </form>
+                <mat-form-field [formGroup]="relatableDate1" class="example-full-width" appearance="fill">
+                  <mat-label>Choose a date</mat-label>
+                  <input
+                    [min]="currentDate"
+                         formControlName="finishing"
+                         [(ngModel)]="relatableDate"
+                         (dateChange)="updated = true"
+                         matInput [matDatepicker]="picker">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
               </ng-template>
             </div>
             <div class="mb-3" style="display: grid;position: sticky;"><label
@@ -197,7 +212,7 @@
           <div class="row">
             <div class="col">
               <div class="table-responsive">
-                <table class="table">
+                <table *ngIf="subtasks.length > 0; else showNoSubtasks" class="table">
                   <thead>
                   <tr></tr>
                   </thead>
@@ -211,6 +226,10 @@
                   </tr>
                   </tbody>
                 </table>
+                <ng-template #showNoSubtasks>
+                  <label class="form-label">
+                    <strong>No subtasks here!</strong></label>
+                </ng-template>
               </div>
             </div>
           </div>

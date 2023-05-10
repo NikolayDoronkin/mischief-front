@@ -25,7 +25,7 @@ export class TaskCreationComponent implements OnInit {
   filtersLoaded4: Promise<boolean>;
 
   createTaskRequest: CreateTask = new CreateTask(
-    "", "", "", "", "", "", "", "", ""
+    "", "", "", "", "", "", "", "", "", 0
   )
 
   dropdownList: any = [];
@@ -240,4 +240,6 @@ export class TaskCreationComponent implements OnInit {
       }
     }
   }
+
+  protected readonly Array = Array;
 }
