@@ -74,7 +74,7 @@
                 <tr></tr>
                 </thead>
                 <tbody *ngFor="let project of dashboard.lastModifiedProjects">
-                <tr (click)="goProjectInfo(project.id)">
+                <tr (click)="goProjectInfo(project.id)" class="hovering">
                   <td>{{project.name}} ({{project.shortName}})</td>
                   <td>{{project.description}}</td>
                 </tr>
@@ -98,7 +98,7 @@
                 <tr></tr>
                 </thead>
                 <tbody *ngFor="let task of dashboard.lastModifiedTickets">
-                <tr (click)="goTaskInfo(task.relatedProjectId, task.id)">
+                <tr (click)="goTaskInfo(task.relatedProjectId, task.id)" class="hovering">
                   <td>{{task.relatedProject.shortName}}-{{task.number}}</td>
                   <td>{{task.title}}</td>
                   <td>{{task.type}}</td>

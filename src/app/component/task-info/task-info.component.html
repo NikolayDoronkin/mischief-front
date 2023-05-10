@@ -22,18 +22,20 @@
         </div>
         <div class="card-body">
           <div class="col-xl-10 col-xxl-11" style="display: inline-block;">
-            <div class="mb-3" style="display: grid;"><label class="form-label"
-                                                            style="display: grid;"><strong>Reporter</strong></label>
-              <div class="row">
+            <div class="mb-3" style="display: grid;">
+              <label class="form-label" style="display: grid;"><strong>Reporter</strong></label>
+              <div style="display: inline-flex;">
                 <img class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reporter.image}}"/>
-                <label class="form-label"
-                       style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
-
+                <label class="form-label" style="display: grid;">{{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}}</label>
               </div>
+
             </div>
             <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Assignee</strong></label>
-              <label *ngIf="!onUpdated else editAssignee" class="form-label"
-                     style="display: grid;">{{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}}</label>
+
+              <div *ngIf="!onUpdated else editAssignee" style="display: inline-flex;">
+                <img class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.assignee.image}}"/>
+                <label class="form-label" style="display: grid;">{{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}}</label>
+              </div>
               <ng-template #editAssignee>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select assignee...'"
@@ -48,9 +50,12 @@
               </ng-template>
             </div>
             <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Reviewer</strong></label>
-              <label *ngIf="!onUpdated else editReporter" class="form-label"
-                     style="display: grid;">{{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}}</label>
-              <ng-template #editReporter>
+
+              <div *ngIf="!onUpdated else editReviewer" style="display: inline-flex;">
+                <img class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reviewer.image}}"/>
+                <label class="form-label" style="display: grid;">{{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}}</label>
+              </div>
+              <ng-template #editReviewer>
                 <ng-multiselect-dropdown
                   [placeholder]="'Select reviewer...'"
                   [settings]="dropdownSettingsSingle"
@@ -197,7 +202,7 @@
                   <tr></tr>
                   </thead>
                   <tbody *ngFor="let subtask of subtasks">
-                  <tr (click)="goTaskInfo(subtask.relatedProjectId, subtask.id)">
+                  <tr (click)="goTaskInfo(subtask.relatedProjectId, subtask.id)" class="hovering">
                     <td>{{subtask.relatedProject.shortName}}-{{subtask.number}}</td>
                     <td>{{subtask.title}}</td>
                     <td>{{subtask.type}}</td>
@@ -223,6 +228,7 @@
             <div class="row" *ngIf="taskInfo.comments.length > 0">
               <div *ngFor="let comment of taskInfo.comments" class="mb-3" style="display: inline-grid;overflow: auto;">
                 <label class="form-label">
+                  <img class="rounded-circle me-2" width="30" height="30" src="{{comment.author.image}}"/>
                   <strong>{{comment.author.firstName}} {{comment.author.lastName}} on {{comment.created}}
                     :</strong></label>
                 <label class="form-label">{{comment.value}}</label>

@@ -112,7 +112,8 @@ export class TaskCreationComponent implements OnInit {
 
         this.taskService.getTasksFromProjectNotPageable(projectId).subscribe({
           next: (data: any) => {
-            data.forEach((task: { [x: string]: any; }) => {
+            console.log(data)
+            data['content'].forEach((task: { [x: string]: any; }) => {
               console.log(task)
               const id = task['id']
               const project: Project = task['relatedProject']

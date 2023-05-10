@@ -167,7 +167,7 @@ export class TaskInfoComponent implements OnInit {
         "taskId": taskId,
         "projectId": projectId
       }
-    })
+    }).then(() => window.location.reload())
   }
 
   ngOnInit(): void {
@@ -180,6 +180,7 @@ export class TaskInfoComponent implements OnInit {
         this.taskService.getTaskFromProjectById(projectId, taskId)
           .subscribe({
               next: (data: any) => {
+                console.log(data)
                 this.taskInfo.id = data['id']
                 this.taskInfo.number = data['number']
                 this.taskInfo.title = data['title']
