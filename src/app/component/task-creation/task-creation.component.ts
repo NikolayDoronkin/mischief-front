@@ -110,7 +110,7 @@ export class TaskCreationComponent implements OnInit {
             }
           })
 
-        this.taskService.getTasksFromProject(projectId).subscribe({
+        this.taskService.getTasksFromProjectNotPageable(projectId).subscribe({
           next: (data: any) => {
             data.forEach((task: { [x: string]: any; }) => {
               console.log(task)

@@ -15,7 +15,16 @@ import {UserResponse} from "../../model/user/user.response";
 })
 export class TaskComponent implements OnInit {
 
-  hovered: boolean = false
+  defaultPage = 0
+  defaultSize = 10
+
+  page: number
+  size: number
+  totalElements: number
+  numberOfElements: number
+  totalPages: number
+  pageNumbers: number[] = []
+
   tasks: TaskResponse[] = []
 
   project: Project = new Project("", "", "", "", "",
@@ -55,6 +64,34 @@ export class TaskComponent implements OnInit {
       })
   }
 
+  findByPage(projectId: string, page: number, size: number) {
+    this.taskService.getTasksFromProject(projectId, page, size)
+      .subscribe({
+          next: (data: any) => {
+            this.tasks = data['content']
+
+            this.size = data['size']
+            this.page = data['number']
+            this.totalElements = data['totalElements']
+            this.numberOfElements = data['numberOfElements']
+            this.totalPages = data['totalPages'];
+
+            this.pageNumbers = [...Array(this.totalPages).keys()].map(x => ++x);
+          },
+          error: (error: any) => {
+            console.log(error)
+            if (error['status'] == 403) {
+              this.router.navigate(['login'])
+            } else if (error['status'] == 401) {
+              this.router.navigate(['401'])
+            } else if (error['status'] >= 500) {
+              this.router.navigate(['500'])
+            }
+          }
+        }
+      )
+  }
+
   ngOnInit(): void {
     this.activeRoute.queryParams
       .subscribe(params => {
@@ -86,23 +123,7 @@ export class TaskComponent implements OnInit {
             }
           )
 
-        this.taskService.getTasksFromProject(projectId)
-          .subscribe({
-              next: (data: any) => {
-                this.tasks = data
-              },
-              error: (error: any) => {
-                console.log(error)
-                if (error['status'] == 403) {
-                  this.router.navigate(['login'])
-                } else if (error['status'] == 401) {
-                  this.router.navigate(['401'])
-                } else if (error['status'] >= 500) {
-                  this.router.navigate(['500'])
-                }
-              }
-            }
-          )
+        this.findByPage(projectId, this.defaultPage, this.defaultSize)
       })
   }
 }

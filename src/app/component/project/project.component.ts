@@ -47,8 +47,9 @@ export class ProjectComponent implements OnInit {
     this.projectService.getAllAccessedProject(this.storeService.currentUser.id, page, size)
       .subscribe({
         next: (data: any) => {
-          console.log(data)
+
           this.projects = data['content']
+
           this.size = data['size']
           this.page = data['number']
           this.totalElements = data['totalElements']

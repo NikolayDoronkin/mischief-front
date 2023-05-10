@@ -22,8 +22,8 @@ export class ProjectService {
   deleteMemberFromProject(projectId: string, userId: string) {
     return this.http.post('http://localhost:8081/project/delete/' + projectId + '/delete/' + userId, {})
   }
-  getTeamMembers(id: string) {
-    return this.http.get('http://localhost:8081/project/' + id + '/members')
+  getTeamMembers(id: string, page: number, size: number) {
+    return this.http.get('http://localhost:8081/project/' + id + '/members' + '?page=' + page + '&size=' + size)
   }
   getAllAccessedProject(id: string, page: number, size: number) {
     return this.http.get('http://localhost:8081/project/findByCreatorId/' + id + '?page=' + page + '&size=' + size)

@@ -12,7 +12,16 @@ import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 })
 export class TeamComponent implements OnInit {
 
-  hovered: boolean = false
+  defaultPage = 0
+  defaultSize = 10
+
+  page: number
+  size: number
+  totalElements: number
+  numberOfElements: number
+  totalPages: number
+  pageNumbers: number[] = []
+
   users: UserResponse[] = []
   projectId: string = ''
 
@@ -59,28 +68,40 @@ export class TeamComponent implements OnInit {
     });
   }
 
+  findByPage(projectId: string, page: number, size: number) {
+    this.projectService.getTeamMembers(projectId, page, size)
+      .subscribe({
+        next: (data: any) => {
+          this.users = data['content']
+
+          this.size = data['size']
+          this.page = data['number']
+          this.totalElements = data['totalElements']
+          this.numberOfElements = data['numberOfElements']
+          this.totalPages = data['totalPages'];
+
+          this.pageNumbers = [...Array(this.totalPages).keys()].map(x => ++x);
+        },
+        error: (error: any) => {
+          console.log(error)
+          if (error['status'] == 403) {
+            this.router.navigate(['login'])
+          } else if (error['status'] == 401) {
+            this.router.navigate(['401'])
+          } else if (error['status'] >= 500) {
+            this.router.navigate(['500'])
+          }
+        }
+      })
+  }
+
   ngOnInit(): void {
     this.activatedRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
         this.projectId = projectId
 
-        this.projectService.getTeamMembers(projectId)
-          .subscribe({
-            next: (data: any) => {
-              this.users = data
-            },
-            error: (error: any) => {
-              console.log(error)
-              if (error['status'] == 403) {
-                this.router.navigate(['login'])
-              } else if (error['status'] == 401) {
-                this.router.navigate(['401'])
-              } else if (error['status'] >= 500) {
-                this.router.navigate(['500'])
-              }
-            }
-          })
+        this.findByPage(projectId, this.defaultPage, this.defaultSize)
       })
   }
 }
