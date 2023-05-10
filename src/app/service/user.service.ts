@@ -27,10 +27,6 @@ export class UserService {
 
   signIn(user: SignInUser) {
     return this.http.post('http://localhost:8081/user/create', user)
-      .subscribe({
-        next: (data: any) => {console.log(data)},
-        error: err => console.log(err)
-      });
   }
 
   logIn(user: LoginUser) {

@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   @HostBinding('@routingAnimation')
   private routing: any;
 
+  errorMessage: string = ''
+
   user: LoginUser = new LoginUser("serious1sam", "test");
   count: number = 0;
 
@@ -41,6 +43,15 @@ export class LoginComponent implements OnInit {
           }
           else if (error['status'] >= 500) {
             this.router.navigate(['500'])
+          }
+          else if (error['status'] == 404 || error['status'] == 400) {
+            this.errorMessage = error['error']
+            if (this.errorMessage.indexOf(':') != -1) {
+              this.errorMessage = this.errorMessage.substring(0, this.errorMessage.indexOf(':'))
+            }
+            else if (this.errorMessage.indexOf('.') != -1) {
+              this.errorMessage = this.errorMessage.substring(0, this.errorMessage.indexOf('.'))
+            }
           }
         }
       });

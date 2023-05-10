@@ -31,6 +31,7 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { ServerErrorComponent } from './component/server-error/server-error.component';
 import {MatSelectModule} from "@angular/material/select";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 const globalRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -78,6 +79,7 @@ const globalRoutes: Routes = [
     BrowserModule,
     NgbModule,
     FormsModule,
+    MatFormFieldModule,
     HttpClientModule,
     NgbDatepickerModule, NgbAlertModule, JsonPipe,
     RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),

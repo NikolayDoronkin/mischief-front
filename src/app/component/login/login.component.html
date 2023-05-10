@@ -28,6 +28,9 @@
                     </div>
                   </div>
                   <button (click)="logIn(user)" class="btn btn-primary d-block btn-user w-100" type="button">Login</button>
+                  <div class="mt-1 text-center">
+                    <h4 *ngIf="errorMessage != ''" class="text-danger mb-1">{{errorMessage}}. Try again</h4>
+                  </div>
                 </form>
                 <br>
                 <div (click)="goRegister()" class="text-center"><a class="small">Create an Account!</a></div>
