@@ -26,10 +26,10 @@
           <thead>
           <tr>
             <td><strong>Name</strong></td>
-            <td><strong>Position</strong></td>
-            <td><strong>Id</strong></td>
+            <td><strong>Login</strong></td>
             <td><strong>Email</strong></td>
-            <td><strong>Start date</strong></td>
+            <td><strong>County</strong></td>
+            <td><strong>City</strong></td>
             <td><strong>Edit</strong></td>
           </tr>
           </thead>
@@ -39,9 +39,9 @@
               {{user.firstName}} {{user.lastName}}
             </td>
             <td (click)="openUserProfilePopUp(user.id)">{{user.login}}</td>
-            <td (click)="openUserProfilePopUp(user.id)">{{user.id}}</td>
-            <td (click)="openUserProfilePopUp(user.id)">33</td>
-            <td (click)="openUserProfilePopUp(user.id)">---</td>
+            <td (click)="openUserProfilePopUp(user.id)">{{user.email}}</td>
+            <td (click)="openUserProfilePopUp(user.id)">{{user.country}}</td>
+            <td (click)="openUserProfilePopUp(user.id)">{{user.city}}</td>
             <td>
               <a (click)="deleteUserFromProject(user.id)"  class="btn btn-danger btn-circle ms-1" role="button"><i class="fas fa-trash text-white"></i></a>
             </td>
@@ -69,7 +69,7 @@
           <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
             <ul class="pagination">
               <li *ngIf="page > 0" (click)="findByPage(this.projectId, this.size, page - 1)" class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-              <li *ngFor="let pageNumber of pageNumbers" (click)="findByPage(this.projectId, this.size, pageNumber - 1)" [ngClass]="pageNumber == this.page + 1 ? 'page-item active' : 'page-item'"><a class="page-link" href="#">{{pageNumber}}</a></li>
+              <li *ngFor="let pageNumber of pageNumbers" (click)="findByPage(this.projectId, pageNumber - 1, this.size)" [ngClass]="pageNumber == this.page + 1 ? 'page-item active' : 'page-item'"><a class="page-link" href="#">{{pageNumber}}</a></li>
               <li *ngIf="page < totalPages - 1" (click)="findByPage(this.projectId, this.size, page + 1)" class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
             </ul>
           </nav>

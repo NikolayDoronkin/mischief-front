@@ -15,10 +15,15 @@
       <ul *ngIf="checkProjectInfoPage()" [@expandedPanel] = "state" id="accordionSidebar-1" class="navbar-nav text-light">
         <label class="p" (click)="goProjectInfo()" style="font-size: 24px; text-align: center;">Project Menu</label>
         <li (click)="goTask()" class="nav-item text-center">
-          <a class="nav-link">
+          <a [ngClass]="router.url.substring(0, router.url.indexOf('?')) == '/task' ? 'nav-link active' : 'nav-link'">
             <i class="fas fa-tachometer-alt"></i>
             <span class="justify-content-center">Tasks</span></a></li>
-        <li (click)="goTeam()" class="nav-item text-center"><a class="nav-link"><i class="fas fa-user"></i><span>Team</span></a></li>
+        <li (click)="goTeam()" class="nav-item text-center">
+          <a [ngClass]="router.url.substring(0, router.url.indexOf('?')) == '/team' ? 'nav-link active' : 'nav-link'">
+            <i class="fas fa-user"></i>
+            <span>Team</span>
+          </a>
+        </li>
       </ul>
       <div class="text-center d-none d-md-inline">
         <button id="sidebarToggle" class="btn rounded-circle border-0" type="button"></button>
