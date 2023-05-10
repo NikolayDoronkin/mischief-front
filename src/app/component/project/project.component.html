@@ -18,11 +18,11 @@
         <div class="col-md-6 text-nowrap">
           <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
             <label class="form-label">Show
-              <mat-select (selectionchange)="findByPage1($event, page)" #changeEl [(value)]="size" class="d-inline-block">
-                <mat-option (selectstart)="findByPage(10, page)" value="10" selected>{{defaultSize}}</mat-option>
-                <mat-option (selectstart)="findByPage(25, page)" value="25">25</mat-option>
-                <mat-option (selectstart)="findByPage(50, page)" value="50">50</mat-option>
-                <mat-option (selectstart)="findByPage(100, page)" value="100">100</mat-option>
+              <mat-select [(ngModel)]="defaultSize" class="d-inline-block">
+                <mat-option (click)="findByPage(10, page)" [value]="10">10</mat-option>
+                <mat-option (click)="findByPage(20, page)" [value]="25">20</mat-option>
+                <mat-option (click)="findByPage(50, page)" [value]="50">50</mat-option>
+                <mat-option (click)="findByPage(100, page)" [value]="100">100</mat-option>
               </mat-select>
             </label>
           </div>
@@ -65,18 +65,16 @@
       </div>
       <div class="row">
         <div class="col-md-6 align-self-center">
-          <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+          <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
+            Showing {{page > 0 ?  page * size + 1 : (page + 1)}} to {{totalElements > size + numberOfElements ? size : totalElements}} of {{totalElements}}
+          </p>
         </div>
         <div class="col-md-6">
           <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
             <ul class="pagination">
-              <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span
-                aria-hidden="true">«</span></a></li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span
-                aria-hidden="true">»</span></a></li>
+              <li *ngIf="page > 0" (click)="findByPage(this.size, page - 1)" class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+              <li *ngFor="let pageNumber of pageNumbers" (click)="findByPage(this.size, pageNumber - 1)" [ngClass]="pageNumber == this.page + 1 ? 'page-item active' : 'page-item'"><a class="page-link" href="#">{{pageNumber}}</a></li>
+              <li *ngIf="page < totalPages - 1" (click)="findByPage(this.size, page + 1)" class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
             </ul>
           </nav>
         </div>

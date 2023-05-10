@@ -21,7 +21,7 @@ export class ProjectComponent implements OnInit {
   totalElements: number
   numberOfElements: number
   totalPages: number
-
+  pageNumbers: number[] = []
 
   constructor(
     private router: Router,
@@ -43,10 +43,6 @@ export class ProjectComponent implements OnInit {
       })
   }
 
-  findByPage1($event: any, page: number) {
-    console.log($event)
-    console.log(page)
-  }
   findByPage(size: number, page: number) {
     this.projectService.getAllAccessedProject(this.storeService.currentUser.id, page, size)
       .subscribe({
@@ -54,9 +50,12 @@ export class ProjectComponent implements OnInit {
           console.log(data)
           this.projects = data['content']
           this.size = data['size']
+          this.page = data['number']
           this.totalElements = data['totalElements']
           this.numberOfElements = data['numberOfElements']
-          this.totalPages = data['totalPages']
+          this.totalPages = data['totalPages'];
+
+          this.pageNumbers = [...Array(this.totalPages).keys()].map(x => ++x);
         },
         error: (error: any) => {
           console.log(error)
@@ -77,6 +76,4 @@ export class ProjectComponent implements OnInit {
     console.log(this.storeService.currentUser)
     this.findByPage(this.defaultSize, this.defaultPage)
   }
-
-    protected readonly onmouseenter = onmouseenter;
 }

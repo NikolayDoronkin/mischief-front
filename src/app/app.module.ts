@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from "@angular/router";
 
@@ -74,16 +74,16 @@ const globalRoutes: Routes = [
     UnauthorizedComponent,
     ServerErrorComponent
   ],
-    imports: [
-        BrowserModule,
-        NgbModule,
-        FormsModule,
-        HttpClientModule,
-        NgbDatepickerModule, NgbAlertModule, JsonPipe,
-        RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
-        BrowserAnimationsModule,
-        NgMultiSelectDropDownModule.forRoot(), MatDialogModule, NgOptimizedImage, MatSelectModule
-    ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    FormsModule,
+    HttpClientModule,
+    NgbDatepickerModule, NgbAlertModule, JsonPipe,
+    RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
+    BrowserAnimationsModule,
+    NgMultiSelectDropDownModule.forRoot(), MatDialogModule, NgOptimizedImage, MatSelectModule, ReactiveFormsModule
+  ],
   providers: [
     {
       provide : HTTP_INTERCEPTORS,
