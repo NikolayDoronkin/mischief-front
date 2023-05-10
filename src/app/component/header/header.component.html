@@ -29,7 +29,7 @@
       <li class="nav-item dropdown no-arrow mx-1">
         <div class="nav-item dropdown no-arrow">
 
-          <a (click)="handleActiveNotifications()" class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+          <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
             <span [ngClass]="activeNotifications.length > 0 ? 'badge bg-danger badge-counter' : 'badge badge-counter'">
               {{activeNotifications.length > 5 ? '5+' : activeNotifications.length}}
             </span>

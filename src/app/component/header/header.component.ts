@@ -28,22 +28,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  checkActivatedNotificationLength() {
-    return this.activeNotifications.length > 0
-  }
-  handleActiveNotifications() {
+  openRelatedTicket(projectId: string, taskId: string) {
     const notificationIds: string[] = this.activeNotifications
-      .map(notification => notification.id);
+      .map(notification => notification.id)
 
     this.notificationService.setViewed(notificationIds)
       .subscribe({
         next: (data: any) => {
-          this.activeNotifications = []
         },
         error: (error: any) => console.log(error)
       })
-  }
-  openRelatedTicket(projectId: string, taskId: string) {
     this.router.navigate(['task-info'], {
       queryParams: {
         "taskId": taskId,
