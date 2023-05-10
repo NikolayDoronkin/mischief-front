@@ -14,6 +14,16 @@ import {Project} from "../../model/project/project";
 })
 export class TaskCreationComponent implements OnInit {
 
+  dropdownListType: any = [];
+  dropdownListStatus: any = [];
+  dropdownListPriority: any = [];
+  type: any = [];
+  status: any = [];
+  priority: any = [];
+  filtersLoaded2: Promise<boolean>;
+  filtersLoaded3: Promise<boolean>;
+  filtersLoaded4: Promise<boolean>;
+
   createTaskRequest: CreateTask = new CreateTask(
     "", "", "", "", "", "", "", "", ""
   )
@@ -42,10 +52,16 @@ export class TaskCreationComponent implements OnInit {
       .subscribe(params => {
         const projectId = params['projectId']
 
+        const type = this.type.pop()['item_text']
+        const status = this.status.pop()['item_text']
+        const priorityName = this.priority.pop()['item_text']
         const assigneeId = this.assignee.map((it: { [x: string]: any; }) => it['item_id']);
         const reviewerId = this.reviewer.map((it: { [x: string]: any; }) => it['item_id']);
         const parentTicketId = this.parentTicket.map((it: { [x: string]: any; }) => it['item_id'])
 
+        this.createTaskRequest.type = type
+        this.createTaskRequest.status = status
+        this.createTaskRequest.priorityName = priorityName
         this.createTaskRequest.assigneeId = assigneeId[0]
         this.createTaskRequest.reviewerId = reviewerId[0]
         this.createTaskRequest.parentTicketId = parentTicketId[0]
@@ -139,6 +155,60 @@ export class TaskCreationComponent implements OnInit {
           }
         })
       })
+
+    this.taskService.getAllTypes().subscribe({
+      next: (data: any) => {
+        let counter = 0;
+        data.forEach((el: any) => this.dropdownListType.push({item_id: counter++, item_text: el}))
+        this.filtersLoaded4 = Promise.resolve(true)
+      },
+      error: (error: any) => {
+        console.log(error)
+        if (error['status'] == 403) {
+          this.router.navigate(['login'])
+        } else if (error['status'] == 401) {
+          this.router.navigate(['401'])
+        } else if (error['status'] >= 500) {
+          this.router.navigate(['500'])
+        }
+      }
+    })
+
+    this.taskService.getAllStatuses().subscribe({
+      next: (data: any) => {
+        let counter = 0;
+        data.forEach((el: any) => this.dropdownListStatus.push({item_id: counter++, item_text: el}))
+        this.filtersLoaded2 = Promise.resolve(true)
+      },
+      error: (error: any) => {
+        console.log(error)
+        if (error['status'] == 403) {
+          this.router.navigate(['login'])
+        } else if (error['status'] == 401) {
+          this.router.navigate(['401'])
+        } else if (error['status'] >= 500) {
+          this.router.navigate(['500'])
+        }
+      }
+    })
+
+    this.taskService.getAllPriorities().subscribe({
+      next: (data: any) => {
+        let counter = 0;
+        data.forEach((el: any) => this.dropdownListPriority.push({item_id: counter++, item_text: el}))
+        this.filtersLoaded3 = Promise.resolve(true)
+      },
+      error: (error: any) => {
+        console.log(error)
+        if (error['status'] == 403) {
+          this.router.navigate(['login'])
+        } else if (error['status'] == 401) {
+          this.router.navigate(['401'])
+        } else if (error['status'] >= 500) {
+          this.router.navigate(['500'])
+        }
+      }
+    })
 
     this.dropdownSettingsSingle = {
       singleSelection: true,

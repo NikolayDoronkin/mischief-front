@@ -14,22 +14,45 @@
                 <input [(ngModel)]="createTaskRequest.title" id="username" class="form-control" type="text"
                        placeholder="user.name" name="title"/>
               </div>
-              <div class="mb-3"><label class="form-label" for="email"><strong>Type</strong></label>
-                <input [(ngModel)]="createTaskRequest.type"
-                       id="email" class="form-control"
-                       placeholder="user@example.com" name="type"/>
+              <div class="mb-3"><label class="form-label"><strong>Type</strong></label>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select type...'"
+                  [settings]="dropdownSettingsSingle"
+                  [data]="dropdownListType"
+                  [(ngModel)]="type"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded4 | async"
+                  (onSelect)="onItemSelect($event, 'type', false)"
+                  (onDeSelect)="onItemSelect($event, 'type', true)">
+                </ng-multiselect-dropdown>
               </div>
               <div class="mb-3"><label class="form-label" for="last_name">
                 <strong>Status</strong>
-              </label><input [(ngModel)]="createTaskRequest.status" id="last_name" class="form-control" type="text"
-                             placeholder="Doe"
-                             name="status"/>
+              </label>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select status...'"
+                  [settings]="dropdownSettingsSingle"
+                  [data]="dropdownListStatus"
+                  [(ngModel)]="status"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded2 | async"
+                  (onSelect)="onItemSelect($event, 'status', false)"
+                  (onDeSelect)="onItemSelect($event, 'status', true)">
+                </ng-multiselect-dropdown>
               </div>
               <div class="mb-3"><label class="form-label" for="last_name">
                 <strong>Priority</strong>
-              </label><input [(ngModel)]="createTaskRequest.priorityName" id="last_name" class="form-control" type="text"
-                             placeholder="Doe"
-                             name="priorityName"/>
+              </label>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select priority...'"
+                  [settings]="dropdownSettingsSingle"
+                  [data]="dropdownListPriority"
+                  [(ngModel)]="priority"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="filtersLoaded3 | async"
+                  (onSelect)="onItemSelect($event, 'priority', false)"
+                  (onDeSelect)="onItemSelect($event, 'priority', true)">
+                </ng-multiselect-dropdown>
               </div>
               <div class="mb-3"><label class="form-label" for="last_name">
                 <strong>Parent ticket</strong>
@@ -49,7 +72,8 @@
             <div class="col">
               <div class="mb-3"><label class="form-label"
                                        for="first_name"><strong>Description</strong></label></div>
-              <textarea [(ngModel)]="createTaskRequest.description" [ngModelOptions]="{standalone: true}" class="form-control"
+              <textarea [(ngModel)]="createTaskRequest.description" [ngModelOptions]="{standalone: true}"
+                        class="form-control"
                         style="height: 250px;">{{createTaskRequest.description}}</textarea>
             </div>
           </div>
