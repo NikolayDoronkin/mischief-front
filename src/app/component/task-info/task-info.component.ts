@@ -330,8 +330,10 @@ export class TaskInfoComponent implements OnInit {
         this.taskService.getAllTypes().subscribe({
           next: (data: any) => {
             let counter = 0;
+            console.log(data)
             data.forEach((el: any) => {
               if (el == this.taskInfo.type) {
+                console.log(el)
                 this.type.push({item_id: counter, item_text: this.taskInfo.type})
               }
               this.dropdownListType.push({item_id: counter++, item_text: el})
@@ -355,6 +357,7 @@ export class TaskInfoComponent implements OnInit {
             let counter = 0;
             data.forEach((el: any) => {
               if (el == this.taskInfo.status) {
+                console.log(this.taskInfo.status)
                 this.status.push({item_id: counter, item_text: this.taskInfo.status})
               }
               this.dropdownListStatus.push({item_id: counter++, item_text: el})
@@ -378,6 +381,7 @@ export class TaskInfoComponent implements OnInit {
             let counter = 0;
             data.forEach((el: any) => {
               if (el == this.taskInfo.priorityName) {
+                console.log(this.taskInfo.priorityName)
                 this.priority.push({item_id: counter, item_text: this.taskInfo.priorityName})
               }
               this.dropdownListPriority.push({item_id: counter++, item_text: el})

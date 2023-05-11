@@ -28,8 +28,11 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div id="dataTable_filter" class="text-md-end dataTables_filter"><label class="form-label"><input
-            class="form-control form-control-sm" type="search" aria-controls="dataTable" placeholder="Search"/></label>
+          <div id="dataTable_filter" class="text-md-end dataTables_filter">
+            <label class="form-label">
+              <input (keyup)="findByPage(size, 0, searchFilter)" [(ngModel)]="searchFilter"
+                     class="form-control" type="text" aria-controls="dataTable" placeholder="Search project..."/>
+          </label>
           </div>
         </div>
       </div>

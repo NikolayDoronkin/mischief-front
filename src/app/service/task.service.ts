@@ -30,8 +30,8 @@ export class TaskService {
   createTask(projectId: string, task: CreateTask) {
     return this.http.post('http://localhost:8081/project/' + projectId + '/ticket/create', task)
   }
-  getTasksFromProject(projectId: string, page: number, size: number) {
-    return this.http.get('http://localhost:8081/project/' + projectId + '/ticket' + '?page=' + page + '&size=' + size)
+  getTasksFromProject(projectId: string, page: number, size: number, search: string) {
+    return this.http.get('http://localhost:8081/project/' + projectId + '/ticket' + '?searchFilter=' + search + '&page=' + page + '&size=' + size)
   }
 
   getTasksFromProjectNotPageable(projectId: string) {

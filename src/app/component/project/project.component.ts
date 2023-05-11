@@ -12,6 +12,8 @@ import {ProjectService} from "../../service/project.service";
 })
 export class ProjectComponent implements OnInit {
 
+  searchFilter: string = ''
+
   projects: Project[] = []
   defaultPage = 0
   defaultSize = 10
@@ -43,13 +45,18 @@ export class ProjectComponent implements OnInit {
       })
   }
 
-  findByPage(size: number, page: number) {
-    this.projectService.getAllAccessedProject(this.storeService.currentUser.id, page, size)
+  findByPage(size: number, page: number, searchFilter?: string) {
+    let search = typeof searchFilter == "undefined" ? '' : searchFilter;
+    if (search.length < 2) {
+      search = ''
+    }
+    this.projectService.getAllAccessedProject(this.storeService.currentUser.id, page, size, search)
       .subscribe({
         next: (data: any) => {
 
           this.projects = data['content']
 
+          console.log(this.projects)
           this.size = data['size']
           this.page = data['number']
           this.totalElements = data['totalElements']

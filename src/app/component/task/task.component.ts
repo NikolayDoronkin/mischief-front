@@ -15,6 +15,7 @@ import {UserResponse} from "../../model/user/user.response";
 })
 export class TaskComponent implements OnInit {
 
+  searchFilter: string = ''
   defaultPage = 0
   defaultSize = 10
 
@@ -64,10 +65,16 @@ export class TaskComponent implements OnInit {
       })
   }
 
-  findByPage(projectId: string, page: number, size: number) {
-    this.taskService.getTasksFromProject(projectId, page, size)
+  findByPage(projectId: string, page: number, size: number, searchFilter?: string) {
+    let search = typeof searchFilter == "undefined" ? '' : searchFilter;
+    if (search.length < 2) {
+      search = ''
+    }
+
+    this.taskService.getTasksFromProject(projectId, page, size, search)
       .subscribe({
           next: (data: any) => {
+            console.log(data)
             this.tasks = data['content']
 
             this.size = data['size']

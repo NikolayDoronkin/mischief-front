@@ -25,8 +25,8 @@ export class ProjectService {
   getTeamMembers(id: string, page: number, size: number) {
     return this.http.get('http://localhost:8081/project/' + id + '/members' + '?page=' + page + '&size=' + size)
   }
-  getAllAccessedProject(id: string, page: number, size: number) {
-    return this.http.get('http://localhost:8081/project/findByCreatorId/' + id + '?page=' + page + '&size=' + size)
+  getAllAccessedProject(id: string, page: number, size: number, searchFilter?: string) {
+    return this.http.get('http://localhost:8081/project/findByCreatorId/' + id + '?searchFilter=' + searchFilter + '&page=' + page + '&size=' + size)
   }
 
   getProjectById(id: string) {
