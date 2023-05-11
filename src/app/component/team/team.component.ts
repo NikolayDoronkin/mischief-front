@@ -12,6 +12,7 @@ import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 })
 export class TeamComponent implements OnInit {
 
+  searchFilter: string = ''
   defaultPage = 0
   defaultSize = 10
 
@@ -68,8 +69,13 @@ export class TeamComponent implements OnInit {
     });
   }
 
-  findByPage(projectId: string, page: number, size: number) {
-    this.projectService.getTeamMembers(projectId, page, size)
+  findByPage(projectId: string, page: number, size: number, searchFilter?: string) {
+    let search = typeof searchFilter == "undefined" ? '' : searchFilter;
+    if (search.length < 2) {
+      search = ''
+    }
+
+    this.projectService.getTeamMembers(projectId, page, size, search)
       .subscribe({
         next: (data: any) => {
           this.users = data['content']
