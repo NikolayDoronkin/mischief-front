@@ -55,9 +55,9 @@
             <td (click)="goTaskInfo(project.id, task.id)">{{task.priorityName}}</td>
             <td (click)="goTaskInfo(project.id, task.id)">{{task.type}}</td>
             <td (click)="goTaskInfo(project.id, task.id)">{{task.status}}</td>
-            <td (click)="goTaskInfo(project.id, task.id)"><img class="rounded-circle me-2" width="30" height="30"
-                                                               src="{{task.assignee.image}}"/>
-              {{task.assignee.firstName}} {{task.assignee.lastName}}
+            <td (click)="goTaskInfo(project.id, task.id)">
+              <img *ngIf="task.assignee != null" class="rounded-circle me-2" width="30" height="30" src="{{task.assignee.image}}"/>
+              {{task.assignee != null ? task.assignee.firstName + ' ' + task.assignee.lastName : '-'}}
             </td>
           </tr>
           </tbody>

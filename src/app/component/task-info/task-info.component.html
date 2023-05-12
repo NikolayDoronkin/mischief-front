@@ -31,9 +31,9 @@
             <div class="mb-3" style="display: grid;">
               <label class="form-label" style="display: grid;"><strong>Reporter</strong></label>
               <div style="display: inline-flex;">
-                <img class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reporter.image}}"/>
+                <img *ngIf="taskInfo.reporter != null" class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reporter.image}}"/>
                 <label class="form-label" style="display: grid;">
-                  {{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}} {{!accessedUserIds.includes(taskInfo.reporter.id) ? '(Not a member yet)' : ''}}
+                  {{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}} {{!accessedUserIds.includes(taskInfo.reporterId) && taskInfo.reporter != null ? '(Not a member yet)' : ''}}
                 </label>
               </div>
 
@@ -41,9 +41,9 @@
             <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Assignee</strong></label>
 
               <div *ngIf="!onUpdated else editAssignee" style="display: inline-flex;">
-                <img class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.assignee.image}}"/>
+                <img *ngIf="taskInfo.assignee != null" class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.assignee.image}}"/>
                 <label class="form-label" style="display: grid;">
-                  {{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}} {{!accessedUserIds.includes(taskInfo.assignee.id) ? '(Not a member yet)' : ''}}
+                  {{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}} {{!accessedUserIds.includes(taskInfo.assigneeId) && taskInfo.assignee != null ? '(Not a member yet)' : ''}}
                 </label>
               </div>
               <ng-template #editAssignee>
@@ -64,7 +64,7 @@
               <div *ngIf="!onUpdated else editReviewer" style="display: inline-flex;">
                 <img *ngIf="taskInfo.reviewer != null" class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reviewer.image}}"/>
                 <label class="form-label" style="display: grid;">
-                  {{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}} {{!accessedUserIds.includes(taskInfo.reviewer.id) ? '(Not a member yet)' : ''}}
+                  {{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}} {{accessedUserIds.includes(taskInfo.reviewerId) && taskInfo.reviewer != null ? '(Not a member yet)' : ''}}
                 </label>
               </div>
               <ng-template #editReviewer>

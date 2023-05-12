@@ -18,6 +18,10 @@ import {FormControl, FormGroup} from "@angular/forms";
 })
 export class TaskInfoComponent implements OnInit {
 
+  reporterId: string
+  assigneeId: string
+  reviewerId: string
+
   statusError = ''
 
   currentDate: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1)
@@ -225,6 +229,7 @@ export class TaskInfoComponent implements OnInit {
                 this.taskInfo.description = data['description']
                 this.taskInfo.assigneeId = data['assigneeId']
                 this.taskInfo.reporterId = data['reporterId']
+                this.taskInfo.reviewerId = data['reviewerId']
                 this.taskInfo.created = data['created']
                 this.taskInfo.updated = data['updated']
                 this.taskInfo.relatableFinishedDate = data['relatableFinishedDate']
