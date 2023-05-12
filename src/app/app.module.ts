@@ -36,6 +36,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MAT_DATE_FORMATS, MatNativeDateModule} from "@angular/material/core";
+import {MatButtonModule} from "@angular/material/button";
 
 const globalRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -79,20 +80,20 @@ const globalRoutes: Routes = [
     UnauthorizedComponent,
     ServerErrorComponent
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    FormsModule,
-    MatFormFieldModule,
-    HttpClientModule,
-    NgbDatepickerModule, NgbAlertModule, JsonPipe,
-    RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
-    BrowserAnimationsModule,
-    NgMultiSelectDropDownModule.forRoot(),
-    MatDialogModule, NgOptimizedImage, MatSelectModule,
-    ReactiveFormsModule, MatDatepickerModule, MatIconModule,
-    MatInputModule, MatNativeDateModule
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        FormsModule,
+        MatFormFieldModule,
+        HttpClientModule,
+        NgbDatepickerModule, NgbAlertModule, JsonPipe,
+        RouterModule.forRoot(globalRoutes, {onSameUrlNavigation: 'reload'}),
+        BrowserAnimationsModule,
+        NgMultiSelectDropDownModule.forRoot(),
+        MatDialogModule, NgOptimizedImage, MatSelectModule,
+        ReactiveFormsModule, MatDatepickerModule, MatIconModule,
+        MatInputModule, MatNativeDateModule, MatButtonModule
+    ],
   providers: [
     {
       provide : HTTP_INTERCEPTORS,

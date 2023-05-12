@@ -6,6 +6,7 @@ import {map, Subscription, timer} from "rxjs";
 import {NotificationService} from "../../service/notification.service";
 import {Notification} from "../../model/notification/notification";
 import {Router} from "@angular/router";
+import {MenuComponent} from "../menu/menu.component";
 
 @Component({
   selector: 'app-header',
@@ -97,6 +98,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.timerSubscription.unsubscribe();
+  }
+
+  goLogout(){
+    localStorage.removeItem('access_token')
+    this.router.navigate(['login'])
+  }
+
+  goProfile() {
+    this.router.navigate(['profile'])
   }
 }
 

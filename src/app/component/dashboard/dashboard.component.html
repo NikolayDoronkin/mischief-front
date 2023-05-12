@@ -65,7 +65,7 @@
       <div class="card-header py-3">
         <h6 class="text-primary fw-bold m-0">Last opened projects</h6>
       </div>
-      <div class="card-body">
+      <div *ngIf="dashboard.lastModifiedProjects; else showNoProjects" class="card-body">
         <div class="row">
           <div class="col">
             <div class="table-responsive">
@@ -84,12 +84,17 @@
           </div>
         </div>
       </div>
+      <ng-template #showNoProjects>
+      <span class="m-auto">
+        NO PROJECTS HERE!
+      </span>
+      </ng-template>
     </div>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="text-primary fw-bold m-0">Last modified tasks</h6>
       </div>
-      <div class="card-body">
+      <div *ngIf="dashboard.lastModifiedTickets.length > 0; else showNoTasks" class="card-body">
         <div class="row">
           <div class="col">
             <div class="table-responsive">
@@ -111,6 +116,11 @@
           </div>
         </div>
       </div>
+      <ng-template #showNoTasks>
+      <span class="m-auto">
+        NO TASKS HERE!
+      </span>
+      </ng-template>
     </div>
   </div>
 </div>

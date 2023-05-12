@@ -26,6 +26,7 @@ export class TaskInfoComponent implements OnInit {
 
   onCreationCommentDialog: boolean = false
 
+  accessedUserIds: string[]
   subtasks: TaskResponse[] = []
 
   onUpdated: boolean = false
@@ -308,6 +309,7 @@ export class TaskInfoComponent implements OnInit {
         this.projectService.getProjectById(projectId)
           .subscribe({
             next: (data: any) => {
+              this.accessedUserIds = data['users'].map((user: UserResponse) => user.id)
               data['users'].forEach((user: { [x: string]: string; }) => {
                 const id = user['id']
                 const name = user['firstName'] + ' ' + user['lastName']

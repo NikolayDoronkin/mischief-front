@@ -7,6 +7,9 @@ export class ProjectService {
   constructor(private http: HttpClient) {
   }
 
+  addNewMembers(projectId: string, ids: string[]) {
+    return this.http.post('http://localhost:8081/project/' + projectId + '/addMembers', ids)
+  }
   getStatistics(projectId: string) {
     return this.http.get('http://localhost:8081/project/' + projectId + '/statistics')
   }
