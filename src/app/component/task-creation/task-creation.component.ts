@@ -66,12 +66,10 @@ export class TaskCreationComponent implements OnInit {
         this.createTaskRequest.reviewerId = reviewerId[0]
         this.createTaskRequest.parentTicketId = parentTicketId[0]
 
-        console.log(this.createTaskRequest.description)
         this.createTaskRequest.relatedProjectId = projectId
         this.taskService.createTask(projectId, this.createTaskRequest)
           .subscribe({
             next: (data: any) => {
-              console.log(data)
               this.router.navigate(['task'], {
                 queryParams: {
                   "projectId": projectId
@@ -128,17 +126,13 @@ export class TaskCreationComponent implements OnInit {
 
         this.taskService.getTasksFromProjectNotPageable(projectId).subscribe({
           next: (data: any) => {
-            console.log(data)
             data['content'].forEach((task: { [x: string]: any; }) => {
-              console.log(task)
               const id = task['id']
               const project: Project = task['relatedProject']
-              console.log(project)
               const name = project.shortName + '-' + task['number'] + ' - ' + task['title']
 
               this.dropdownListTickets.push({item_id: id, item_text: name})
             })
-            console.log(this.dropdownListTickets)
             this.filtersLoaded1 = Promise.resolve(true)
           },
           error: (error: any) => {
@@ -220,7 +214,6 @@ export class TaskCreationComponent implements OnInit {
   }
 
   onItemSelect(item: any, selectBox: string, clear: boolean) {
-    console.log(item)
     switch (selectBox) {
       case 'assignee': {
         if (!clear) {

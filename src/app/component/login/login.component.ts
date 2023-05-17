@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
     this.configService.logIn(user)
       .subscribe({
         next: (data: any) => {
-          console.log(data)
           localStorage.setItem('access_token', data['accessToken'])
           // console.log(localStorage.getItem('access_token'))
           this.router.navigate(['dashboard'])

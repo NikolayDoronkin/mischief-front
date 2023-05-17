@@ -5,7 +5,7 @@
       <div class="col-md-6 align-items-center">
         <div id="dataTable_filter-1" class="text-md-end dataTables_filter">
           <p class="text-primary m-0 fw-bold" style="text-align: left; align-items: center">
-            {{tasks.length > 0 ? 'Task Info' : 'No tasks here!'}}</p>
+            Task Info</p>
         </div>
       </div>
       <div class="col-md-6">
@@ -14,7 +14,7 @@
           <label class="form-label"></label></div>
       </div>
     </div>
-    <div *ngIf="tasks.length > 0" class="card-body">
+    <div class="card-body">
       <div class="row">
         <div class="col-md-6 text-nowrap">
           <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+      <div *ngIf="tasks.length > 0; else showNoTasks" class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
         <table id="dataTable" class="table my-0">
           <thead>
           <tr>
@@ -75,7 +75,7 @@
       </div>
       <div class="row">
         <div class="col-md-6 align-self-center">
-          <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
+          <p *ngIf="tasks.length > 0" id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
             Showing {{page > 0 ? page * size + 1 : (page + 1)}}
             to {{totalElements > size + numberOfElements ? size : totalElements}} of {{totalElements}}
           </p>
@@ -100,7 +100,9 @@
     </div>
   </div>
   <ng-template #showNoTasks>
-    NO TASKS HERE!
+      <span class="m-auto">
+        NO TASKS HERE!
+      </span>
   </ng-template>
 </div>
 

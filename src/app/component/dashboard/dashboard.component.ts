@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goTaskInfo(projectId: string, taskId: string) {
-    console.log('here!')
+    console.log()
     this.router.navigate(['task-info'], {
       queryParams: {
         "taskId": taskId,

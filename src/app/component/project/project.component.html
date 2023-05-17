@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div id="dataTable" class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+      <div *ngIf="projects.length > 0; else showNoProjects" id="dataTable" class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
         <table id="dataTable" class="table my-0">
           <thead>
           <tr>
@@ -66,7 +66,12 @@
           </tfoot>
         </table>
       </div>
-      <div class="row">
+      <ng-template #showNoProjects>
+        <span class="m-auto">
+          NO PROJECTS HERE!
+        </span>
+      </ng-template>
+      <div *ngIf="projects.length > 0" class="row">
         <div class="col-md-6 align-self-center">
           <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
             Showing {{page > 0 ?  page * size + 1 : (page + 1)}} to {{totalElements > size + numberOfElements ? size : totalElements}} of {{totalElements}}

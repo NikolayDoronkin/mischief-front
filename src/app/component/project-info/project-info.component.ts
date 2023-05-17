@@ -43,13 +43,10 @@ export class ProjectInfoComponent implements OnInit {
           id: userId
         }
       });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   goTaskInfo(projectId: string, taskId: string) {
+    console.log()
     this.router.navigate(['task-info'], {
       queryParams: {
         "taskId": taskId,
@@ -81,7 +78,6 @@ export class ProjectInfoComponent implements OnInit {
                   this.projectService.getStatistics(projectId).subscribe(
                     {
                       next: (data: any) => {
-                        console.log(data)
                         this.projectStatistics = data
                       },
                       error: (error: any) => this.handleError(error)

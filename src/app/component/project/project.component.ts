@@ -56,7 +56,6 @@ export class ProjectComponent implements OnInit {
 
           this.projects = data['content']
 
-          console.log(this.projects)
           this.size = data['size']
           this.page = data['number']
           this.totalElements = data['totalElements']
@@ -66,7 +65,6 @@ export class ProjectComponent implements OnInit {
           this.pageNumbers = [...Array(this.totalPages).keys()].map(x => ++x);
         },
         error: (error: any) => {
-          console.log(error)
           if (error['status'] == 403) {
             this.router.navigate(['login'])
           }
@@ -81,7 +79,6 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.storeService.currentUser)
     this.findByPage(this.defaultSize, this.defaultPage)
   }
 }

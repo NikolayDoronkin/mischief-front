@@ -77,11 +77,6 @@ export class MenuComponent implements OnInit{
       })
   }
 
-  goLogout(){
-    localStorage.removeItem('access_token')
-    this.router.navigate(['login'])
-  }
-
   goTask() {
     this.activatedRoute.queryParams
       .subscribe(params => {
@@ -98,13 +93,12 @@ export class MenuComponent implements OnInit{
   goTeam() {
     this.activatedRoute.queryParams
       .subscribe(params => {
-        console.log(params['projectId'])
         const projectId = params['projectId']
         this.router.navigate(['team'], {
           queryParams:{
             "projectId": projectId
           }
-        })
+        }).then(() => window.location.reload())
       })
   }
 }

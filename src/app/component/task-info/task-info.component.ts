@@ -30,7 +30,7 @@ export class TaskInfoComponent implements OnInit {
 
   onCreationCommentDialog: boolean = false
 
-  accessedUserIds: string[]
+  accessedUserIds: string[] = []
   subtasks: TaskResponse[] = []
 
   onUpdated: boolean = false
@@ -86,8 +86,6 @@ export class TaskInfoComponent implements OnInit {
   }
 
   saveComment() {
-    console.log(this.storeService.currentUser)
-    console.log(this.taskInfo.id)
     this.commentService.createComment(
       new Comment('', this.storeService.currentUser, this.storeService.currentUser.id, new Date(), new Date(), this.taskInfo, this.commentValue)
     ).subscribe({
@@ -113,7 +111,6 @@ export class TaskInfoComponent implements OnInit {
   }
 
   updateTicket() {
-    console.log(this.taskInfo)
     this.taskInfo.type = this.type.length > 0 ? this.type.pop()['item_text'] : null
     this.taskInfo.status = this.status.length > 0 ? this.status.pop()['item_text'] : null
     this.taskInfo.priorityName = this.priority.length > 0 ? this.priority.pop()['item_text'] : null
@@ -141,10 +138,8 @@ export class TaskInfoComponent implements OnInit {
     } else {
       this.taskInfo.relatableFinishedDate = rawValue
     }
-    console.log(this.taskInfo.relatableFinishedDate)
     this.taskService.updateTask(this.taskInfo).subscribe({
       next: (data: any) => {
-        console.log(data)
         this.ngOnInit()
         window.location.reload()
         this.onUpdated = false
@@ -188,7 +183,6 @@ export class TaskInfoComponent implements OnInit {
     this.commentService.getCommentsFromTicket(taskId)
       .subscribe({
         next: (data: any) => {
-          console.log(data)
           this.taskInfo.comments = data
         },
         error: (error: any) => {
@@ -213,7 +207,6 @@ export class TaskInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.onCreationCommentDialog)
     this.activeRoute.queryParams
       .subscribe(params => {
         const projectId = params['projectId']
@@ -222,7 +215,6 @@ export class TaskInfoComponent implements OnInit {
         this.taskService.getTaskFromProjectById(projectId, taskId)
           .subscribe({
               next: (data: any) => {
-                console.log(data)
                 this.taskInfo.id = data['id']
                 this.taskInfo.number = data['number']
                 this.taskInfo.title = data['title']
@@ -260,6 +252,76 @@ export class TaskInfoComponent implements OnInit {
                     item_text: this.taskInfo.reviewer.firstName + ' ' + this.taskInfo.reviewer.lastName
                   })
                 }
+
+                this.taskService.getAllTypes().subscribe({
+                  next: (data: any) => {
+                    let counter = 0;
+                    data.forEach((el: any) => {
+                      if (el == this.taskInfo.type) {
+                        this.type.push({item_id: counter, item_text: this.taskInfo.type})
+                      }
+                      this.dropdownListType.push({item_id: counter++, item_text: el})
+                    })
+                    this.filtersLoaded1 = Promise.resolve(true)
+                  },
+                  error: (error: any) => {
+                    console.log(error)
+                    if (error['status'] == 403) {
+                      this.router.navigate(['login'])
+                    } else if (error['status'] == 401) {
+                      this.router.navigate(['401'])
+                    } else if (error['status'] >= 500) {
+                      this.router.navigate(['500'])
+                    }
+                  }
+                })
+
+                this.taskService.getAllStatuses().subscribe({
+                  next: (data: any) => {
+                    let counter = 0;
+                    data.forEach((el: any) => {
+                      if (el == this.taskInfo.status) {
+                        this.status.push({item_id: counter, item_text: this.taskInfo.status})
+                      }
+                      this.dropdownListStatus.push({item_id: counter++, item_text: el})
+                    })
+                    this.filtersLoaded2 = Promise.resolve(true)
+                  },
+                  error: (error: any) => {
+                    console.log(error)
+                    if (error['status'] == 403) {
+                      this.router.navigate(['login'])
+                    } else if (error['status'] == 401) {
+                      this.router.navigate(['401'])
+                    } else if (error['status'] >= 500) {
+                      this.router.navigate(['500'])
+                    }
+                  }
+                })
+
+                this.taskService.getAllPriorities().subscribe({
+                  next: (data: any) => {
+                    let counter = 0;
+                    data.forEach((el: any) => {
+                      if (el == this.taskInfo.priorityName) {
+                        this.priority.push({item_id: counter, item_text: this.taskInfo.priorityName})
+                      }
+                      this.dropdownListPriority.push({item_id: counter++, item_text: el})
+                    })
+                    this.filtersLoaded3 = Promise.resolve(true)
+                  },
+                  error: (error: any) => {
+                    console.log(error)
+                    if (error['status'] == 403) {
+                      this.router.navigate(['login'])
+                    } else if (error['status'] == 401) {
+                      this.router.navigate(['401'])
+                    } else if (error['status'] >= 500) {
+                      this.router.navigate(['500'])
+                    }
+                  }
+                })
+
                 // this.type.push({item_id: 0, item_text: this.taskInfo.type})
                 // this.status.push({item_id: 0, item_text: this.taskInfo.status})
                 // this.priority.push({item_id: 0, item_text: this.taskInfo.priorityName})
@@ -296,7 +358,6 @@ export class TaskInfoComponent implements OnInit {
 
         this.taskService.getChildTasks(taskId).subscribe({
           next: (data: any) => {
-            console.log(data)
             this.subtasks = data
           },
           error: (error: any) => {
@@ -314,12 +375,12 @@ export class TaskInfoComponent implements OnInit {
         this.projectService.getProjectById(projectId)
           .subscribe({
             next: (data: any) => {
-              this.accessedUserIds = data['users'].map((user: UserResponse) => user.id)
               data['users'].forEach((user: { [x: string]: string; }) => {
                 const id = user['id']
                 const name = user['firstName'] + ' ' + user['lastName']
                 this.dropdownListAccessedUsers.push({item_id: id, item_text: name})
               })
+              this.accessedUserIds = data['users'].map((user: UserResponse) => user.id)
               this.filtersLoaded = Promise.resolve(true)
             },
             error: (error: any) => {
@@ -333,79 +394,6 @@ export class TaskInfoComponent implements OnInit {
               }
             }
           })
-
-        this.taskService.getAllTypes().subscribe({
-          next: (data: any) => {
-            let counter = 0;
-            console.log(data)
-            data.forEach((el: any) => {
-              if (el == this.taskInfo.type) {
-                console.log(el)
-                this.type.push({item_id: counter, item_text: this.taskInfo.type})
-              }
-              this.dropdownListType.push({item_id: counter++, item_text: el})
-            })
-            this.filtersLoaded1 = Promise.resolve(true)
-          },
-          error: (error: any) => {
-            console.log(error)
-            if (error['status'] == 403) {
-              this.router.navigate(['login'])
-            } else if (error['status'] == 401) {
-              this.router.navigate(['401'])
-            } else if (error['status'] >= 500) {
-              this.router.navigate(['500'])
-            }
-          }
-        })
-
-        this.taskService.getAllStatuses().subscribe({
-          next: (data: any) => {
-            let counter = 0;
-            data.forEach((el: any) => {
-              if (el == this.taskInfo.status) {
-                console.log(this.taskInfo.status)
-                this.status.push({item_id: counter, item_text: this.taskInfo.status})
-              }
-              this.dropdownListStatus.push({item_id: counter++, item_text: el})
-            })
-            this.filtersLoaded2 = Promise.resolve(true)
-          },
-          error: (error: any) => {
-            console.log(error)
-            if (error['status'] == 403) {
-              this.router.navigate(['login'])
-            } else if (error['status'] == 401) {
-              this.router.navigate(['401'])
-            } else if (error['status'] >= 500) {
-              this.router.navigate(['500'])
-            }
-          }
-        })
-
-        this.taskService.getAllPriorities().subscribe({
-          next: (data: any) => {
-            let counter = 0;
-            data.forEach((el: any) => {
-              if (el == this.taskInfo.priorityName) {
-                console.log(this.taskInfo.priorityName)
-                this.priority.push({item_id: counter, item_text: this.taskInfo.priorityName})
-              }
-              this.dropdownListPriority.push({item_id: counter++, item_text: el})
-            })
-            this.filtersLoaded3 = Promise.resolve(true)
-          },
-          error: (error: any) => {
-            console.log(error)
-            if (error['status'] == 403) {
-              this.router.navigate(['login'])
-            } else if (error['status'] == 401) {
-              this.router.navigate(['401'])
-            } else if (error['status'] >= 500) {
-              this.router.navigate(['500'])
-            }
-          }
-        })
       })
 
     this.dropdownSettingsSingle = {
@@ -419,7 +407,6 @@ export class TaskInfoComponent implements OnInit {
   }
 
   onItemSelect(item: any, selectBox: string, clear: boolean) {
-    console.log(item)
     switch (selectBox) {
       case 'assignee': {
         if (!clear) {

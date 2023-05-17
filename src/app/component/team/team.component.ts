@@ -33,6 +33,7 @@ export class TeamComponent implements OnInit {
   projectId: string = ''
   currentUserId: string
   currentProjectOwnerId: string
+  usersLoaded: Promise<boolean>
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -44,10 +45,8 @@ export class TeamComponent implements OnInit {
   }
 
   deleteUserFromProject(id: string) {
-    console.log(this.projectId)
     this.projectService.deleteMemberFromProject(this.projectId, id).subscribe({
       next: (data: any) => {
-        console.log(data)
         this.router.navigate(['team'], {
           queryParams: {
             "projectId": this.projectId
@@ -72,13 +71,9 @@ export class TeamComponent implements OnInit {
           id: userId
         }
       });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
-  findByPage(projectId: string, page: number, size: number, searchFilter?: string) {
+  async findByPage(projectId: string, page: number, size: number, searchFilter?: string) {
     let search = typeof searchFilter == "undefined" ? '' : searchFilter;
     if (search.length < 2) {
       search = ''
@@ -123,11 +118,36 @@ export class TeamComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams
-      .subscribe(params => {
+      .subscribe(async params => {
         const projectId = params['projectId']
         this.projectId = projectId
 
         this.findByPage(projectId, this.defaultPage, this.defaultSize)
+          .then(() =>  this.userService.getAllUsers()
+            .subscribe({
+              next: (data: any) => {
+                const memberIds = this.users.map((user: UserResponse) => user.id)
+
+                data.forEach((user: { [x: string]: any; }) => {
+                  const id = user['id']
+                  const name = user['firstName'] + ' ' + user['lastName']
+                  if (!memberIds.includes(id)) {
+                    this.dropdownList.push({item_id: id, item_text: name})
+                  }
+                  this.filtersLoaded = Promise.resolve(true)
+                })
+              },
+              error: (error: any) => {
+                console.log(error)
+                if (error['status'] == 403) {
+                  this.router.navigate(['login'])
+                } else if (error['status'] == 401) {
+                  this.router.navigate(['401'])
+                } else if (error['status'] >= 500) {
+                  this.router.navigate(['500'])
+                }
+              }
+            }))
         this.projectService.getProjectById(projectId).subscribe({
           next: (data: any) => {
             this.currentProjectOwnerId = data['creatorId']
@@ -138,33 +158,7 @@ export class TeamComponent implements OnInit {
             this.currentUserId = data['id']
           }
         })
-        this.userService.getAllUsers()
-          .subscribe({
-            next: (data: any) => {
-              const memberIds = this.users.map((user: UserResponse) => user.id)
 
-              data.forEach((user: { [x: string]: any; }) => {
-                const id = user['id']
-                const name= user['firstName'] + ' ' + user['lastName']
-                if (!memberIds.includes(id)) {
-                  this.dropdownList.push({ item_id: id, item_text: name })
-                }
-                this.filtersLoaded = Promise.resolve(true)
-              })
-            },
-            error: (error: any) => {
-              console.log(error)
-              if (error['status'] == 403) {
-                this.router.navigate(['login'])
-              }
-              else if (error['status'] == 401) {
-                this.router.navigate(['401'])
-              }
-              else if (error['status'] >= 500) {
-                this.router.navigate(['500'])
-              }
-            }
-          })
         this.dropdownSettings = {
           singleSelection: false,
           idField: 'item_id',
@@ -178,20 +172,15 @@ export class TeamComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item)
     this.selectedItems.push(item)
-    console.log(this.selectedItems)
   }
 
   onDeSelect(item: any) {
-    console.log(item)
     this.selectedItems.pop(item)
-    console.log(this.selectedItems)
   }
   onSelectAll(items: any, toSelect: boolean) {
     if (toSelect) items.forEach((item: any) => this.selectedItems.push(item))
     else this.selectedItems.splice(0, this.selectedItems.length)
-    console.log(this.selectedItems)
   }
 }
 

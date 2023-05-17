@@ -13,7 +13,6 @@ export class UnauthorizedComponent {
   }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('access_token'))
     this.action = localStorage.getItem('access_token') != null ? '/dashboard' : '/login'
   }
 

@@ -39,22 +39,22 @@ import {MAT_DATE_FORMATS, MatNativeDateModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
 
 const globalRoutes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'signIn', component: RegisterComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'project', component: ProjectComponent},
-  {path: 'project-info', component: ProjectInfoComponent},
-  {path: 'project-creation', component: ProjectCreationComponent},
-  {path: 'task-creation', component: TaskCreationComponent},
-  {path: 'task-info', component: TaskInfoComponent},
-  {path: 'team', component: TeamComponent},
-  {path: 'task', component: TaskComponent},
-  {path: '404', component: NotFoundComponent},
-  {path: '401', component: UnauthorizedComponent},
-  {path: '500', component: ServerErrorComponent},
-  {path: '**', redirectTo: '404'},
+  {path: '', component: LoginComponent, data: {title: 'LOGIN'}},
+  {path: 'login', component: LoginComponent,  data: {title: 'LOGIN'}},
+  {path: 'signIn', component: RegisterComponent,  data: {title: 'SIGN IN'}},
+  {path: 'dashboard', component: DashboardComponent,  data: {title: 'DASHBOARD'}},
+  {path: 'profile', component: ProfileComponent,  data: {title: 'PROFILE'}},
+  {path: 'project', component: ProjectComponent,  data: {title: 'PROJECTS'}},
+  {path: 'project-info', component: ProjectInfoComponent,  data: {title: 'PROJECT-INFO'}},
+  {path: 'project-creation', component: ProjectCreationComponent, data: {title: 'PROJECT CREATION'}},
+  {path: 'task-creation', component: TaskCreationComponent, data: {title: 'TASK CREATION'}},
+  {path: 'task-info', component: TaskInfoComponent, data: {title: 'TASK INFO'}},
+  {path: 'team', component: TeamComponent, data: {title: 'TEAM MEMBERS'}},
+  {path: 'task', component: TaskComponent, data: {title: 'TASKS'}},
+  {path: '404', component: NotFoundComponent, data: {title: 'OOPS! 404'}},
+  {path: '401', component: UnauthorizedComponent, data: {title: 'OOPS! 401'}},
+  {path: '500', component: ServerErrorComponent, data: {title: 'OOPS! 500'}},
+  {path: '**', redirectTo: '404'}
 ]
 
 @NgModule({

@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser(userResponse: UserResponse) {
-    console.log(userResponse)
     this.service.updateUser(new UpdateUser(
       userResponse.id,
       userResponse.login,
@@ -84,7 +83,6 @@ export class ProfileComponent implements OnInit {
         this.service.getCurrentUser()
           .subscribe({
             next: (data: any) => {
-              console.log(data)
               this.userResponse.id = data['id']
               this.userResponse.firstName = data['firstName']
               this.userResponse.lastName = data['lastName']
@@ -119,7 +117,6 @@ export class ProfileComponent implements OnInit {
         this.service.getUserById(this.idFromTeamComponent)
           .subscribe({
             next: (data: any) => {
-              console.log(data)
               this.userResponse.id = data['id']
               this.userResponse.firstName = data['firstName']
               this.userResponse.lastName = data['lastName']

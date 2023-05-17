@@ -29,7 +29,6 @@ export class ProjectCreationComponent implements OnInit{
     private userService: UserService,
   ) {}
   createProject() {
-    console.log(this.project)
     this.project.accessedUserIds = this.selectedItems.map((item: { [x: string]: any; }) => item['item_id'])
 
     this.projectService.createProject(this.project)
@@ -88,19 +87,14 @@ export class ProjectCreationComponent implements OnInit{
   }
 
   onItemSelect(item: any) {
-    console.log(item)
     this.selectedItems.push(item)
-    console.log(this.selectedItems)
   }
 
   onDeSelect(item: any) {
-    console.log(item)
     this.selectedItems.pop(item)
-    console.log(this.selectedItems)
   }
   onSelectAll(items: any, toSelect: boolean) {
     if (toSelect) items.forEach((item: any) => this.selectedItems.push(item))
     else this.selectedItems.splice(0, this.selectedItems.length)
-    console.log(this.selectedItems)
   }
 }

@@ -43,7 +43,6 @@ export class TaskComponent implements OnInit {
   }
 
   goTaskInfo(projectId: string, taskId: string) {
-    console.log('here!')
     this.router.navigate(['task-info'], {
       queryParams: {
         "taskId": taskId,
@@ -74,7 +73,6 @@ export class TaskComponent implements OnInit {
     this.taskService.getTasksFromProject(projectId, page, size, search)
       .subscribe({
           next: (data: any) => {
-            console.log(data)
             this.tasks = data['content']
 
             this.size = data['size']
@@ -107,7 +105,6 @@ export class TaskComponent implements OnInit {
         this.projectService.getProjectById(projectId)
           .subscribe({
               next: (data: any) => {
-                console.log(data)
                 this.project.id = data['id']
                 this.project.name = data['name']
                 this.project.shortName = data['shortName']

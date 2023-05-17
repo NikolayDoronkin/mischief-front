@@ -53,7 +53,7 @@
                   [data]="dropdownListAccessedUsers"
                   [(ngModel)]="assignee"
                   [ngModelOptions]="{standalone: true}"
-                  *ngIf="filtersLoaded | async"
+                  *ngIf="(filtersLoaded | async) && (filtersLoaded1 | async)"
                   (onSelect)="onItemSelect($event, 'assignee', false)"
                   (onDeSelect)="onItemSelect($event, 'assignee', true)">
                 </ng-multiselect-dropdown>
@@ -135,7 +135,7 @@
                   [data]="dropdownListPriority"
                   [(ngModel)]="priority"
                   [ngModelOptions]="{standalone: true}"
-                  *ngIf="filtersLoaded3 | async"
+                  *ngIf="(filtersLoaded3 | async)"
                   (onSelect)="onItemSelect($event, 'priority', false)"
                   (onDeSelect)="onItemSelect($event, 'priority', true)">
                 </ng-multiselect-dropdown>

@@ -14,7 +14,6 @@ export class NotFoundComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('access_token'))
     this.action = localStorage.getItem('access_token') != null ? '/dashboard' : '/login'
   }
 

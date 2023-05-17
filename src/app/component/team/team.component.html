@@ -8,25 +8,25 @@
           <p class="text-primary m-0 fw-bold">Employee Info</p>
         </div>
       </div>
-        <div class="col-md-5">
-          <ng-multiselect-dropdown
-            [placeholder]="'Select users...'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            [ngModelOptions]="{standalone: true}"
-            *ngIf="filtersLoaded | async"
-            (onSelect)="onItemSelect($event)"
-            (onDeSelect)="onDeSelect($event)"
-            (onDeSelectAll)="onSelectAll($event, false)"
-            (onSelectAll)="onSelectAll($event, true)">
-          </ng-multiselect-dropdown>
-        </div>
-        <div id="dataTable_filter-2" class="text-md-end dataTables_filter m-auto">
-          <button (click)="addNewMembers()" class="btn btn-primary" type="button">Add</button>
-          <label class="form-label"></label>
-        </div>
+      <div *ngIf="currentUserId == currentProjectOwnerId" class="col-md-5">
+        <ng-multiselect-dropdown
+          [placeholder]="'Select users...'"
+          [settings]="dropdownSettings"
+          [data]="dropdownList"
+          [(ngModel)]="selectedItems"
+          [ngModelOptions]="{standalone: true}"
+          *ngIf="filtersLoaded | async"
+          (onSelect)="onItemSelect($event)"
+          (onDeSelect)="onDeSelect($event)"
+          (onDeSelectAll)="onSelectAll($event, false)"
+          (onSelectAll)="onSelectAll($event, true)">
+        </ng-multiselect-dropdown>
       </div>
+      <div *ngIf="currentUserId == currentProjectOwnerId" id="dataTable_filter-2" class="text-md-end dataTables_filter m-auto">
+        <button (click)="addNewMembers()" class="btn btn-primary" type="button">Add</button>
+        <label class="form-label"></label>
+      </div>
+    </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-6 text-nowrap">
@@ -37,7 +37,8 @@
               <mat-option (click)="findByPage(this.projectId, page, 50)" [value]="50">50</mat-option>
               <mat-option (click)="findByPage(this.projectId, page, 100)" [value]="100">100</mat-option>
             </mat-select>
-          </label></div>
+          </label>
+          </div>
         </div>
         <div class="col-md-6">
           <div id="dataTable_filter" class="text-md-end dataTables_filter">
@@ -49,7 +50,8 @@
           </div>
         </div>
       </div>
-      <div id="dataTable" class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+      <div *ngIf="users.length > 0; else showNoUsers" id="dataTable" class="table-responsive table mt-2" role="grid"
+           aria-describedby="dataTable_info">
         <table id="dataTable" class="table my-0">
           <thead>
           <tr>
@@ -70,7 +72,7 @@
             <td (click)="openUserProfilePopUp(user.id)">{{user.email != '' ? user.email : '-'}}</td>
             <td (click)="openUserProfilePopUp(user.id)">{{user.country != '' ? user.country : '-'}}</td>
             <td (click)="openUserProfilePopUp(user.id)">{{user.city != '' ? user.city : '-'}}</td>
-            <td *ngIf="currentUserId == currentProjectOwnerId">
+            <td *ngIf="currentUserId == currentProjectOwnerId && currentProjectOwnerId != user.id">
               <a (click)="deleteUserFromProject(user.id)" class="btn btn-danger btn-circle ms-1" role="button"><i
                 class="fas fa-trash text-white"></i></a>
             </td>
@@ -88,7 +90,12 @@
           </tfoot>
         </table>
       </div>
-      <div class="row">
+      <ng-template #showNoUsers>
+        <span class="m-auto">
+        NO MEMBERS HERE!
+        </span>
+      </ng-template>
+      <div *ngIf="users.length > 0" class="row">
         <div class="col-md-6 align-self-center">
           <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
             Showing {{page > 0 ? page * size + 1 : (page + 1)}}

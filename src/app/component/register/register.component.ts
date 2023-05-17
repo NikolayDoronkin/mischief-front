@@ -66,7 +66,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(control: AbstractControl) {
-    console.log(control.getRawValue())
     this.validatedControls.set(control, true)
   }
 
@@ -91,7 +90,6 @@ export class RegisterComponent implements OnInit {
     }
     this.loginService.signIn(this.user).subscribe({
       next: (data: any) => {
-        console.log(data)
         this.goLogin()
       },
       error: (error: any) => {
