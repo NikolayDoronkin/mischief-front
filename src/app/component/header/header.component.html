@@ -67,16 +67,22 @@
               <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
               Profile
             </a>
-<!--            <a class="dropdown-item" href="#">-->
-<!--              <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>-->
-<!--              Settings-->
-<!--            </a>-->
-<!--            <a class="dropdown-item" href="#">-->
-<!--              <i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>-->
-<!--              Activity log-->
-<!--            </a>-->
             <div class="dropdown-divider"></div>
-            <a (click)="goLogout()" class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout</a>
+            <a (click)="goLogout()" class="dropdown-item" href="#">
+              <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
+              Logout
+            </a>
+            <div class="dropdown-divider"></div>
+            <div class="d-inline" href="#">
+              <a (click)="changeSiteLanguage('en')" class="dropdown-item" href="#">
+                <i class="fas fa-sm fa-fw me-2 text-gray-400"></i>
+                EN
+              </a>
+              <a (click)="changeSiteLanguage('ru')" class="dropdown-item" href="#">
+                <i class="fas fa-sm fa-fw me-2 text-gray-400"></i>
+                RU
+              </a>
+            </div>
           </div>
         </div>
       </li>

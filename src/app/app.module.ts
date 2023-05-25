@@ -37,6 +37,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MAT_DATE_FORMATS, MatNativeDateModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
+import {TRANSLOCO_CONFIG, TranslocoModule} from "@ngneat/transloco";
+import {httpLoader, TranslocoHttpLoader, TranslocoRootModule} from "./transloco-root.module";
+import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 
 const globalRoutes: Routes = [
   {path: '', component: LoginComponent, data: {title: 'LOGIN'}},
@@ -92,7 +95,10 @@ const globalRoutes: Routes = [
         NgMultiSelectDropDownModule.forRoot(),
         MatDialogModule, NgOptimizedImage, MatSelectModule,
         ReactiveFormsModule, MatDatepickerModule, MatIconModule,
-        MatInputModule, MatNativeDateModule, MatButtonModule
+        MatInputModule, MatNativeDateModule, MatButtonModule,
+        // TranslocoRootModule,
+        TranslocoModule,
+        BsDropdownModule.forRoot()
     ],
   providers: [
     {
@@ -100,7 +106,16 @@ const globalRoutes: Routes = [
       useClass: AuthInterceptor,
       multi   : true,
     },
-    StoreService
+    StoreService,
+    httpLoader,
+    {
+      provide: TRANSLOCO_CONFIG,
+      useValue: {
+        reRenderOnLangChange: true,
+        availableLangs: ['en', 'ru'],
+        defaultLang: 'en'
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

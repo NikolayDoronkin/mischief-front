@@ -1,0 +1,79 @@
+{
+  "welcomeBack": "Welcome Back!",
+
+  "dashboard": "Dashboard",
+  "profile": "Profile",
+  "projects": "Projects",
+  "projectsMenu": "Project Menu",
+  "tasks": "Tasks",
+  "team": "Team",
+
+  "totalProjectsCount": "TOTAL PROJECTS COUNT",
+  "totalTasksFromProjects": "TOTAL TASKS FROM PROJECTS",
+  "totalTasksInProgress": "TOTAL TASKS IN PROGRESS",
+  "totalTasksInDone": "TOTAL TASKS IN DONE",
+  "LastOpenedProjects": "Last opened projects",
+  "LastModifiedTasks": "Last modified tasks",
+
+  "userSettings": "User Settings",
+  "login": "Login",
+  "email": "Email",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "contactSettings": "Contact Settings",
+  "address": "Address",
+  "city": "City",
+  "country": "Country",
+  "imageUrl": "Image URL",
+  "aboutMe": "About Me",
+  "saveSettings": "Save settings",
+
+  "createProject": "Create new project",
+  "search": "Search project...",
+  "projectInfo": "Project info",
+  "name": "Name",
+  "shortName": "Short name",
+  "creationDate": "Creation date",
+  "owner": "Owner",
+
+  "projectCreation": "Project's creation",
+  "mainInformation": "Main Information",
+  "accessedUsers": "Accessed users",
+  "create": "Create",
+
+  "totalTicketsFromProject": "Total Tasks From Project",
+  "totalTasksDone": "Total Tasks Done",
+  "totalTasksOnReview": "Total Tasks On Review",
+
+  "taskCreation": "Create new task",
+  "taskInfo": "Task info",
+  "searchTask": "Search task...",
+  "number": "Number",
+  "title": "Title",
+  "priority": "Priority",
+  "status": "Status",
+  "type": "Type",
+  "assignee": "Assignee",
+
+  "difficulty": "Difficulty",
+  "parentTicket": "Parent task",
+  "additionalInformation": "Additional information",
+  "reviewer": "Reviewer",
+
+  "subTasks": "Subtasks",
+  "listeners": "Listeners",
+  "comments": "Comments",
+  "saveComments": "Save comment",
+  "editTask": "Edit",
+
+  "fullName": "Name",
+  "employeeInfo": "Employee info",
+  "addUsers": "Add users...",
+  "searchMembers": "Search members...",
+  "add": "Add",
+  "edit": "Edit",
+
+  "noNotifications": "No notifications",
+
+  "show": "Show"
+}

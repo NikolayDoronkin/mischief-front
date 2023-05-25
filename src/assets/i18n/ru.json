@@ -1,0 +1,80 @@
+{
+  "welcomeBack": "С возвращением!",
+
+  "dashboard": "Информативная доска",
+  "profile": "Профиль",
+  "projects": "Проекты",
+  "projectsMenu": "Меню проекта",
+  "tasks": "Задачи",
+  "team": "Команда",
+  "logout": "Выйти",
+
+  "totalProjectsCount": "ЧИСЛО ВСЕХ ПРОЕКТОВ",
+  "totalTasksFromProjects": "ЧИСЛО ВСЕХ ЗАДАЧ ПРОЕКТОВ",
+  "totalTasksInProgress": "ЧИСЛО ВСЕХ ЗАДАЧ В РАЗРАБОТКЕ",
+  "totalTasksInDone": "ЧИСЛО ВСЕХ ВЫПОЛНЕННЫХ ЗАДАЧ",
+  "lastOpenedProjects": "Последние открываемые проекты",
+  "lastModifiedTasks": "Последние измененные задачи",
+
+  "userSettings": "Настройки пользователя",
+  "login": "Логин",
+  "email": "Почта",
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "contactSettings": "Настройки контактов",
+  "address": "Адрес",
+  "city": "Город",
+  "country": "Страна",
+  "imageUrl": "URL изображения",
+  "aboutMe": "Описание",
+  "saveSettings": "Сохранить изменения",
+
+  "createProject": "Создать новый проект",
+  "search": "Найти проект...",
+  "projectInfo": "Информация о проектах",
+  "name": "Название",
+  "shortName": "Краткое наименование",
+  "creationDate": "Дата создания",
+  "owner": "Владелец",
+
+  "projectCreation": "Владелец",
+  "mainInformation": "Основная информация",
+  "accessedUsers": "Разрешенные пользователи",
+  "create": "Создать",
+
+  "totalTicketsFromProject": "Число всех задач проекта",
+  "totalTasksDone": "Число выполненных задач",
+  "totalTasksOnReview": "Число задач на оценке",
+
+  "taskCreation": "Создание новой задачи",
+  "taskInfo": "Информация о задачах",
+  "searchTask": "Искать задачу...",
+  "number": "Номер",
+  "title": "Заголовок",
+  "priority": "Приоритет",
+  "status": "Статус",
+  "type": "Тип",
+  "assignee": "Исполнитель",
+
+  "difficulty": "Сложность",
+  "parentTicket": "Родительская задача",
+  "additionalInformation": "Дополнительная информация",
+  "reviewer": "Оценьщик",
+
+  "subTasks": "Дочерние задачи",
+  "listeners": "Слушатели",
+  "comments": "Комментарии",
+  "saveComments": "Сохранить комментарий",
+  "editTask": "Изменить",
+
+  "fullName": "Фамилия, имя",
+  "employeeInfo": "Информация об участниках",
+  "addUsers": "Добавить новых участников...",
+  "searchMembers": "Искать участников...",
+  "add": "Добавить",
+  "edit": "Управление",
+
+  "noNotifications": "Нет уведомлений",
+
+  "show": "Показывать"
+}
