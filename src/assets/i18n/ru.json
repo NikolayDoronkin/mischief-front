@@ -1,5 +1,12 @@
 {
   "welcomeBack": "С возвращением!",
+  "enter": "Войти",
+  "createAccount": "Создать аккаунт!",
+  "remember": "Запомнить меня",
+  "password": "Пароль",
+  "repeatPassword": "Повторите пароль",
+  "register": "Зарегистрироваться",
+  "haveAccount": "Уже есть аккаунт? Войти!",
 
   "dashboard": "Информативная доска",
   "profile": "Профиль",
@@ -30,7 +37,7 @@
   "saveSettings": "Сохранить изменения",
 
   "createProject": "Создать новый проект",
-  "search": "Найти проект...",
+  "searchProject": "Найти проект...",
   "projectInfo": "Информация о проектах",
   "name": "Название",
   "shortName": "Краткое наименование",
@@ -39,12 +46,18 @@
 
   "projectCreation": "Владелец",
   "mainInformation": "Основная информация",
+  "selectUsers": "Выбрать пользователей...",
+  "description": "Описание",
+  "selectAll": "Выбрать всех",
+  "unselectAll": "Удалить всех",
   "accessedUsers": "Разрешенные пользователи",
   "create": "Создать",
 
   "totalTicketsFromProject": "Число всех задач проекта",
   "totalTasksDone": "Число выполненных задач",
   "totalTasksOnReview": "Число задач на оценке",
+  "userPerformanceTable": "User performance table",
+  "performance": "Производительность",
 
   "taskCreation": "Создание новой задачи",
   "taskInfo": "Информация о задачах",
@@ -60,12 +73,23 @@
   "parentTicket": "Родительская задача",
   "additionalInformation": "Дополнительная информация",
   "reviewer": "Оценьщик",
+  "reporter": "Автор",
+  "deactivated": "(Не участник проекта)",
+  "selectAssignee": "Выбрать исполнителя...",
+  "selectReviewer": "Выбрать оценьщика...",
+  "selectType": "Выбрать тип...",
+  "selectPriority": "Выбрать приоритет...",
+  "selectStatus": "Выбрать статус...",
+  "finishDate": "Желаемая дата завершения",
+  "chooseDate": "Выбрать дату...",
+  "save": "Сохранить",
 
   "subTasks": "Дочерние задачи",
   "listeners": "Слушатели",
   "comments": "Комментарии",
   "saveComments": "Сохранить комментарий",
   "editTask": "Изменить",
+  "cansel": "Отмена",
 
   "fullName": "Фамилия, имя",
   "employeeInfo": "Информация об участниках",
@@ -75,6 +99,17 @@
   "edit": "Управление",
 
   "noNotifications": "Нет уведомлений",
+  "newNotifications": "Новые уведомления",
 
-  "show": "Показывать"
+  "show": "Показывать",
+  "showing": "Отображать c",
+  "to": "по",
+  "of": "из",
+  "on": "в",
+
+  "noProjectsHere": "Нет доступных проектов!",
+  "noTasksHere": "Нет доступных задач!",
+  "noSubTasksHere": "Нет доступных подзадач!",
+  "noCommentsHere": "Нет доступных комментариев!",
+  "noMembersHere": "Нет доступных участников!"
 }

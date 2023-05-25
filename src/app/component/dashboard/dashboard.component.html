@@ -1,9 +1,5 @@
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-  <h3 class="text-dark mb-0">Dashboard</h3>
-  <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">
-    <i class="fas fa-download fa-sm text-white-50"></i>
-    Generate Report
-  </a>
+  <h3 class="text-dark mb-0" *transloco="let t">{{t("dashboard")}}</h3>
 </div>
 <div class="row">
   <div class="col-md-6 col-xl-3 mb-4">
@@ -11,7 +7,11 @@
       <div class="card-body">
         <div class="row align-items-center no-gutters">
           <div class="col me-2">
-            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Total projects count</span></div>
+            <div class="text-uppercase text-primary fw-bold text-xs mb-1">
+              <span *transloco="let t">
+                {{t("totalProjectsCount")}}
+              </span>
+            </div>
             <div class="text-dark fw-bold h5 mb-0"><span>{{dashboard.totalProjects}}</span></div>
           </div>
           <div class="col-auto"><i class="fas fa-table fa-2x text-gray-300"></i></div>
@@ -24,7 +24,11 @@
       <div class="card-body">
         <div class="row align-items-center no-gutters">
           <div class="col me-2">
-            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Total tasks from projects</span></div>
+            <div class="text-uppercase text-success fw-bold text-xs mb-1">
+              <span *transloco="let t">
+                {{t("totalTasksFromProjects")}}
+              </span>
+            </div>
             <div class="text-dark fw-bold h5 mb-0"><span>{{dashboard.totalTicketsFromProjects}}</span></div>
           </div>
           <div class="col-auto"><i class="fas fa-check fa-2x text-gray-300"></i></div>
@@ -37,7 +41,11 @@
       <div class="card-body">
         <div class="row align-items-center no-gutters">
           <div class="col me-2">
-            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Total tasks in progress</span></div>
+            <div class="text-uppercase text-info fw-bold text-xs mb-1">
+              <span *transloco="let t">
+                {{t("totalTasksInProgress")}}
+              </span>
+            </div>
             <div class="text-dark fw-bold h5 mb-0"><span>{{dashboard.totalTicketsFromProjectsInProgress}}</span></div>
           </div>
           <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
@@ -50,7 +58,11 @@
       <div class="card-body">
         <div class="row align-items-center no-gutters">
           <div class="col me-2">
-            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>Total tasks in done</span></div>
+            <div class="text-uppercase text-warning fw-bold text-xs mb-1">
+              <span *transloco="let t">
+                {{t("totalTasksInDone")}}
+              </span>
+            </div>
             <div class="text-dark fw-bold h5 mb-0"><span>{{dashboard.totalTicketsFromProjectsInDone}}</span></div>
           </div>
           <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
@@ -63,7 +75,7 @@
   <div class="row-lg-6 mb-4">
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="text-primary fw-bold m-0">Last opened projects</h6>
+        <h6 class="text-primary fw-bold m-0" *transloco="let t">{{t("lastOpenedProjects")}}</h6>
       </div>
       <div *ngIf="dashboard.lastModifiedProjects; else showNoProjects" class="card-body">
         <div class="row">
@@ -85,14 +97,14 @@
         </div>
       </div>
       <ng-template #showNoProjects>
-      <span class="m-auto">
-        NO PROJECTS HERE!
+      <span class="m-auto" *transloco="let t">
+        {{t("noProjectsHere")}}
       </span>
       </ng-template>
     </div>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="text-primary fw-bold m-0">Last modified tasks</h6>
+        <h6 class="text-primary fw-bold m-0" *transloco="let t"> {{t("lastModifiedTasks")}}</h6>
       </div>
       <div *ngIf="dashboard.lastModifiedTickets.length > 0; else showNoTasks" class="card-body">
         <div class="row">
@@ -117,8 +129,8 @@
         </div>
       </div>
       <ng-template #showNoTasks>
-      <span class="m-auto">
-        NO TASKS HERE!
+      <span class="m-auto" *transloco="let t">
+        {{t("noTasksHere")}}
       </span>
       </ng-template>
     </div>

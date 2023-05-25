@@ -1,16 +1,16 @@
-<div class="container-fluid">
-  <h3 class="text-dark mb-4">Tasks</h3>
+<div class="container-fluid" *transloco="let t">
+  <h3 class="text-dark mb-4">{{t("tasks")}}</h3>
   <div class="card shadow">
     <div class="card-header py-3 align-items-center" style="display: flex;">
       <div class="col-md-6 align-items-center">
         <div id="dataTable_filter-1" class="text-md-end dataTables_filter">
           <p class="text-primary m-0 fw-bold" style="text-align: left; align-items: center">
-            Task Info</p>
+            {{t("taskInfo")}}</p>
         </div>
       </div>
       <div class="col-md-6">
         <div id="dataTable_filter-2" class="text-md-end dataTables_filter">
-          <button (click)="goTaskCreation()" class="btn btn-primary" type="button">Create new Task</button>
+          <button (click)="goTaskCreation()" class="btn btn-primary" type="button">{{t("createTask")}}</button>
           <label class="form-label"></label></div>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-6 text-nowrap">
           <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
-            <label class="form-label">Show
+            <label class="form-label">{{t("show")}}
               <mat-select [(ngModel)]="defaultSize" class="d-inline-block">
                 <mat-option (click)="findByPage(this.project.id, page, 10)" [value]="10">10</mat-option>
                 <mat-option (click)="findByPage(this.project.id, page, 20)" [value]="25">20</mat-option>
@@ -40,12 +40,12 @@
         <table id="dataTable" class="table my-0">
           <thead>
           <tr>
-            <th>Number</th>
-            <th>Title</th>
-            <th>Priority</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Assignee</th>
+            <th>{{t("number")}}</th>
+            <th>{{t("title")}}</th>
+            <th>{{t("priority")}}</th>
+            <th>{{t("type")}}</th>
+            <th>{{t("status")}}</th>
+            <th>{{t("assignee")}}</th>
           </tr>
           </thead>
           <tbody>
@@ -63,12 +63,12 @@
           </tbody>
           <tfoot>
           <tr>
-            <td><strong>Number</strong></td>
-            <td><strong>Title</strong></td>
-            <td><strong>Priority</strong></td>
-            <td><strong>Type</strong></td>
-            <td><strong>Status</strong></td>
-            <td><strong>Assignee</strong></td>
+            <td><strong>{{t("number")}}</strong></td>
+            <td><strong>{{t("title")}}</strong></td>
+            <td><strong>{{t("priority")}}</strong></td>
+            <td><strong>{{t("type")}}</strong></td>
+            <td><strong>{{t("status")}}</strong></td>
+            <td><strong>{{t("assignee")}}</strong></td>
           </tr>
           </tfoot>
         </table>
@@ -76,8 +76,8 @@
       <div class="row">
         <div class="col-md-6 align-self-center">
           <p *ngIf="tasks.length > 0" id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
-            Showing {{page > 0 ? page * size + 1 : (page + 1)}}
-            to {{totalElements > size + numberOfElements ? size : totalElements}} of {{totalElements}}
+            {{t("showing")}} {{page > 0 ? page * size + 1 : (page + 1)}}
+            {{t("to")}} {{totalElements > size + numberOfElements ? size : totalElements}} {{t("of")}} {{totalElements}}
           </p>
         </div>
         <div class="col-md-6">
@@ -101,7 +101,7 @@
   </div>
   <ng-template #showNoTasks>
       <span class="m-auto">
-        NO TASKS HERE!
+        {{t("noTasksHere")}}
       </span>
   </ng-template>
 </div>

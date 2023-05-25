@@ -1,5 +1,12 @@
 {
   "welcomeBack": "Welcome Back!",
+  "enter": "Login",
+  "createAccount": "Create an account!",
+  "remember": "Remember me",
+  "password": "Password",
+  "repeatPassword": "Repeat password",
+  "register": "Sign up",
+  "haveAccount": "Already have an account? Login!",
 
   "dashboard": "Dashboard",
   "profile": "Profile",
@@ -7,6 +14,7 @@
   "projectsMenu": "Project Menu",
   "tasks": "Tasks",
   "team": "Team",
+  "logout": "Logout",
 
   "totalProjectsCount": "TOTAL PROJECTS COUNT",
   "totalTasksFromProjects": "TOTAL TASKS FROM PROJECTS",
@@ -29,7 +37,7 @@
   "saveSettings": "Save settings",
 
   "createProject": "Create new project",
-  "search": "Search project...",
+  "searchProject": "Search project...",
   "projectInfo": "Project info",
   "name": "Name",
   "shortName": "Short name",
@@ -39,11 +47,17 @@
   "projectCreation": "Project's creation",
   "mainInformation": "Main Information",
   "accessedUsers": "Accessed users",
+  "selectUsers": "Select users...",
+  "selectAll": "Select All",
+  "unselectAll": "Unselect All",
+  "description": "Description",
   "create": "Create",
 
   "totalTicketsFromProject": "Total Tasks From Project",
   "totalTasksDone": "Total Tasks Done",
   "totalTasksOnReview": "Total Tasks On Review",
+  "userPerformanceTable": "User performance table",
+  "performance": "Performance",
 
   "taskCreation": "Create new task",
   "taskInfo": "Task info",
@@ -59,12 +73,23 @@
   "parentTicket": "Parent task",
   "additionalInformation": "Additional information",
   "reviewer": "Reviewer",
+  "reporter": "Reporter",
+  "deactivated": "(Not a member yet)",
+  "selectAssignee": "Select assignee...",
+  "selectReviewer": "Select reviewer...",
+  "selectType": "Select type...",
+  "selectPriority": "Select priority...",
+  "selectStatus": "Select status...",
+  "finishDate": "Relatable finish date",
+  "chooseDate": "Choose date",
+  "save": "Save",
 
   "subTasks": "Subtasks",
   "listeners": "Listeners",
   "comments": "Comments",
   "saveComments": "Save comment",
   "editTask": "Edit",
+  "cansel": "Cansel",
 
   "fullName": "Name",
   "employeeInfo": "Employee info",
@@ -74,6 +99,17 @@
   "edit": "Edit",
 
   "noNotifications": "No notifications",
+  "newNotifications": "New notifications",
 
-  "show": "Show"
+  "show": "Show",
+  "showing": "Showing",
+  "to": "to",
+  "of": "of",
+  "on": "on",
+
+  "noProjectsHere": "NO PROJECTS HERE!",
+  "noTasksHere": "NO TASKS HERE!",
+  "noSubTasksHere": "No subtasks here!",
+  "noCommentsHere": "No comments here!",
+  "noMembersHere": "No members here!"
 }

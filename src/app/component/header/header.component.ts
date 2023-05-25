@@ -6,7 +6,6 @@ import {map, Subscription, timer} from "rxjs";
 import {NotificationService} from "../../service/notification.service";
 import {Notification} from "../../model/notification/notification";
 import {Router} from "@angular/router";
-import {MenuComponent} from "../menu/menu.component";
 import {TranslocoService} from "@ngneat/transloco";
 
 @Component({
@@ -39,9 +38,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   changeSiteLanguage(language: string): void {
     this.translocoService.setActiveLang(language);
-    this.translocoService.selectTranslation(language).subscribe({
-      error: err => console.log(err)
-    });
     this.siteLanguage = this.languageList.find(lang => lang.code === language)?.label;
   }
 

@@ -1,16 +1,16 @@
-<div class="container-fluid">
-  <h3 class="text-dark mb-4">Team</h3>
+<div class="container-fluid" *transloco="let t">
+  <h3 class="text-dark mb-4">{{t("team")}}</h3>
   <div class="card shadow">
 
     <div class="card-header py-3 align-items-center" style="display: flex;">
       <div class="col-md-6 align-items-center">
         <div class="card-title align-items-center">
-          <p class="text-primary m-0 fw-bold">Employee Info</p>
+          <p class="text-primary m-0 fw-bold">{{t("employeeInfo")}}</p>
         </div>
       </div>
       <div *ngIf="currentUserId == currentProjectOwnerId" class="col-md-5">
         <ng-multiselect-dropdown
-          [placeholder]="'Select users...'"
+          [placeholder]="t('selectUsers')"
           [settings]="dropdownSettings"
           [data]="dropdownList"
           [(ngModel)]="selectedItems"
@@ -23,14 +23,14 @@
         </ng-multiselect-dropdown>
       </div>
       <div *ngIf="currentUserId == currentProjectOwnerId" id="dataTable_filter-2" class="text-md-end dataTables_filter m-auto">
-        <button (click)="addNewMembers()" class="btn btn-primary" type="button">Add</button>
+        <button (click)="addNewMembers()" class="btn btn-primary" type="button">{{t("add")}}</button>
         <label class="form-label"></label>
       </div>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-6 text-nowrap">
-          <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Show
+          <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">{{t("show")}}
             <mat-select [(ngModel)]="defaultSize" class="d-inline-block">
               <mat-option (click)="findByPage(this.projectId, page, 10)" [value]="10">10</mat-option>
               <mat-option (click)="findByPage(this.projectId, page, 20)" [value]="25">20</mat-option>
@@ -45,7 +45,7 @@
             <label class="form-label">
               <input (keyup)="findByPage(this.projectId, page, 100, searchFilter)" [(ngModel)]="searchFilter"
                      class="form-control form-control-sm"
-                     type="text" aria-controls="dataTable" placeholder="Search team members..."/>
+                     type="text" aria-controls="dataTable" placeholder="{{t('searchMembers')}}"/>
             </label>
           </div>
         </div>
@@ -55,12 +55,12 @@
         <table id="dataTable" class="table my-0">
           <thead>
           <tr>
-            <td><strong>Name</strong></td>
-            <td><strong>Login</strong></td>
-            <td><strong>Email</strong></td>
-            <td><strong>County</strong></td>
-            <td><strong>City</strong></td>
-            <td *ngIf="currentUserId == currentProjectOwnerId"><strong>Edit</strong></td>
+            <td><strong>{{t('fullName')}}</strong></td>
+            <td><strong>{{t('login')}}</strong></td>
+            <td><strong>{{t('email')}}</strong></td>
+            <td><strong>{{t('country')}}</strong></td>
+            <td><strong>{{t('city')}}</strong></td>
+            <td *ngIf="currentUserId == currentProjectOwnerId"><strong>{{t('edit')}}</strong></td>
           </tr>
           </thead>
           <tbody>
@@ -80,26 +80,26 @@
           </tbody>
           <tfoot>
           <tr>
-            <td><strong>Name</strong></td>
-            <td><strong>Position</strong></td>
-            <td><strong>Id</strong></td>
-            <td><strong>Email</strong></td>
-            <td><strong>Start date</strong></td>
-            <td *ngIf="currentUserId == currentProjectOwnerId"><strong>Edit</strong></td>
+            <td><strong>{{t('fullName')}}</strong></td>
+            <td><strong>{{t('login')}}</strong></td>
+            <td><strong>{{t('email')}}</strong></td>
+            <td><strong>{{t('country')}}</strong></td>
+            <td><strong>{{t('city')}}</strong></td>
+            <td *ngIf="currentUserId == currentProjectOwnerId"><strong>{{t('edit')}}</strong></td>
           </tr>
           </tfoot>
         </table>
       </div>
       <ng-template #showNoUsers>
         <span class="m-auto">
-        NO MEMBERS HERE!
+        {{t('noMembersHere')}}
         </span>
       </ng-template>
       <div *ngIf="users.length > 0" class="row">
         <div class="col-md-6 align-self-center">
           <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
-            Showing {{page > 0 ? page * size + 1 : (page + 1)}}
-            to {{totalElements > size + numberOfElements ? size : totalElements}} of {{totalElements}}
+            {{t("showing")}} {{page > 0 ? page * size + 1 : (page + 1)}}
+            {{t("to")}} {{totalElements > size + numberOfElements ? size : totalElements}} {{t("of")}} {{totalElements}}
           </p>
         </div>
         <div class="col-md-6">

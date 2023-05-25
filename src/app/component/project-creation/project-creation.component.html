@@ -1,31 +1,37 @@
-<div class="container-fluid">
-  <h3 class="text-dark m-3">Project&#39;s creation</h3>
+<div class="container-fluid" *transloco="let t">
+  <h3 class="text-dark m-3">{{t("projectCreation")}}</h3>
   <div class="row m-3">
     <div class="card shadow mb-3">
       <div class="card-header py-3">
-        <p class="text-primary m-0 fw-bold" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Main
-          information</p>
+        <p class="text-primary m-0 fw-bold" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">{{t("mainInformation")}}</p>
       </div>
       <div class="card-body">
         <form>
           <div class="row">
             <div class="col">
-              <div class="mb-3"><label class="form-label" for="username"><strong>Name</strong></label>
+              <div class="mb-3"><label class="form-label" for="username"><strong>{{t("name")}}</strong></label>
                 <input [(ngModel)]="project.name" [ngModelOptions]="{standalone: true}" id="username" class="form-control" type="text" placeholder="Project's name"
                        name="first"/>
               </div>
-              <div class="mb-3"><label class="form-label" for="email"><strong>Short
-                name</strong></label>
+              <div class="mb-3"><label class="form-label" for="email"><strong>{{t("shortName")}}</strong></label>
                 <input [(ngModel)]="project.shortName" [ngModelOptions]="{standalone: true}" id="email" class="form-control" placeholder="Project's short name"
                        name="second"/></div>
               <div class="mb-3">
                 <label class="form-label">
-                  <strong>Users</strong>
+                  <strong>{{t("accessedUsers")}}</strong>
                 </label>
                 <div class="mb-3">
                   <ng-multiselect-dropdown
-                    [placeholder]="'Select users...'"
-                    [settings]="dropdownSettings"
+                    [placeholder]="t('selectUsers')"
+                    [settings]="{
+                        singleSelection: false,
+                        idField: 'item_id',
+                        textField: 'item_text',
+                        selectAllText: t('selectAll'),
+                        unSelectAllText: t('unselectAll'),
+                        itemsShowLimit: 3,
+                        allowSearchFilter: true,
+                        }"
                     [data]="dropdownList"
                     [(ngModel)]="selectedItems"
                     [ngModelOptions]="{standalone: true}"
@@ -39,14 +45,14 @@
               </div>
             </div>
             <div class="col">
-              <div class="mb-3"><label class="form-label"><strong>Description</strong></label></div>
+              <div class="mb-3"><label class="form-label"><strong>{{t("description")}}</strong></label></div>
               <textarea class="form-control"
                         style="height: 192px;" name="description"></textarea>
             </div>
           </div>
         </form>
         <button (click)="createProject()" class="btn btn-primary btn-sm" type="button"
-                style="background: #cd3e3e;border-style: none;">Create
+                style="background: #cd3e3e;border-style: none;">{{t("create")}}
         </button>
       </div>
     </div>

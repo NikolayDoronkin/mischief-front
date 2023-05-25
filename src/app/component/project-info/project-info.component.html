@@ -1,10 +1,6 @@
-<div class="container-fluid">
+<div class="container-fluid" *transloco="let t">
   <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">{{project.name}}</h3>
-    <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button"
-                                                  href="#">
-      Generate statistic
-    </a>
   </div>
   <div class="row">
     <div class="col-md-6 col-xl-3 mb-4">
@@ -12,7 +8,11 @@
         <div class="card-body">
           <div class="row align-items-center no-gutters">
             <div class="col me-2">
-              <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Total tickets from project</span></div>
+              <div class="text-uppercase text-primary fw-bold text-xs mb-1">
+                <span>
+                  {{t("totalTicketsFromProject")}}
+                </span>
+              </div>
               <div class="text-dark fw-bold h5 mb-0"><span>{{dashboard.totalTicketsFromProject}}</span></div>
             </div>
             <div class="col-auto"><i class="fas fa-table fa-2x text-gray-300"></i></div>
@@ -25,7 +25,7 @@
         <div class="card-body">
           <div class="row align-items-center no-gutters">
             <div class="col me-2">
-              <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Total tasks done</span></div>
+              <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>{{t("totalTasksDone")}}</span></div>
               <div class="text-dark fw-bold h5 mb-0"><span>{{dashboard.done}}</span></div>
             </div>
             <div class="col-auto"><i class="fas fa-check fa-2x text-gray-300"></i></div>
@@ -38,7 +38,7 @@
         <div class="card-body">
           <div class="row align-items-center no-gutters">
             <div class="col me-2">
-              <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Total tasks in progress</span></div>
+              <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>{{t("totalTasksInProgress")}}</span></div>
               <div class="text-dark fw-bold h5 mb-0"><span>{{dashboard.inProgress}}</span></div>
             </div>
             <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
@@ -51,7 +51,7 @@
         <div class="card-body">
           <div class="row align-items-center no-gutters">
             <div class="col me-2">
-              <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>Total tasks on review</span></div>
+              <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>{{t("totalTasksOnReview")}}</span></div>
               <div class="text-dark fw-bold h5 mb-0"><span>{{dashboard.onReview}}</span></div>
             </div>
             <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
@@ -62,7 +62,7 @@
   </div>
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="text-primary fw-bold m-0">Last modified tasks</h6>
+      <h6 class="text-primary fw-bold m-0">{{t("lastModifiedTasks")}}</h6>
     </div>
     <div *ngIf="dashboard.lastUpdatedTickets.length > 0; else showNoTasks" class="card-body">
       <div class="row">
@@ -88,14 +88,14 @@
     </div>
     <ng-template #showNoTasks>
       <span class="m-auto">
-        NO TASKS HERE!
+        {{t("noTasksHere")}}
       </span>
     </ng-template>
   </div>
 
   <div *ngIf="isAdmin && projectStatistics.length > 0" class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="text-primary fw-bold m-0">Users performance table</h6>
+      <h6 class="text-primary fw-bold m-0">{{t("userPerformanceTable")}}</h6>
     </div>
     <div class="card-body">
       <div class="row">
@@ -104,9 +104,9 @@
             <table class="table">
               <thead>
               <tr>
-                <td><strong>Name</strong></td>
-                <td><strong>Login</strong></td>
-                <td><strong>Performance</strong></td>
+                <td><strong>{{t("fullName")}}</strong></td>
+                <td><strong>{{t("login")}}</strong></td>
+                <td><strong>{{t("performance")}}</strong></td>
               </tr>
               </thead>
               <thead>
@@ -121,9 +121,9 @@
               </tbody>
               <thead>
               <tr>
-                <td><strong>Name</strong></td>
-                <td><strong>Login</strong></td>
-                <td><strong>Performance</strong></td>
+                <td><strong>{{t("fullName")}}</strong></td>
+                <td><strong>{{t("login")}}</strong></td>
+                <td><strong>{{t("performance")}}</strong></td>
               </tr>
               </thead>
             </table>

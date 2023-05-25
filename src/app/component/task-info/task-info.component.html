@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *transloco="let t">
   <div class="row align-items-center">
   <div class="col text-center justify-content-start m-2" style="display: flex;position: static;">
     <h3 *ngIf="!onUpdated else editTitle" class="text-dark mb-4">{{taskInfo.relatedProject.shortName}}
@@ -14,8 +14,8 @@
          style="display: flex;position: static; width: 200px; height: fit-content">
       <button (click)="onUpdated = !onUpdated;" class="btn btn-primary"
               style="margin-right: 10px"
-              type="button">{{onUpdated ? 'Cansel' : 'Edit'}}</button>
-      <button *ngIf="onUpdated" [disabled]="!updated" (click)="updateTicket()" class="btn btn-primary" type="button">Save</button>
+              type="button">{{onUpdated ? t('cansel') : t('edit')}}</button>
+      <button *ngIf="onUpdated" [disabled]="!updated" (click)="updateTicket()" class="btn btn-primary" type="button">{{t("save")}}</button>
     </div>
   </div>
   </div>
@@ -23,32 +23,31 @@
     <div class="col-lg-4">
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Main
-            Information</h6>
+          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">{{t("mainInformation")}}</h6>
         </div>
         <div class="card-body">
           <div class="col-xl-10 col-xxl-11" style="display: inline-block;">
             <div class="mb-3" style="display: grid;">
-              <label class="form-label" style="display: grid;"><strong>Reporter</strong></label>
+              <label class="form-label" style="display: grid;"><strong>{{t("reporter")}}</strong></label>
               <div style="display: inline-flex;">
                 <img *ngIf="taskInfo.reporter != null" class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reporter.image}}"/>
                 <label class="form-label" style="display: grid;">
-                  {{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}} {{!accessedUserIds.includes(taskInfo.reporterId) && taskInfo.reporter != null ? '(Not a member yet)' : ''}}
+                  {{taskInfo.reporter != null ? taskInfo.reporter.firstName : "-"}} {{taskInfo.reporter != null ? taskInfo.reporter.lastName : ""}} {{!accessedUserIds.includes(taskInfo.reporterId) && taskInfo.reporter != null ? t('deactivated') : ''}}
                 </label>
               </div>
 
             </div>
-            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Assignee</strong></label>
+            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>{{t("assignee")}}</strong></label>
 
               <div *ngIf="!onUpdated else editAssignee" style="display: inline-flex;">
                 <img *ngIf="taskInfo.assignee != null" class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.assignee.image}}"/>
                 <label class="form-label" style="display: grid;">
-                  {{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}} {{!accessedUserIds.includes(taskInfo.assigneeId) && taskInfo.assignee != null ? '(Not a member yet)' : ''}}
+                  {{taskInfo.assignee != null ? taskInfo.assignee.firstName : "-"}} {{taskInfo.assignee != null ? taskInfo.assignee.lastName : ""}} {{!accessedUserIds.includes(taskInfo.assigneeId) && taskInfo.assignee != null ? t('deactivated') : ''}}
                 </label>
               </div>
               <ng-template #editAssignee>
                 <ng-multiselect-dropdown
-                  [placeholder]="'Select assignee...'"
+                  [placeholder]="t('selectAssignee')"
                   [settings]="dropdownSettingsSingle"
                   [data]="dropdownListAccessedUsers"
                   [(ngModel)]="assignee"
@@ -59,17 +58,17 @@
                 </ng-multiselect-dropdown>
               </ng-template>
             </div>
-            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Reviewer</strong></label>
+            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>{{t("reviewer")}}</strong></label>
 
               <div *ngIf="!onUpdated else editReviewer" style="display: inline-flex;">
                 <img *ngIf="taskInfo.reviewer != null" class="rounded-circle me-2" width="30" height="30" src="{{taskInfo.reviewer.image}}"/>
                 <label class="form-label" style="display: grid;">
-                  {{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}} {{accessedUserIds.includes(taskInfo.reviewerId) && taskInfo.reviewer != null ? '(Not a member yet)' : ''}}
+                  {{taskInfo.reviewer != null ? taskInfo.reviewer.firstName : "-"}} {{taskInfo.reviewer != null ? taskInfo.reviewer.lastName : ""}} {{accessedUserIds.includes(taskInfo.reviewerId) && taskInfo.reviewer != null ? t('deactivated') : ''}}
                 </label>
               </div>
               <ng-template #editReviewer>
                 <ng-multiselect-dropdown
-                  [placeholder]="'Select reviewer...'"
+                  [placeholder]="t('selectReviewer')"
                   [settings]="dropdownSettingsSingle"
                   [data]="dropdownListAccessedUsers"
                   [(ngModel)]="reviewer"
@@ -85,18 +84,17 @@
       </div>
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">Additional
-            Information</h6>
+          <h6 class="text-primary fw-bold m-0" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">{{t("additionalInformation")}}</h6>
         </div>
         <div class="card-body">
           <div class="col-xl-10" style="display: inline-block;">
             <div class="mb-3" style="display: grid;"><label class="form-label"></label><label
-              class="form-label"><strong>Type</strong></label>
+              class="form-label"><strong>{{t("type")}}</strong></label>
               <label *ngIf="!onUpdated else editType" class="form-label"
                      style="display: grid;">{{taskInfo.type}}</label>
               <ng-template #editType>
                 <ng-multiselect-dropdown
-                  [placeholder]="'Select type...'"
+                  [placeholder]="t('selectType')"
                   [settings]="dropdownSettingsSingle"
                   [data]="dropdownListType"
                   [(ngModel)]="type"
@@ -107,12 +105,12 @@
                 </ng-multiselect-dropdown>
               </ng-template>
             </div>
-            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>Status</strong></label>
+            <div class="mb-3" style="display: grid;"><label class="form-label"><strong>{{t("status")}}</strong></label>
               <label *ngIf="!onUpdated else editStatus" class="form-label"
                      style="display: grid;">{{taskInfo.status}}</label>
               <ng-template #editStatus>
                 <ng-multiselect-dropdown
-                  [placeholder]="'Select status...'"
+                  [placeholder]="t('selectStatus')"
                   [settings]="dropdownSettingsSingle"
                   [data]="dropdownListStatus"
                   [(ngModel)]="status"
@@ -125,12 +123,12 @@
               </ng-template>
             </div>
             <div class="mb-3" style="display: grid"><label
-              class="form-label"><strong>Priority</strong></label>
+              class="form-label"><strong>{{t("priority")}}</strong></label>
               <label *ngIf="!onUpdated else editPriority" class="form-label"
                      style="display: grid;">{{taskInfo.priorityName}}</label>
               <ng-template #editPriority>
                 <ng-multiselect-dropdown
-                  [placeholder]="'Select priority...'"
+                  [placeholder]="t('selectPriority')"
                   [settings]="dropdownSettingsSingle"
                   [data]="dropdownListPriority"
                   [(ngModel)]="priority"
@@ -143,7 +141,7 @@
             </div>
 
             <div class="mb-3" style="display: grid"><label
-              class="form-label"><strong>Difficulty</strong></label>
+              class="form-label"><strong>{{t("difficulty")}}</strong></label>
               <label *ngIf="!onUpdated else editDifficulty" class="form-label"
                      style="display: grid;">{{taskInfo.difficulty}}</label>
               <ng-template #editDifficulty>
@@ -153,12 +151,12 @@
               </ng-template>
             </div>
 
-            <div class="mb-3" style="display: grid"><label class="form-label"><strong>Relatable finishing date</strong></label>
+            <div class="mb-3" style="display: grid"><label class="form-label"><strong>{{t("finishDate")}}</strong></label>
               <label *ngIf="!onUpdated else editRelatableFinishingDate" class="form-label"
                      style="display: grid;">{{taskInfo.relatableFinishedDate != null ? taskInfo.relatableFinishedDate : "-"}}</label>
               <ng-template #editRelatableFinishingDate>
                 <mat-form-field [formGroup]="relatableDate1" class="example-full-width" appearance="fill">
-                  <mat-label>Choose a date</mat-label>
+                  <mat-label>{{t("chooseDate")}}</mat-label>
                   <input
                     [min]="currentDate"
                          formControlName="finishing"
@@ -173,11 +171,10 @@
               </ng-template>
             </div>
             <div class="mb-3" style="display: grid;position: sticky;"><label
-              class="form-label"><strong>Listeners</strong></label>
+              class="form-label"><strong>{{t("listeners")}}</strong></label>
               <label class="form-label" style="display: grid;">{{taskInfo.listeners.length}}</label>
             </div>
-            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label"><strong>Accessable
-              users</strong></label>
+            <div class="mb-3" style="display: grid;position: sticky;"><label class="form-label"><strong>{{t("accessedUsers")}}</strong></label>
               <label class="form-label" style="display: grid;">{{taskInfo.accessableUsers.length}}</label>
             </div>
           </div>
@@ -190,7 +187,7 @@
           <div class="card shadow mb-3">
             <div class="card-header py-3">
               <p class="text-primary m-0 fw-bold" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
-                Description</p>
+                {{t("description")}}</p>
             </div>
             <div class="card-body">
               <form>
@@ -212,7 +209,7 @@
       </div>
       <div class="card shadow mb-3">
         <div class="card-header py-3" style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
-          <p class="text-primary m-0 fw-bold">Subtasks</p>
+          <p class="text-primary m-0 fw-bold">{{t("subTasks")}}</p>
         </div>
         <div class="card-body">
           <div class="row">
@@ -234,7 +231,7 @@
                 </table>
                 <ng-template #showNoSubtasks>
                   <label class="form-label">
-                    <strong>No subtasks here!</strong></label>
+                    <strong>{{t("noSubTasksHere")}}</strong></label>
                 </ng-template>
               </div>
             </div>
@@ -244,7 +241,7 @@
       <div class="card shadow mb-5">
         <div class="card-header py-3 d-flex justify-content-between align-items-center"
              style="--bs-primary: #cd3e3e;--bs-primary-rgb: 205,62,62;">
-          <p class="text-primary m-0 fw-bold ali">Comments</p>
+          <p class="text-primary m-0 fw-bold ali">{{t("comments")}}</p>
           <a (click)="onCreationCommentDialogChange()" class="btn btn-circle ms-1"
              style="background-color: #4668c9" role="button"><i class="fas fa-plus text-white"></i></a>
         </div>
@@ -254,20 +251,20 @@
               <div *ngFor="let comment of taskInfo.comments" class="mb-3" style="display: inline-grid;overflow: auto;">
                 <label class="form-label">
                   <img class="rounded-circle me-2" width="30" height="30" src="{{comment.author.image}}"/>
-                  <strong>{{comment.author.firstName}} {{comment.author.lastName}} on {{comment.created}}
+                  <strong>{{comment.author.firstName}} {{comment.author.lastName}} {{t('on')}} {{comment.created}}
                     :</strong></label>
                 <label class="form-label">{{comment.value}}</label>
               </div>
             </div>
             <ng-template #showNoComment [ngIf]="!onCreationCommentDialog" [ngIfElse]="showCommentCreationDialog">
               <label *ngIf="taskInfo.comments.length <= 0" class="form-label">
-                <strong>No comments here!</strong></label>
+                <strong>{{t("noCommentsHere")}}</strong></label>
             </ng-template>
             <ng-template #showCommentCreationDialog>
               <textarea [(ngModel)]="commentValue" [ngModelOptions]="{standalone: true}" id="signature-1"
                         class="form-control" rows="4" name="signature" style="height: 230px; resize: none"></textarea>
               <div class="py-2 d-flex justify-content-end align-items-center">
-                <button (click)="saveComment()" class="btn btn-primary" type="button">Save comment</button>
+                <button (click)="saveComment()" class="btn btn-primary" type="button">{{t("saveComments")}}</button>
               </div>
             </ng-template>
           </div>

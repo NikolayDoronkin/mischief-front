@@ -1,4 +1,4 @@
-<body style="background: rgb(196,225,194);">
+<body style="background: rgb(196,225,194);" *transloco="let t">
 <div class="container p-md-5">
   <div class="card shadow-lg o-hidden border-0">
     <div class="card-body p-0">
@@ -9,7 +9,7 @@
         <div class="col-lg-7">
           <div class="p-5">
             <div class="text-center">
-              <h4 class="text-dark mb-4">Create an Account!</h4>
+              <h4 class="text-dark mb-4">{{t('createAccount')}}</h4>
             </div>
             <form class="user" [formGroup]="registerForm">
               <div class="row mb-3">
@@ -17,60 +17,60 @@
                   <input (input)="onSubmit(registerForm.controls['firstName'])" formControlName="firstName"
                          [ngClass]="{'is-invalid': validatedControls.get(registerForm.controls['firstName']) && registerForm.controls['firstName'].errors}"
                          id="firstName" class="form-control form-control-user"
-                         type="text" placeholder="First Name*" name="firstName"/>
+                         type="text" placeholder="{{t('firstName')}}*" name="firstName"/>
                 </div>
                 <div class="col-sm-6">
                   <input (input)="onSubmit(registerForm.controls['lastName'])" formControlName="lastName"
                          [ngClass]="{'is-invalid': validatedControls.get(registerForm.controls['lastName']) && registerForm.controls['lastName'].errors}"
                          id="lastName" class="form-control form-control-user" type="text"
-                         placeholder="Last Name*" name="lastName"/>
+                         placeholder="{{t('lastName')}}*" name="lastName"/>
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                   <input (input)="onSubmit(registerForm.controls['email'])" formControlName="email" [email]="true"
                          [ngClass]="{'is-invalid': validatedControls.get(registerForm.controls['email']) && registerForm.controls['email'].errors}"
-                         id="email" class="form-control form-control-user" type="email" placeholder="Email*" name="email"/>
+                         id="email" class="form-control form-control-user" type="email" placeholder="{{t('email')}}*" name="email"/>
                 </div>
                 <div class="col-sm-6">
                   <input (input)="onSubmit(registerForm.controls['login'])" formControlName="login"
                          [ngClass]="{'is-invalid': validatedControls.get(registerForm.controls['login']) && registerForm.controls['login'].errors}"
-                         id="login" class="form-control form-control-user" type="text" placeholder="Login*" name="login"/>
+                         id="login" class="form-control form-control-user" type="text" placeholder="{{t('login')}}*" name="login"/>
                 </div>
               </div>
               <div class="mb-3">
-                <input formControlName="address" id="address" name="address" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="Address"/>
+                <input formControlName="address" id="address" name="address" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="{{t('address')}}"/>
               </div>
               <div class="mb-3">
-                <input formControlName="city" id="city" name="city" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="City"/>
+                <input formControlName="city" id="city" name="city" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="{{t('city')}}"/>
               </div>
               <div class="mb-3">
-                <input formControlName="country" id="country" name="country" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="Country"/>
+                <input formControlName="country" id="country" name="country" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="{{t('country')}}"/>
               </div>
               <div class="mb-3">
-                <input formControlName="image" id="image" name="image" class="form-control form-control-user" type="url" aria-describedby="emailHelp" placeholder="Image url"/>
+                <input formControlName="image" id="image" name="image" class="form-control form-control-user" type="url" aria-describedby="emailHelp" placeholder="{{t('imageUrl')}}"/>
               </div>
               <div class="row mb-3">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                   <input (input)="onSubmit(registerForm.controls['password'])" formControlName="password"
                          [ngClass]="{'is-invalid': validatedControls.get(registerForm.controls['password']) && registerForm.controls['password'].errors}"
-                         id="password" class="form-control form-control-user" type="password" placeholder="Password*" name="password"/>
+                         id="password" class="form-control form-control-user" type="password" placeholder="{{t('password')}}*" name="password"/>
                 </div>
                 <div class="col-sm-6">
                   <input (input)="onSubmit(registerForm.controls['repeatPassword'])" formControlName="repeatPassword"
                          [ngClass]="{'is-invalid': validatedControls.get(registerForm.controls['repeatPassword']) && registerForm.controls['repeatPassword'].errors}"
-                         id="repeatPassword" class="form-control form-control-user" type="password" placeholder="Repeat Password*" name="password_repeat"/>
+                         id="repeatPassword" class="form-control form-control-user" type="password" placeholder="{{t('repeatPassword')}}*" name="password_repeat"/>
                 </div>
               </div>
               <button [disabled]="checkValidation()" (click)="signIn()" class="btn btn-primary d-block btn-user w-100" type="submit">
-                Register Account
+                {{t('register')}}
               </button>
               <div class="mt-1 text-center">
                 <h4 *ngIf="errorMessage != ''" class="text-danger mb-1">{{errorMessage}} Try again</h4>
               </div>
               <hr/>
             </form>
-            <div class="text-center"><a (click)="goLogin()" class="small">Already have an account? Login!</a></div>
+            <div class="text-center"><a (click)="goLogin()" class="small">{{t('haveAccount')}}</a></div>
           </div>
         </div>
       </div>

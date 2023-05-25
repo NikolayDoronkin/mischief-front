@@ -37,7 +37,9 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-            <h6 class="dropdown-header">{{activeNotifications.length > 0 ? 'new notifications' : 'no notifications!'}}</h6>
+            <h6 class="dropdown-header" *transloco="let t">
+              {{activeNotifications.length > 0 ? t("newNotifications") : t("noNotifications")}}
+            </h6>
             <a *ngFor="let notification of activeNotifications" class="dropdown-item d-flex align-items-center" href="">
               <div class="me-3">
                 <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
@@ -63,14 +65,14 @@
             <img class="border rounded-circle img-profile" src="{{currentUser.image}}"/>
           </a>
           <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-            <a (click)="goProfile()" class="dropdown-item" href="#">
+            <a (click)="goProfile()" class="dropdown-item" href="#" *transloco="let t">
               <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
-              Profile
+              {{t("profile")}}
             </a>
             <div class="dropdown-divider"></div>
-            <a (click)="goLogout()" class="dropdown-item" href="#">
+            <a (click)="goLogout()" class="dropdown-item" href="#" *transloco="let t">
               <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
-              Logout
+              {{t("logout")}}
             </a>
             <div class="dropdown-divider"></div>
             <div class="d-inline" href="#">

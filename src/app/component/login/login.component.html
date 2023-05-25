@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-  <title>Login - diplom</title>
+  <title>Login</title>
 </head>
 
 <body style="background: rgb(196,225,194);">
@@ -23,21 +23,21 @@
                     </ng-container>
                   </h4>
                 </div>
-                <form class="user">
-                  <div class="mb-3"><input [(ngModel)]="user.login" id="login" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="login" /></div>
-                  <div class="mb-3"><input [(ngModel)]="user.password" id="password" class="form-control form-control-user" type="password" placeholder="Password" name="password" /></div>
+                <form class="user" *transloco="let t">
+                  <div class="mb-3"><input [(ngModel)]="user.login" id="login" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="{{t('login')}}" name="login" /></div>
+                  <div class="mb-3"><input [(ngModel)]="user.password" id="password" class="form-control form-control-user" type="password" placeholder="{{t('password')}}" name="password" /></div>
                   <div class="mb-3">
                     <div class="custom-control custom-checkbox small">
-                      <div class="form-check"><input id="formCheck-1" class="form-check-input custom-control-input" type="checkbox" /><label class="form-check-label custom-control-label" for="formCheck-1">Remember Me</label></div>
+                      <div class="form-check"><input id="formCheck-1" class="form-check-input custom-control-input" type="checkbox" /><label class="form-check-label custom-control-label" for="formCheck-1">{{t('remember')}}</label></div>
                     </div>
                   </div>
-                  <button (click)="logIn(user)" class="btn btn-primary d-block btn-user w-100" type="button">Login</button>
+                  <button (click)="logIn(user)" class="btn btn-primary d-block btn-user w-100" type="button">{{t('enter')}}</button>
                   <div class="mt-1 text-center">
                     <h4 *ngIf="errorMessage != ''" class="text-danger mb-1">{{errorMessage}}. Try again</h4>
                   </div>
                 </form>
                 <br>
-                <div (click)="goRegister()" class="text-center"><a class="small">Create an Account!</a></div>
+                <div (click)="goRegister()" class="text-center"><a class="small" *transloco="let t">{{t('createAccount')}}</a></div>
               </div>
             </div>
           </div>
